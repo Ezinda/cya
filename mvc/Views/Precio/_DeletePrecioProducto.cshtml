@@ -1,0 +1,80 @@
+﻿@model mvc.ViewModels.ListaPrecioFormModel
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Quitar Asignación</h3>
+</div>
+
+<div class="modal-body">
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.Id)
+    @ViewBag.Message
+}
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="delete">Confirmar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+<!-- Modal Alert Exist Modal-->
+<div class="modal fade" id="alertExistModal" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Eliminar Rubro</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    No se pudo completar la operación. Existe presupuestos asociados a este cliente.
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn default" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+
+        $("#delete").click(function () {
+            submitForm();
+        });
+
+        function submitForm() {
+
+            let postData = {
+                Id: $("#Id").val()
+            };
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("EliminarAsignacion")",
+                data: postData,
+                success: function (result) {
+                    if (result.data) {
+                        window.location.href = '@Url.Action("Index","ListaPrecio")';
+                    }
+                    else {
+                        $('#crudModal').modal('hide');
+                        var url = "@Url.Action("ValidationExist")?";
+
+                        $.get(url, function (data) {
+                            $('#modal-content').html(data);
+
+                            $('#alertExistModal').modal({
+                                keyboard: true
+                            }, 'show');
+                        })
+                        return false;
+                    }
+                }
+            });
+        }
+
+    });
+</script>

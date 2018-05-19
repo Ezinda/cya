@@ -1,0 +1,1735 @@
+﻿@model mvc.ViewModels.PresupuestoFormModel
+@{
+    Layout = "~/Views/Shared/_sheetBackgroundLayout.cshtml";
+}
+@section styles {
+    @Styles.Render("~/Scripts/dropzone/css/basic")
+    @Styles.Render("~/Scripts/dropzone/css/standard")
+    @Styles.Render("~/Content/css/presupuesto")
+}
+<div style="margin-top: -16px;padding: 5px;background-color: #eaeaea;border-bottom: 1px solid #cacaca;margin-bottom: 16px;position: fixed;">
+    @using (Html.BeginForm("LoadFileInPresupuesto", "Presupuesto", FormMethod.Post, new { enctype = "multipart/form-data", name = "UploadExcel", id = "UploadExcel", style = "display:inline-block;" }))
+    {
+        @*Html.HiddenFor(x => x.ArchivoTransaccionId)
+            @Html.HiddenFor(x => x.SubrubroId)
+            @Html.HiddenFor(x => x.NombreSubrubro)*@
+        @Html.HiddenFor(x => x.ArchivoTransaccionId, new { @Id = "LoadArchivoTransaccionId" })
+        @Html.HiddenFor(x => x.SubrubroId, new { @Id = "LoadSubrubroId" })
+        <input id="LoadNombreSubrubro" name="NombreSubrubro" type="hidden" value="">
+
+        <button type="button" id="importarExcel" onclick="ImportarExcel();">Importar Excel ...</button>
+        <input type="file" name="file" onchange="UploadExcelForm()" style="display:none;" id="file" />
+    }
+    <script>
+        function ImportarExcel() {
+            if ($('#SubrubroId').val() == "" || $('#ColorId').val() == "" || $('#VidrioId').val() == "" || $('#ColocacionId').val() == "") {
+                alert("Antes de importar items al presupuesto es necesario llenar los campos en la sección \"Valores Predeterminados\"");
+            }
+            else {
+                document.getElementById('file').click();
+            }
+        }
+        function UploadExcelForm() {
+            //document.forms['UploadExcel'].submit();
+        }
+    </script>
+    @*<button type="button" id="imprimir">Imprimir</button>*@
+</div>
+<div class="ez_form_sheet" style="margin-bottom: 100px;">
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+    @Html.HiddenFor(x => x.Id)
+    @Html.HiddenFor(x => x.ArchivoTransaccionId)
+    <div class="ez_form_group">
+        <div class="ez_form_col">
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Código Interno</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <p>@(Model.Codigo ?? "<NUEVO>")</p>
+                    @Html.HiddenFor(x => x.Codigo)
+                    @Html.ValidationMessageFor(x => x.Codigo)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ez_form_group">
+        <div class="ez_form_col">
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Fecha</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Date-->
+                    <div class="date-control">
+                        <input id="@Html.IdFor(x => x.Fecha)" data-control-date value="@Model.Fecha.ToShortDateString()" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        <span class="date_button">
+                            <img draggable="false" src="~/Content/images/field_calendar.png">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.ClienteId, "Cliente")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.ClienteId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreCliente, new { @id = "ClienteId_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        @*<span class="dropdown_button" id="clienteId_dropdown">
+                                <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                            </span>*@
+                    </div>
+                    @Html.ValidationMessageFor(x => x.ClienteId)
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.ObraId, "Obra")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.ObraId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreObra, new { @id = "ObraId_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="obraId_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.ObraId)
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Ubicación</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <p id="Ubicacion"></p>
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.MonedaId, "Moneda")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.MonedaId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="monedaId_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.MonedaId)
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.Cotizacion)
+                </div>
+                <div class="ez_form_control_wrapper">
+                    @Html.TextBoxFor(x => x.Cotizacion, new { @id = "CotizacionId", @data_control_currency = "", @data_calculate_item_header = "importe" })
+                </div>
+            </div>
+        </div>
+        <div class="ez_form_col">
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Categoría</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.PresupuestoCategoriaId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBox("PresupuestoCategoria", (Model.Categorias.Any(x => x.Selected) ? Model.Categorias.Single(x => x.Selected).Text.ToString() : String.Empty), new { @id = "categoriaId_autocomplete", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="categoriaId_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.ConstructoraId, "Constructora")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.ConstructoraId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreConstructora, new { @id = "ConstructoraId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="constructoraId_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.ConstructoraId)
+                </div>
+            </div>
+            @*// paso 2*@
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.Solicita, "Solicita")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.Solicita)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.Solicita, new { @id = "Solicita_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="solicita_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.Solicita)
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Teléfono</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    @Html.TextBoxFor(x => x.Telefono, new { @data_control_phone = "" })
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Email</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    @Html.TextBoxFor(x => x.Email)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ez_form_group">
+        <div class="ez_form_col">
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Descripcion</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    @Html.TextAreaFor(x => x.DescripcionHeader, new { @rows = "6", @style = "height: 114px; word-wrap: break-word; resize: vertical;" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="ez_hr" />
+    <h3>Valores Predeterminados</h3>
+    <div class="ez_form_group">
+        <div class="ez_form_col">
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.SubrubroId, "Linea")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.SubrubroId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreSubrubro, new { @id = "subrubroId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="subrubroId_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.SubrubroId)
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.ColocacionId, "Colocación")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.ColocacionId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreColocacion, new { @id = "colocacionId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="colocacionId_dropdown" data-item-preciounitario-value>
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.ColocacionId)
+                </div>
+            </div>
+        </div>
+        <div class="ez_form_col">
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.ColorId, "Colores")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.ColorId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreColor, new { @id = "colorId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="colorId_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.ColorId)
+                </div>
+            </div>
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    @Html.LabelFor(x => x.VidrioId, "Vidrio")
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.VidrioId)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.NombreVidrio, new { @id = "vidrioId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="vidrioId_dropdown" data-item-preciounitario-value>
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.VidrioId)
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="ez_hr" />
+    <h3>Items de la Orden</h3>
+    @*Presupuesto DataTable*@
+    <div id="gridPresupuesto" class="presupuesto-datatable">
+        <div class="datatable-header">
+            <div class="ez_clearfix_container">
+                <button data-presupuesto-item-add-btn style="float:right"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>
+            </div>
+        </div>
+        <div class="datatable-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40px;"></th>
+                        <th style="width: 100px;">Tipología</th>
+                        <th style="width: 90px;">Posición</th>
+                        <th>Descripción</th>
+                        <th style="width: 85px;">Unidades</th>
+                        <th style="text-align:right;width: 140px;">Precio Unitario</th>
+                        <th style="text-align:right;width: 140px;">Importe Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--CONTENIDO DINAMICO-->
+                    <tr data-row-default>
+                        <td colspan="7">No hay items cargados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div data-presupuesto-summary-container class="highlighted_container">
+        <div class="grid-layout">
+            <div class="grid-row">
+                <div class="grid-col-8" style="padding-right:10px">
+                    <div class="ez_form_group">
+                        <div class="ez_form_col">
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>Descripcion</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    @Html.TextAreaFor(x => x.DescripcionFooter, new { @rows = "6", @style = "height: 114px; word-wrap: break-word; resize: vertical;" })
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>Cantidad Tipologia</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input data-presupuesto-summary="productos" type="text">
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>Cantidad Unidades</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input data-presupuesto-summary="unidades" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-col-4">
+                    <!--COMPONENTES DE LOS ITEMS-->
+                    <div class="ez_form_group">
+                        <div class="ez_form_col">
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>Carpintería</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input id="@Html.IdFor(x => x.ResumenCarpinteria)" data-presupuesto-summary="carpinteria" data-control-currency type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>Tapajuntas</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input id="@Html.IdFor(x => x.ResumenTapajuntas)" data-presupuesto-summary="tapajuntas" data-control-currency type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>Vidrios</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input id="@Html.IdFor(x => x.ResumenVidrios)" data-presupuesto-summary="vidrios" data-control-currency type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>Colación</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input id="@Html.IdFor(x => x.ResumenColocacion)" data-presupuesto-summary="colocacion" data-control-currency type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_control_wrapper">
+                                    @Html.TextBoxFor(x => x.ConceptosVarios, new { @id = "ConceptosVarios", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    @Html.TextBoxFor(x => x.ResumenVarios, new { @id = "ResumenVarios", @data_control_currency = "", @data_presupuesto_summary = "varios" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--SUBTOTAL, IVA y TOTAL-->
+                    <div class="ez_form_group">
+                        <div class="ez_form_col">
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>SUBTOTAL</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input id="@Html.IdFor(x => x.ResumenSubtotal)" data-presupuesto-summary="subtotal" data-control-currency type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>I.V.A.</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input id="@Html.IdFor(x => x.ResumenIva)" data-presupuesto-summary="iva" data-control-currency type="text" disabled>
+                                </div>
+                            </div>
+                            <div class="ez_form_field">
+                                <div class="ez_form_label_wrapper">
+                                    <label>TOTAL</label>
+                                </div>
+                                <div class="ez_form_control_wrapper">
+                                    <input id="@Html.IdFor(x => x.ResumenTotal)" data-presupuesto-summary="total" data-control-currency type="text" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal-->
+<div class="modal in" tabindex="-1" role="dialog" id="itemModal" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content ez_box">
+            <div class="modal-header">
+                <button type="button" aria-hidden="true" class="close" data-dismiss="modal">x</button>
+                <h3 class="modal-title">Item</h3>
+            </div>
+            <div class="modal-body">
+                <div style="padding: 16px" data-modal-body-container data-calculate-item-container>
+                    <p><strong>Tipología</strong></p>
+                    <input type="hidden" data-presupuesto-item="tipologiaId">
+                    <input type="hidden" data-presupuesto-item="tipologiaUrl">
+                    <input type="hidden" data-presupuesto-item="tipologiaThumbnailUrl">
+                    <div id="image-tipologia-upload" class="dropzone_container dropzone">
+                        <h3 class="dz-message">Arrastre el archivo aquí o haga click para seleccionar uno</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-cancel" data-modal-cancel>Cancelar</a>
+                <button data-modal-confirm><i class="fa fa-plus" aria-hidden="true"></i> Agregar Item</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+@section Scripts
+{
+    @Scripts.Render("~/bundles/dropzone")
+    <script>
+        /**
+        CONFIGURACIONES INICIALES
+        */
+        Dropzone.autoDiscover = false;
+
+        $(function () {
+            EzHeader.breadcrumbItem = {
+                label: "Presupuestos",
+                url: "@Url.Action("Index")",
+                child: {
+                    label: "@(Model.Codigo ?? "Nuevo")"
+                }
+            };
+            EzHeader.collapse = {
+                id: "#collapseOne"
+            };
+            EzHeader.buttons = [
+                {
+                    label: "Guardar",
+                    type: "buttonHighlight",
+                    action: function () {
+                        submitForm();
+                    }
+                },
+                { label: "o", type: "text" },
+                {
+                    label: "Descartar",
+                    type: "link",
+                    action: function () {
+                        window.location.href = "@Url.Action("Index")";
+                    }
+                },
+            ];
+            EzHeader.show();
+
+            $('*[data-control-phone]').toArray().forEach(function (field) {
+                new Cleave(field, {
+                    numeral: true,
+                    numeralDecimalMark: '',
+                    delimiter: '',
+                    numeralPositiveOnly: true
+                });
+            });
+
+            /**
+            UTILS
+            */
+            function initGrid($grid, contentUrl, onGridInitialized) {
+                $.ajax({
+                    dataType: "html",
+                    url: contentUrl,
+                    success: function (data, textStatus, jqXHR) {
+
+                        $('<div data-grid-row-template style="display: none;">')
+                            .append(data)
+                            .appendTo($grid);
+
+                        onGridInitialized($grid);
+                    }
+                });
+            }
+
+            function addRow(data, $grid, onAfterEmbeddedRow, onBeforeShowDetail) {
+                template = $grid.find("*[data-grid-row-template]").html();
+
+                $tbody = $grid.find("tbody");
+                $rowItem = $(template);
+                $rowItem.appendTo($tbody);
+
+                $grid.find("tr[data-row-default]").hide();
+
+                /*
+                BIND TOGGLER
+                */
+                $rowItem.find("*[data-headercol='toggler']").on("click", function () {
+                    toggleRowDetail($(this), onBeforeShowDetail);
+                });
+
+                if (onAfterEmbeddedRow) { onAfterEmbeddedRow($rowItem, data); }
+            }
+
+            function toggleRowDetail($toggler, onBeforeShowDetail) {
+                let $headerRow = $($toggler.parents("tr")[0]);
+                let $detailRow = $headerRow.next("tr");
+
+                if ($detailRow.css('display') === 'none') {
+                    $toggler.children('.fa-plus-circle').removeClass('fa-plus-circle').addClass('fa-minus-circle');
+                    if (onBeforeShowDetail) { onBeforeShowDetail($headerRow, $detailRow); }
+                    $detailRow.show();
+                }
+                else {
+                    $toggler.children('.fa-minus-circle').removeClass('fa-minus-circle').addClass('fa-plus-circle');
+                    $detailRow.hide();
+                }
+            };
+
+            /**
+            OBJETOS DE LISTA
+            */
+            var CATEGORIAS = [
+                @foreach (var item in Model.Categorias)
+                {
+                    @:{ key: "@item.Value", value: "@item.Text" },
+                }
+            ];
+            var LINEAS = [
+                @foreach (var item in Model.Lineas)
+                {
+                    @:{ key: "@item.Value", value: "@item.Text" },
+                }
+            ];
+            var PRODUCTOSVARIOS = [
+                @foreach (var item in Model.Productos)
+                {
+                    @:{ key: "@item.PrecioId", value: "@item.ProductoDescripcion", data: { precio: "@item.PrecioProducto" } },
+                }
+            ];
+
+            var COLOCACIONES = [
+                @foreach (var item in Model.Colocaciones)
+                {
+                    @:{ key: "@item.PrecioId", value: "@item.ProductoDescripcion", data: { precio: "@item.PrecioProducto" } },
+                }
+            ];
+            var VIDRIOS = [
+                @foreach (var item in Model.Vidrios)
+                {
+                    @:{ key: "@item.PrecioId", value: "@item.ProductoDescripcion", data: { precio: "@item.PrecioProducto" } },
+                }
+            ];
+            var SUBRUBROS = [
+                @foreach (var item in Model.Subrubros)
+                {
+                    @:{ key: "@item.Value", value: "@item.Text"},
+                }
+            ];
+            var COLORES = [
+                @foreach (var item in Model.Colores)
+                {
+                    @:{ key: "@item.Value", value: "@item.Text"},
+                }
+            ];
+
+            var MONEDAS = [
+                @foreach (var item in Model.Monedas)
+                {
+                  @:{ key: "@item.Value", value: "@item.Text"},
+                }
+            ];
+
+            /**
+            BINDING
+            */
+            $("input[data-control-date]").datepicker();
+            $("input[data-control-date]").next().click(function () {
+                $(this).before().datepicker("show");
+            });
+
+            [
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.PresupuestoCategoriaId)",
+                        autocompleteElement: "#categoriaId_autocomplete",
+                        dropdownElement: "#categoriaId_dropdown",
+                        source: CATEGORIAS.concat([{ showSearch: false }])
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.LineaColocacionId)",
+                        autocompleteElement: "#lineaColocacionId_autocomplete",
+                        dropdownElement: "#lineaColocacionId_dropdown",
+                        source: LINEAS.concat([{ showSearch: false }])
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.ClienteId)",
+                        autocompleteElement: "#ClienteId_autocomplete",
+                        dropdownElement: "#clienteId_dropdown",
+                        source:
+                             function () {
+                                 let valor = $("#@Html.IdFor(x => x.NombreCliente)").val();
+                                 return "@Url.Action("JsonAutocomplete","Cliente")" + "?" + valor
+                                 let $obraHidden = $("#@Html.IdFor(x => x.ObraId)").text('');
+                                 let $obraAutocomplete = $("#ObraId_autocomplete").val('');
+                                 updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
+                                 $('#Ubicacion').text('');
+                             },
+
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $('#ObraId_autocomplete').attr('disabled', false);
+                            let $obraHidden = $("#@Html.IdFor(x => x.ObraId)");
+                            let $obraAutocomplete = $("#ObraId_autocomplete");
+                            updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
+                            $('#Ubicacion').text('');
+                            $("#@Html.IdFor(x => x.NombreCliente)").val('');
+                        }
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.ObraId)",
+                        autocompleteElement: "#ObraId_autocomplete",
+                        dropdownElement: "#obraId_dropdown",
+                        source: function () {
+                            let clienteId = $("#@Html.IdFor(x => x.ClienteId)").val();
+                            var returnValue = "@Url.Action("JsonAutocomplete", "Obra")" + "?" + "clienteId=" + clienteId;
+                            return returnValue
+                        },
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $('#Ubicacion').text(selectItem.data.domicilio);
+                            let $clienteHidden = $("#@Html.IdFor(x => x.ClienteId)");
+                            let $clienteAutocomplete = $("#ClienteId_autocomplete");
+                            updateAutocompleteBox(selectItem.data.clienteId, selectItem.data.cliente, $clienteHidden, $clienteAutocomplete);
+                        }
+                    },
+                    //1
+                    {
+                        //Elemento donde se almacena el valor que va a ser enviado una vez que completo el form
+                        hiddenElement: "#@Html.IdFor(x => x.Solicita)",
+                        autocompleteElement: "#Solicita_autocomplete",
+                        dropdownElement: "#solicita_dropdown",
+                        //source es una función que devuelve un string que es la url donde va a buscar los datos
+                        source: function () {
+                            let constructoraId = $("#@Html.IdFor(x => x.ConstructoraId)").val();
+                            return  "@Url.Action("JsonAutocomplete", "Contactos")" + "?" + "constructoraId=" + constructoraId
+                        },
+                        //Es la función que se invoca cuando se selecciona un elemento
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $("#Solicita_autocomplete").val(selectItem.data.nombre);
+                            $("#Telefono").val(selectItem.data.telefono);
+                            $("#Email").val(selectItem.data.email);
+                            $("#Solicita").val(selectItem.data.nombre)
+                        }
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.ConstructoraId)",
+                        autocompleteElement: "#ConstructoraId_autocomplete",
+                        dropdownElement: "#constructoraId_dropdown",
+                        source:
+                        function () {
+                            let valor = $("#NombreCliente").val();
+                            return "/Constructora/JsonAutocomplete" + "?" + valor
+                            //let $obraHidden = $("#ObraId").text('');
+                            //let $obraAutocomplete = $("#ObraId_autocomplete").val('');
+                            //updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
+                            //$('#Ubicacion').text('');
+                        },
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $('#Solicita_autocomplete').attr('disabled', false);
+                            let $solicitaHidden = $("#Solicita");
+                            let $solicitaAutocomplete = $("#Solicita_autocomplete");
+                            updateAutocompleteBox("", "", $solicitaHidden, $solicitaAutocomplete);
+                            $("#Solicita").val('');
+                        }
+                    },
+
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.SubrubroId)",
+                        autocompleteElement: "#subrubroId_autocomplete",
+                        dropdownElement: "#subrubroId_dropdown",
+                        source: "@Url.Action("JsonAutocompletePresupuesto", "Subrubro")",
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $('#LoadSubrubroId').val($hiddenInput.val());
+                            $('#colorId_autocomplete').attr('disabled', false);
+                            let $colorHidden = $("#@Html.IdFor(x => x.ColorId)");
+                            let $colorAutocomplete = $("#colorId_autocomplete");
+                            updateAutocompleteBox("", "", $colorHidden, $colorAutocomplete);
+
+                        }
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.ColorId)",
+                        autocompleteElement: "#colorId_autocomplete",
+                        dropdownElement: "#colorId_dropdown",
+                        source: function () {
+                            let subrubroId = $("#@Html.IdFor(x => x.SubrubroId)").val();
+                            return "@Url.Action("JsonAutocomplete", "Color")" + "?" + "subrubroId=" + subrubroId
+                        },
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {}
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.ColocacionId)",
+                        autocompleteElement: "#colocacionId_autocomplete",
+                        dropdownElement: "#colocacionId_dropdown",
+                        source: COLOCACIONES.concat([{ showSearch: false }]),
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $hiddenInput.attr("data-item-preciounitario-value", selectItem.data.precio);
+                            $hiddenInput.trigger("change");
+                        }
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.VidrioId)",
+                        autocompleteElement: "#vidrioId_autocomplete",
+                        dropdownElement: "#vidrioId_dropdown",
+                        source: VIDRIOS.concat([{ showSearch: false }]),
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $hiddenInput.attr("data-item-preciounitario-value", selectItem.data.precio);
+                            $hiddenInput.trigger("change");
+                        }
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.MonedaId)",
+                        autocompleteElement: "#MonedaId_autocomplete",
+                        dropdownElement: "#monedaId_dropdown",
+                        source: MONEDAS.concat([{ showSearch: false }])
+                    },
+            ].forEach(function (item) {
+                initAutocomplete(
+                    $(item.hiddenElement),
+                    $(item.autocompleteElement),
+                    $(item.dropdownElement),
+                    item.source,
+                    item.onSelectCallbackHandle
+                );
+            });
+
+            $('#ClienteId_autocomplete').keydown(function(e) {
+                if (e.which == 8) {
+                    $('#ObraId_autocomplete').attr('disabled', true);
+                    $("#@Html.IdFor(x => x.ObraId)").val('');
+                    let $obraHidden = $("#@Html.IdFor(x => x.ObraId)");
+                    let $obraAutocomplete = $("#ObraId_autocomplete");
+                    updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
+                    $('#Ubicacion').text('');
+                }
+            });
+
+            $('#ConstructoraId_autocomplete').keydown(function(e) {
+                if (e.which == 8) {
+                    $('#Solicita_autocomplete').attr('disabled', true);
+                    $("#@Html.IdFor(x => x.ConstructoraId)").val('');
+                    let $constructoraHidden = $("#@Html.IdFor(x => x.ConstructoraId)");
+                    let $solicitaAutocomplete = $("#Solicita_autocomplete");
+                    updateAutocompleteBox("", "", $constructoraHidden, $solicitaAutocomplete);
+                }
+            });
+
+            $('#subrubroId_autocomplete').keydown(function (e) {
+                if (e.which == 8) {
+                    $('#colorId_autocomplete').attr('disabled', true);
+                    $("#@Html.IdFor(x => x.ColorId)").val('');
+                    let $colorHidden = $("#@Html.IdFor(x => x.ColorId)");
+                    let $colorAutocomplete = $("#colorId_autocomplete");
+                    updateAutocompleteBox("", "", $colorHidden, $colorAutocomplete);
+                }
+            });
+
+            @if (Model.ObraId == null || Model.ObraId == Guid.Empty)
+            {
+                @:$('#ObraId_autocomplete').attr('disabled', true);
+                                                                                                }
+            $('#Solicita_autocomplete').attr('disabled', true);
+
+            @if (Model.ColorId == null || Model.ColorId == Guid.Empty)
+            {
+                @:$('#colorId_autocomplete').attr('disabled', true);
+                                                                                                }
+
+            if ($('#CotizacionId[data-control-currency]').length) {
+                new Cleave($('#CotizacionId[data-control-currency]'), {
+                    numeral: true,
+                    numeralDecimalMark: ',',
+                    delimiter: '.',
+                    numeralPositiveOnly: true
+                });
+            }
+
+            function bindControls(parentSelector) {
+                $(parentSelector + ' *[data-control-posnumber]').toArray().forEach(function (field) {
+                    new Cleave(field, {
+                        numeral: true,
+                        numeralDecimalMark: '',
+                        delimiter: '',
+                        numeralPositiveOnly: true
+                    });
+                });
+
+                $(parentSelector + ' *[data-control-currency], ' + parentSelector + ' *[data-control-decimal]').toArray().forEach(function (field) {
+                    new Cleave(field, {
+                        numeral: true,
+                        numeralDecimalMark: ',',
+                        delimiter: '.'
+                        //numeralPositiveOnly: true
+                    });
+                });
+            }
+
+            function bindAutocompletes(parentSelector) {
+                [
+                    {
+                        hiddenElement: parentSelector + " *[data-id='productosvariosId']",
+                        autocompleteElement: parentSelector + " *[data-id='productosvariosId_autocomplete']",
+                        dropdownElement: parentSelector + " *[data-id='productosvariosId_dropdown']",
+                        source: PRODUCTOSVARIOS.concat([{ showSearch: false }]),
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $hiddenInput.attr("data-calculate-item-preciounitario-value", selectItem.data.precio);
+                            $hiddenInput.trigger("change");
+                        }
+                    },
+                    {
+                        hiddenElement: parentSelector + " *[data-id='colocacionId']",
+                        autocompleteElement: parentSelector + " *[data-id='colocacionId_autocomplete']",
+                        dropdownElement: parentSelector + " *[data-id='colocacionId_dropdown']",
+                        source: COLOCACIONES.concat([{ showSearch: false }]),
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $hiddenInput.attr("data-calculate-item-preciounitario-value", selectItem.data.precio);
+                            $hiddenInput.trigger("change");
+                        }
+                    },
+                    {
+                        hiddenElement: parentSelector + " *[data-id='vidriosId']",
+                        autocompleteElement: parentSelector + " *[data-id='vidriosId_autocomplete']",
+                        dropdownElement: parentSelector + " *[data-id='vidriosId_dropdown']",
+                        source: VIDRIOS.concat([{ showSearch: false }]),
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $hiddenInput.attr("data-calculate-item-preciounitario-value", selectItem.data.precio);
+                            $hiddenInput.trigger("change");
+                        }
+                    }
+                ].forEach(function (item) {
+                    initAutocomplete(
+                        $(item.hiddenElement),
+                        $(item.autocompleteElement),
+                        $(item.dropdownElement),
+                        item.source,
+                        item.onSelectCallbackHandle
+                    );
+                });
+            }
+
+            function bindCalcs(parentSelector) {
+                $(parentSelector + ' *[data-calculate-item-preciounitario]').change(function () {
+                    let $container = $($(this).parents('*[data-calculate-item-container]')[0]);
+
+                    // valores directos
+                    let ancho = parseFloat($container.find("*[data-calculate-item-preciounitario='ancho']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+                    let alto = parseFloat($container.find("*[data-calculate-item-preciounitario='alto']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+                    let carpinteria = parseFloat($container.find("*[data-calculate-item-preciounitario='carpinteria']").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
+                    let tapajuntas = parseFloat($container.find("*[data-calculate-item-preciounitario='tapajuntas']").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
+                    let unidades = parseInt($container.find("*[data-calculate-item-preciounitario='unidades']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+
+                    // precalculados
+                    let $vidrios = $container.find("*[data-calculate-item-preciounitario='vidrios']");
+                    let $colocacion = $container.find("*[data-calculate-item-preciounitario='colocacion']");
+                    let _calcVidrios = function (ancho, alto, unidades, $vidrios) {
+                        let precio = parseFloat($vidrios.attr('data-calculate-item-preciounitario-value') || 0.0);
+                        return roundNumber((ancho * alto * unidades) * 1.05 * precio, 2);
+                    };
+                    let _calcColocacion = function (ancho, alto, unidades, $colocacion) {
+                        let precio = parseFloat($colocacion.attr('data-calculate-item-preciounitario-value') || 0.0);
+                        return roundNumber(((ancho + alto) * 2 * unidades) * precio, 2);
+                    };
+                    let vidrios = _calcVidrios(ancho, alto, unidades, $vidrios);
+                    let colocacion = _calcColocacion(ancho, alto, unidades, $colocacion);
+
+                    // Campos que solo muestran datos relevantes para el usuario
+                    $container.find("*[data-presupuesto-item='vidriosResult']").val(numeral(vidrios).format('0,0.00'));
+                    $container.find("*[data-presupuesto-item='colocacionResult']").val(numeral(colocacion).format('0,0.00'));
+
+                    let calculo = roundNumber(carpinteria + tapajuntas + vidrios + colocacion, 2);
+
+                    let $resultado = $container.find("*[data-calculate-item-preciounitario-result]");
+                    $resultado.val(numeral(calculo).format('0,0.00'));
+
+                    // Es necesario disparar el evento change ya que val() no lo hace
+                    $resultado.trigger("change");
+                });
+
+                $(parentSelector + ' *[data-calculate-item-importe]').change(function () {
+                    let $container = $($(this).parents('*[data-calculate-item-container]')[0]);
+
+                    // valores directos
+                    let unidades = parseInt($container.find("*[data-calculate-item-importe='unidades']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+                    let preciounitario = parseFloat($container.find("*[data-calculate-item-importe='preciounitario']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+
+                    let calculo = roundNumber(unidades * preciounitario, 2);
+
+                    let $resultado = $container.find("*[data-calculate-item-importe-result]");
+                    $resultado.val(numeral(calculo).format('0,0.00'));
+
+                    // Es necesario disparar el evento change ya que val() no lo hace
+                    $resultado.trigger("change");
+                });
+            }
+
+            function bindRowHeader(datailRowSelector) {
+                $(datailRowSelector + ' *[data-calculate-item-header]').change(function () {
+                    $rowHader = $(datailRowSelector).prev();
+
+                    let $container = $($(this).parents('*[data-calculate-item-container]')[0]);
+
+                    let posicion = $container.find("*[data-calculate-item-header='posicion']").val();
+                    let descripcion = $container.find("*[data-calculate-item-header='descripcion']").val();
+                    let unidades = parseInt($container.find("*[data-calculate-item-header='unidades']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+                    let preciounitario = parseFloat($container.find("*[data-calculate-item-header='preciounitario']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+                    let importe = parseFloat($container.find("*[data-calculate-item-header='importe']").val().replace(/\./g, "").replace(/,/g, ".") || 0);
+
+                    $rowHader.find("*[data-calculate-item-header-result='posicion']").text(posicion);
+                    $rowHader.find("*[data-calculate-item-header-result='descripcion']").text(descripcion);
+                    $rowHader.find("*[data-calculate-item-header-result='unidades']").text(numeral(unidades).format('0,0'));
+                    $rowHader.find("*[data-calculate-item-header-result='preciounitario']").text(numeral(preciounitario).format('0,0.00'));
+                    $rowHader.find("*[data-calculate-item-header-result='importe']").text(numeral(importe).format('0,0.00'));
+                });
+            }
+
+            function bindRowToItem(datailRowSelector, idItem) {
+                $(datailRowSelector + ' *[data-presupuesto-item]').change(function () {
+                    $rowItem = $(datailRowSelector);
+                    let item = ITEMS_STORE.find(x => x.id === idItem);
+                    // item.id
+
+                    // item.tipologiaId
+                    // item.tipologiaThumbnailUrl
+                    // item.tipologiaUrl
+
+                    item.posicion = $rowItem.find("*[data-presupuesto-item='posicion']").val();
+                    item.descripcion = $rowItem.find("*[data-presupuesto-item='descripcion']").val();
+
+                    item.unidades = parseInt(
+                        $rowItem.find("*[data-presupuesto-item='unidades']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+                    item.preciounitario = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='preciounitario']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+                    item.importe = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='importe']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+                    item.ancho = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='ancho']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+                    item.alto = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='alto']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+                    item.carpinteria = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='carpinteria']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+                    item.tapajuntas = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='tapajuntas']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+
+                    item.vidriosId = $rowItem.find("*[data-presupuesto-item='vidriosId']").val();
+                    item.vidriosDescripcion = $rowItem.find("*[data-presupuesto-item='vidriosValue']").val();
+                    item.vidriosPrecio = $rowItem.find("*[data-presupuesto-item='vidriosId']").attr("data-calculate-item-preciounitario-value");
+                    item.vidriosCalculado = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='vidriosResult']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+
+                    item.colocacionId = $rowItem.find("*[data-presupuesto-item='colocacionId']").val();
+                    item.colocacionDescripcion = $rowItem.find("*[data-presupuesto-item='colocacionValue']").val();
+                    item.colocacionPrecio = $rowItem.find("*[data-presupuesto-item='colocacionId']").attr("data-calculate-item-preciounitario-value");
+                    item.colocacionCalculado = parseFloat(
+                        $rowItem.find("*[data-presupuesto-item='colocacionResult']").val()
+                            .replace(/\./g, "")
+                            .replace(/,/g, "."));
+
+                    item.detalle = $rowItem.find("*[data-presupuesto-item='detalle']").val();
+
+                    if (item.estado === "GUARDADO") {
+                        item.estado = "MODIFICADO";
+                    }
+                });
+            }
+
+            /**
+            MODAL
+            */
+            function handleOnAfterEmbeddedModalContent($modal, $modalbody) {
+                $modal.find("div#image-tipologia-upload").dropzone({
+                    url: "@Url.Action("JsonUploadTipologia")",
+                    paramName: "file",
+                    maxFiles: 1,
+                    acceptedFiles: 'image/*',
+                    addRemoveLinks: true,
+                    dictCancelUpload: "CANCELAR",
+                    dictCancelUploadConfirmation: "Confirma que desea cancelar la operacion de subida?",
+                    dictRemoveFile: "BORRAR",
+                    init: function () {
+                        this.on('sending', function (file, xhr, formData) {
+                            formData.append('TransaccionId', $('#@Html.IdFor(x => x.ArchivoTransaccionId)').val());
+                        });
+                        this.on("success", function (file, responseText) {
+                            $("#itemModal [data-presupuesto-item='tipologiaId']").val(responseText.id);
+                            $("#itemModal [data-presupuesto-item='tipologiaUrl']").val(responseText.url);
+                            $("#itemModal [data-presupuesto-item='tipologiaThumbnailUrl']").val(responseText.thumbnailUrl);
+                        });
+                        this.on("maxfilesexceeded", function (file) {
+                            this.removeAllFiles();
+                            this.addFile(file);
+                        });
+                        this.on("error", function (file, response) {
+                            $(file.previewElement).find('.dz-error-message').text("Hubo un problema al intentar subir el archivo.");
+                        });
+                    }
+                });
+
+                $modal.find("*[data-modal-cancel]").on('click', function () {
+                    $modal.modal('hide');
+                });
+
+                $modal.find("*[data-modal-confirm]").on('click', function () {
+                    let mapping = ITEMS_STORE.map(function (x) { return x.numeroPosicion; });
+                    mapping.push(0);
+                    let lastPosicion = Math.max.apply(Math, mapping);
+
+                    let item = {
+                        id: ITEMS_COUNTERNUEVOS,
+
+                        numeroPosicion: lastPosicion + 1,// ITEMS_COUNTERNUEVOS,
+
+                        tipologiaId: "",
+                        tipologiaThumbnailUrl: "",
+                        tipologiaUrl: "",
+
+                        posicion: "",
+                        descripcion: "",
+
+                        unidades: 0,
+                        preciounitario: 0,
+                        importe: 0,
+
+                        ancho: 0,
+                        alto: 0,
+                        carpinteria: 0.0,
+                        tapajuntas: 0.0,
+
+                        vidriosId: null,
+                        vidriosDescripcion: '',
+                        vidriosPrecio: 0.0,
+                        vidriosCalculado: 0.0,
+
+                        colocacionId: null,
+                        colocacionDescripcion: '',
+                        colocacionPrecio: 0.0,
+                        colocacionCalculado: 0.0,
+
+                        detalle: "",
+
+                        estado: "NUEVO"
+                    };
+
+                    item.tipologiaId = $modal.find("*[data-presupuesto-item='tipologiaId']").val();
+                    item.tipologiaThumbnailUrl = $modal.find("*[data-presupuesto-item='tipologiaThumbnailUrl']").val();
+                    item.tipologiaUrl = $modal.find("*[data-presupuesto-item='tipologiaUrl']").val();
+
+                    item.posicion = $modal.find("*[data-presupuesto-item='posicion']").val();
+                    item.descripcion = $modal.find("*[data-presupuesto-item='descripcion']").val();
+                    item.unidades = parseInt($modal.find("*[data-presupuesto-item='unidades']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.preciounitario = parseFloat($modal.find("*[data-presupuesto-item='preciounitario']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.importe = parseFloat($modal.find("*[data-presupuesto-item='importe']").val().replace(/\./g, "").replace(/,/g, "."));
+
+                    item.ancho = parseFloat($modal.find("*[data-presupuesto-item='ancho']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.alto = parseFloat($modal.find("*[data-presupuesto-item='alto']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.carpinteria = parseFloat($modal.find("*[data-presupuesto-item='carpinteria']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.tapajuntas = parseFloat($modal.find("*[data-presupuesto-item='tapajuntas']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.vidriosCalculado = parseFloat($modal.find("*[data-presupuesto-item='vidriosResult']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.colocacionCalculado = parseFloat($modal.find("*[data-presupuesto-item='colocacionResult']").val().replace(/\./g, "").replace(/,/g, "."));
+                    item.vidriosId = $modal.find("*[data-presupuesto-item='vidriosId']").val();
+                    item.vidriosPrecio = parseFloat($modal.find("*[data-presupuesto-item='vidriosId']").attr("data-calculate-item-preciounitario-value"));
+                    item.vidriosDescripcion = $modal.find("*[data-presupuesto-item='vidriosValue']").val();
+                    item.colocacionId = $modal.find("*[data-presupuesto-item='colocacionId']").val();
+                    item.colocacionPrecio = parseFloat($modal.find("*[data-presupuesto-item='colocacionId']").attr("data-calculate-item-preciounitario-value"));
+                    item.colocacionDescripcion = $modal.find("*[data-presupuesto-item='colocacionValue']").val();
+                    item.detalle = $modal.find("*[data-presupuesto-item='detalle']").val();
+
+                    ITEMS_STORE.push(item);
+                    addRow(item, $GRID, handleOnAfterEmbeddedRow);
+
+                    ITEMS_COUNTERNUEVOS++;
+
+                    $modal.modal('hide');
+                })
+            }
+
+            function handlerOnBeforeShowModal($modal, $modalBodyContainer) {
+                @*alert($("#@Html.IdFor(x => x.VidrioId)").val());
+                alert( $("#vidrioId_autocomplete").val());*@
+                let item = {
+                    id: "",
+
+                    numeroPosicion: 0,
+
+                    tipologiaThumbnailUrl: "",
+                    tipologiaUrl: "",
+
+                    posicion: "",
+                    descripcion: "",
+
+                    unidades: 0,
+                    preciounitario: 0,
+                    importe: 0,
+
+                    ancho: 0,
+                    alto: 0,
+                    carpinteria: 0.0,
+                    tapajuntas: 0.0,
+                    vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),//null,
+                    vidriosDescripcion: $("#vidrioId_autocomplete").val(),//'',
+                    vidriosPrecio: $("#VidrioId").attr('data-item-preciounitario-value'),
+                    vidriosCalculado: 0.0,
+
+                    colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),//null,
+                    colocacionDescripcion: $("#colocacionId_autocomplete").val(),//'',
+                    colocacionPrecio: $("#ColocacionId").attr('data-item-preciounitario-value'),//0.0,
+                    colocacionCalculado: 0.0,
+
+                    detalle: ""
+                };
+
+                $modal.find("*[data-presupuesto-item='tipologiaId']").val(item.tipologiaId)
+                $modal.find("*[data-presupuesto-item='tipologiaThumbnailUrl']").val(item.tipologiaThumbnailUrl)
+                $modal.find("*[data-presupuesto-item='tipologiaUrl']").val(item.tipologiaUrl)
+
+                $modal.find("*[data-presupuesto-item='posicion']").val(item.posicion);
+                $modal.find("*[data-presupuesto-item='descripcion']").val(item.descripcion);
+                $modal.find("*[data-presupuesto-item='unidades']").val(numeral(item.unidades).format('0,0'));
+                $modal.find("*[data-presupuesto-item='preciounitario']").val(numeral(item.preciounitario).format('0,0.00'));
+                $modal.find("*[data-presupuesto-item='importe']").val(numeral(item.importe).format('0,0.00'));
+
+                $modal.find("*[data-presupuesto-item='ancho']").val(numeral(item.ancho).format('0,0.00'));
+                $modal.find("*[data-presupuesto-item='alto']").val(numeral(item.alto).format('0,0.00'));
+
+                $modal.find("*[data-presupuesto-item='carpinteria']").val(numeral(item.carpinteria).format('0,0.00'));
+
+                $modal.find("*[data-presupuesto-item='carpinteriaTotal']").val(numeral(item.carpinteria * item.unidades).format('0,0.00'));
+
+                $modal.find("*[data-presupuesto-item='tapajuntas']").val(numeral(item.tapajuntas).format('0,0.00'));
+
+                $modal.find("*[data-presupuesto-item='tapajuntasTotal']").val(numeral(item.tapajuntas * item.unidades).format('0,0.00'));
+
+                $modal.find("*[data-presupuesto-item='vidriosResult']").val(numeral(item.vidriosCalculado).format('0,0.00'));
+                $modal.find("*[data-presupuesto-item='colocacionResult']").val(numeral(item.colocacionCalculado).format('0,0.00'));
+                $modal.find("*[data-presupuesto-item='vidriosId']").val(item.vidriosId);
+                $modal.find("*[data-presupuesto-item='vidriosId']").attr("data-calculate-item-preciounitario-value", item.vidriosPrecio);
+                $modal.find("*[data-presupuesto-item='vidriosValue']").val(item.vidriosDescripcion);
+                $modal.find("*[data-presupuesto-item='colocacionId']").val(item.colocacionId);
+                $modal.find("*[data-presupuesto-item='colocacionId']").attr("data-calculate-item-preciounitario-value", item.colocacionPrecio);
+                $modal.find("*[data-presupuesto-item='colocacionValue']").val(item.colocacionDescripcion);
+                $modal.find("*[data-presupuesto-item='detalle']").val(item.detalle);
+
+                bindControls("#itemModal");
+                bindAutocompletes("#itemModal");
+                bindCalcs("#itemModal");
+            }
+
+            function handleOnHide($modal, $modalbody) {
+                Dropzone.forElement("#itemModal div#image-tipologia-upload").removeAllFiles();
+            }
+
+            initModal($("#itemModal"), $("*[data-presupuesto-item-add-btn]"), "@Url.Action("HtmlCamposDeItem")", handleOnAfterEmbeddedModalContent, handlerOnBeforeShowModal, handleOnHide);
+
+
+
+            /**
+            GRILLA
+            Esados de items:
+                Nuevo
+                Guardado
+                Modificado
+            */
+            var ITEMS_STORE = [
+                // { estado: "", item: {...} }
+
+            ];
+            var ITEMS_COUNTERNUEVOS = 0;
+            var $GRID;
+
+
+            let saved_item;
+
+            @foreach(var itemModel in this.Model.Items)
+            {
+                <text>
+            saved_item = {
+                id: "@itemModel.Id",
+
+                numeroPosicion: @itemModel.NumeroPosicion,
+
+                tipologiaId: "@itemModel.TipologiaId",
+                tipologiaThumbnailUrl: "@itemModel.TipologiaThumbnailUrl",
+                tipologiaUrl: "@itemModel.TipologiaUrl",
+
+                posicion: "@Html.Raw(HttpUtility.JavaScriptStringEncode(itemModel.Posicion))",
+                descripcion: "@Html.Raw(HttpUtility.JavaScriptStringEncode(itemModel.Descripcion))",
+
+                unidades: @itemModel.Unidades.ToString(new System.Globalization.CultureInfo("en-US")),
+                preciounitario:@itemModel.PrecioUnitario.ToString(new System.Globalization.CultureInfo("en-US")),
+                importe: @itemModel.Importe.ToString(new System.Globalization.CultureInfo("en-US")),
+
+                ancho: @itemModel.Ancho.ToString(new System.Globalization.CultureInfo("en-US")),
+                alto: @itemModel.Alto.ToString(new System.Globalization.CultureInfo("en-US")),
+                carpinteria: @itemModel.Carpinteria.ToString(new System.Globalization.CultureInfo("en-US")),
+                tapajuntas: @itemModel.Tapajuntas.ToString(new System.Globalization.CultureInfo("en-US")),
+
+                vidriosId: '@(itemModel.VidriosId != Guid.Empty && itemModel.VidriosId != null ? itemModel.VidriosId.ToString() : String.Empty)',
+                vidriosDescripcion: '@(itemModel.VidriosId != Guid.Empty && itemModel.VidriosId != null ? Model.Vidrios.Where(x => x.PrecioId == itemModel.VidriosId).Select(x => x.ProductoDescripcion).Single() : String.Empty)',
+                vidriosPrecio: @(itemModel.VidriosId != Guid.Empty && itemModel.VidriosId != null ? itemModel.VidriosPrecio.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
+                vidriosCalculado: @(itemModel.VidriosId != Guid.Empty && itemModel.VidriosId != null ? itemModel.VidriosCalculado.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
+
+                colocacionId: '@(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? itemModel.ColocacionId.ToString() : String.Empty)',
+                colocacionDescripcion: '@(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? Model.Colocaciones.Where(x => x.PrecioId == itemModel.ColocacionId).Select(x => x.ProductoDescripcion).Single() : String.Empty)',
+                colocacionPrecio: @(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? itemModel.ColocacionPrecio.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
+                colocacionCalculado: @(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? itemModel.ColocacionCalculado.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
+
+                detalle: "",
+
+                estado: "GUARDADO"
+            };
+
+            ITEMS_STORE.push(saved_item);
+            </text>
+            }
+
+
+
+            function handleOnAfterEmbeddedRow($rowItem, data) {
+                let item = data;
+                var cotizacion = parseFloat($("#CotizacionId").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
+                $rowItem.first().attr("data-row-id", item.id);
+
+                // $rowItem.find("*[data-headercol='toggler']").text();
+                $rowItem.find("*[data-headercol='tipologia'] > div").css('background', "url('" + item.tipologiaThumbnailUrl + "') center center / contain no-repeat");
+                $rowItem.find("*[data-headercol='posicion']").text(item.posicion);
+                $rowItem.find("*[data-headercol='descripcion']").text(item.descripcion);
+                $rowItem.find("*[data-headercol='unidades']").text(numeral(item.unidades).format('0,0'));
+                $rowItem.find("*[data-headercol='preciounitario']").text(numeral(item.preciounitario).format('0,0.00'));
+                $rowItem.find("*[data-headercol='importe']").text(numeral(item.importe).format('0,0.00'));
+
+                $rowItem.find("*[data-presupuesto-item='tooltip']").attr("src", item.tipologiaThumbnailUrl)
+                $rowItem.find("*[data-presupuesto-item='tooltip']").attr("data-presupuesto-item-src", item.tipologiaUrl)
+                $rowItem.find("*[data-presupuesto-item='tipologiaId']").val(item.tipologiaId);
+                $rowItem.find("*[data-presupuesto-item='posicion']").val(item.posicion);
+                $rowItem.find("*[data-presupuesto-item='descripcion']").val(item.descripcion);
+                $rowItem.find("*[data-presupuesto-item='unidades']").val(numeral(item.unidades).format('0,0'));
+
+                $rowItem.find("*[data-presupuesto-item='preciounitario']").val(numeral(item.preciounitario).format('0,0.00'));
+                $rowItem.find("*[data-presupuesto-item='importe']").val(numeral(item.importe).format('0,0.00'));
+
+                $rowItem.find("*[data-presupuesto-item='ancho']").val(numeral(item.ancho).format('0,0.00'));
+                $rowItem.find("*[data-presupuesto-item='alto']").val(numeral(item.alto).format('0,0.00'));
+
+                $rowItem.find("*[data-presupuesto-item='carpinteria']").val(numeral(item.carpinteria).format('0,0.00'));
+
+                $rowItem.find("*[data-presupuesto-item='carpinteriaTotal']").val(numeral(item.carpinteria * item.unidades).format('0,0.00'));
+
+                $rowItem.find("*[data-presupuesto-item='tapajuntas']").val(numeral(item.tapajuntas).format('0,0.00'));
+
+                $rowItem.find("*[data-presupuesto-item='tapajuntasTotal']").val(numeral(item.tapajuntas * item.unidades).format('0,0.00'));
+
+                $rowItem.find("*[data-presupuesto-item='vidriosResult']").val(numeral(item.vidriosCalculado).format('0,0.00'));
+                $rowItem.find("*[data-presupuesto-item='colocacionResult']").val(numeral(item.colocacionCalculado).format('0,0.00'));
+                $rowItem.find("*[data-presupuesto-item='vidriosId']").val(item.vidriosId);
+                $rowItem.find("*[data-presupuesto-item='vidriosId']").attr("data-calculate-item-preciounitario-value", item.vidriosPrecio);
+                $rowItem.find("*[data-presupuesto-item='vidriosValue']").val(item.vidriosDescripcion);
+                $rowItem.find("*[data-presupuesto-item='colocacionId']").val(item.colocacionId);
+                $rowItem.find("*[data-presupuesto-item='colocacionId']").attr("data-calculate-item-preciounitario-value", item.colocacionPrecio);
+                $rowItem.find("*[data-presupuesto-item='colocacionValue']").val(item.colocacionDescripcion);
+                $rowItem.find("*[data-presupuesto-item='detalle']").val(item.detalle);
+
+                $rowItem.find("*[data-presupuesto-item='importe']").trigger('recalcularResumen', $(this));
+
+                bindControls("tr[data-row-id='" + item.id + "'] + tr");
+                bindAutocompletes("tr[data-row-id='" + item.id + "'] + tr");
+                bindCalcs("tr[data-row-id='" + item.id + "'] + tr");
+                bindRowHeader("tr[data-row-id='" + item.id + "'] + tr");
+                bindRowToItem("tr[data-row-id='" + item.id + "'] + tr", item.id);
+            }
+
+            $(document).uitooltip({
+                items: "[data-presupuesto-item='tooltip']",
+                content: function () {
+                    let $element = $(this);
+                    let imageUri = $element.attr("data-presupuesto-item-src");
+                    return "<img src='" + imageUri + "'>";
+                }
+            });
+
+            function handleOnGridInitialized($grid) {
+                $GRID = $grid;
+
+                ITEMS_STORE.forEach(x => addRow(x, $GRID, handleOnAfterEmbeddedRow));
+            }
+
+            initGrid($("#gridPresupuesto"), "@Url.Action("HtmlFilaDeItem")", handleOnGridInitialized);
+
+            /**
+            PIE DE FORMULARIO
+            */
+            $('*[data-presupuesto-summary-container] *[data-control-currency]').toArray().forEach(function (field) {
+                new Cleave(field, {
+                    numeral: true,
+                    numeralDecimalMark: ',',
+                    delimiter: '.',
+                    numeralPositiveOnly: true
+                });
+            });
+
+            $(document).on('change', '#gridPresupuesto input[data-presupuesto-item]', function () {
+                $(this).trigger('recalcularResumen', this);
+            });
+
+            $(document).on('change', 'input[data-presupuesto-summary]', function () {
+                $(this).trigger('recalcularResumen', this);
+            });
+
+            $(document).on('recalcularResumen', function (e, eventInfo) {
+                $grid = $("#gridPresupuesto");
+
+                var productos =  $grid.find("*[data-presupuesto-item='carpinteria']").length-1;
+                var unidades = 0.0;
+                var carpinteria = 0.0;
+                var tapajuntas = 0.0;
+                var vidrios = 0.0;
+                var colocacion = 0.0;
+
+                var subtotal = 0.0;
+                var porcentajeIVA = 0.21;
+                var iva = 0.0;
+                var total = 0.0;
+                var unidadesarray = [];
+                var carpinteriaarray = [];
+                var tapajuntaarray = [];
+
+                $grid.find("*[data-presupuesto-item='unidades']").each(function (index) {
+                    unidadesarray.push(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0));
+                    unidades += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                });
+
+                //$grid.find("*[data-presupuesto-item='carpinteriaTotal']").each(function (index) {
+                //    carpinteria += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                //});
+                //alert("carpinteria: " + carpinteria);
+
+                //$grid.find("*[data-presupuesto-item='tapajuntasTotal']").each(function (index) {
+                //    tapajuntas += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                //});
+                // SE CAMBIO TAPAJUNTATOTAL POR TAJAPUNTA
+                $grid.find("*[data-presupuesto-item='carpinteria']").each(function (index) {
+                    carpinteriaarray.push(roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2));
+                    //carpinteria += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                });
+                let _calcCarpinteria = function (unidadesarray, carpinteriaarray) {
+                    //alert("uni: "+ unidadesarray);
+                    //alert("carpi: "+carpinteriaarray);
+                    var sum = 0;
+                    for (i = 0; i < carpinteriaarray.length; i++) {
+                        // alert("item: " + i + "unidad: " + unidadesarray[i] + "carpinteria: " + carpinteriaarray[i] + "producto: " + (unidadesarray[i] * carpinteriaarray[i]));
+                        console.log("item: " + i + "unidad: " + unidadesarray[i] + "carpinteria: " + carpinteriaarray[i] + "producto: " + (unidadesarray[i] * carpinteriaarray[i]));
+                        sum = sum + (unidadesarray[i] * carpinteriaarray[i])
+                    }
+                    return roundNumber(sum, 2);
+                };
+                //alert("total: "+_calcCarpinteria(unidadesarray, carpinteriaarray))
+                carpinteria = _calcCarpinteria(unidadesarray, carpinteriaarray);
+
+                $grid.find("*[data-presupuesto-item='tapajuntas']").each(function (index) {
+                    tapajuntaarray.push(roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2));
+                    // tapajuntas += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                });
+                let _calcTapajunta = function (unidadesarray, tapajuntaarray) {
+                    //alert("uni: "+ unidadesarray);
+                    //alert("carpi: "+carpinteriaarray);
+                    var sum = 0;
+                    for (i = 0; i < tapajuntaarray.length; i++) {
+                        // alert("item: " + i + "unidad: " + unidadesarray[i] + "carpinteria: " + carpinteriaarray[i] + "producto: " + (unidadesarray[i] * carpinteriaarray[i]));
+                        console.log("item: " + i + "unidad: " + unidadesarray[i] + "carpinteria: " + tapajuntaarray[i] + "producto: " + (unidadesarray[i] * tapajuntaarray[i]));
+                        sum = sum + (unidadesarray[i] * tapajuntaarray[i])
+                    }
+                    return roundNumber(sum, 2);
+                };
+
+                tapajuntas = _calcTapajunta(unidadesarray, tapajuntaarray);
+
+                $grid.find("*[data-presupuesto-item='vidriosResult']").each(function (index) {
+                    vidrios += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                });
+
+                $grid.find("*[data-presupuesto-item='colocacionResult']").each(function (index) {
+                    colocacion += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                });
+
+                $grid.find("*[data-presupuesto-item='importe']").each(function (index) {
+                    subtotal += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
+                });
+                var cotizacion = parseFloat($("#CotizacionId").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
+                var resumenvarios = parseFloat($("#ResumenVarios").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
+
+                unidades = roundNumber(unidades, 2);
+                carpinteria = roundNumber(carpinteria, 2);
+                tapajuntas = roundNumber(tapajuntas, 2);
+                vidrios = roundNumber(vidrios, 2);
+                colocacion = roundNumber(colocacion, 2);
+
+                subtotal = roundNumber(carpinteria + tapajuntas + vidrios + colocacion + resumenvarios, 2);
+                //   subtotal = roundNumber(subtotal+resumenvarios, 2);
+                iva = roundNumber(subtotal * porcentajeIVA, 2);
+                total = roundNumber(subtotal + iva, 2);
+
+                $("input[data-presupuesto-summary='unidades']").val(numeral(unidades).format('0,0.00'));
+                $("input[data-presupuesto-summary='productos']").val(numeral(productos).format('0,0.00'));
+                $("input[data-presupuesto-summary='carpinteria']").val(numeral(carpinteria).format('0,0.00'));
+                $("input[data-presupuesto-summary='tapajuntas']").val(numeral(tapajuntas).format('0,0.00'));
+                $("input[data-presupuesto-summary='vidrios']").val(numeral(vidrios).format('0,0.00'));
+                $("input[data-presupuesto-summary='colocacion']").val(numeral(colocacion).format('0,0.00'));
+
+                $("input[data-presupuesto-summary='subtotal']").val(numeral(subtotal).format('0,0.00'));
+                $("input[data-presupuesto-summary='iva']").val(numeral(iva).format('0,0.00'));
+                $("input[data-presupuesto-summary='total']").val(numeral(total).format('0,0.00'));
+            });
+
+            /**
+            SUBMIT
+            */
+            $("#file").on("change", function (e) {
+                //alert($('#@Html.IdFor(x => x.NombreSubrubro)').val());
+                //getting form into Jquery Wrapper Instance to enable JQuery Functions on form
+                var form = $("#UploadExcel");
+
+                //Serializing all For Input Values (not files!) in an Array Collection so that we can iterate this collection later.
+                var params = form.serializeArray();
+
+                //Getting Files Collection
+                var files = $("#file")[0].files;
+
+                //Declaring new Form Data Instance
+                var formData = new FormData();
+                //Looping through uploaded files collection in case there is a Multi File Upload. This also works for single i.e simply remove MULTIPLE attribute from file control in HTML.
+                for (var i = 0; i < files.length; i++) {
+                    formData.append(files[i].name, files[i]);
+                }
+                //Now Looping the parameters for all form input fields and assigning them as Name Value pairs.
+                $(params).each(function (index, element) {
+                    formData.append(element.name, element.value);
+                });
+
+                //disabling Submit Button so that user cannot press Submit Multiple times
+                var btn = $(this);
+                btn.text("Procesando ...");
+                btn.prop("disabled", true);
+
+                $.ajax({
+                    url: form.attr("action"), //You can replace this with MVC/WebAPI/PHP/Java etc
+                    method: "post",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data);
+                        //alert("pase");
+                        for (var i = 0; i < data.Items.length; i++) {
+                            var itemData = data.Items[i];
+                            let mapping = ITEMS_STORE.map(function (x) { return x.numeroPosicion; });
+                            mapping.push(0);
+                            let lastPosicion = Math.max.apply(Math, mapping);
+                            @*alert("a: " +$("#@Html.IdFor(x => x.VidrioId)").val());*@
+
+                            let item = {
+                                id: ITEMS_COUNTERNUEVOS,
+
+                                numeroPosicion: lastPosicion + 1,// ITEMS_COUNTERNUEVOS,
+
+                                tipologiaId: "",
+                                tipologiaThumbnailUrl: "",
+                                tipologiaUrl: "",
+
+                                posicion: "",
+                                descripcion: "",
+
+                                unidades: 0,
+                                preciounitario: 0,
+                                importe: 0,
+
+                                ancho: 0,
+                                alto: 0,
+                                carpinteria: 0.0,
+                                tapajuntas: 0.0,
+
+                                vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),//null,
+                                vidriosDescripcion: $("#vidrioId_autocomplete").val(),//'',
+                                vidriosPrecio: $("#VidrioId").attr('data-item-preciounitario-value'),
+                                vidriosCalculado: 0.0,
+
+                                colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),//null,
+                                colocacionDescripcion: $("#colocacionId_autocomplete").val(),//'',
+                                colocacionPrecio: $("#ColocacionId").attr('data-item-preciounitario-value'),//0.0,
+                                colocacionCalculado: 0.0,
+
+                                //vidriosId: null,
+                                //vidriosDescripcion: '',
+                                //vidriosPrecio: 0.0,
+                                //vidriosCalculado: 0.0,
+
+                                //colocacionId: null,
+                                //colocacionDescripcion: '',
+                                //colocacionPrecio: 0.0,
+                                //colocacionCalculado: 0.0,
+
+                                detalle: "",
+
+                                estado: "NUEVO"
+                            };
+
+                            var cotizacion = parseFloat($("#CotizacionId").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
+
+                            item.tipologiaId = itemData.ArchivoTipologiaId;
+                            item.tipologiaThumbnailUrl = "/Archivo/GetThumbnail" + "?" + "Id=" + itemData.ArchivoTipologiaId + "&" + "sizeClass=" + 3;
+                            item.tipologiaUrl = "/Archivo/Get" + "?" + "Id=" + itemData.ArchivoTipologiaId;
+
+                            item.posicion = itemData.Posicion;
+                            item.descripcion = itemData.Descripcion;
+                            item.unidades = itemData.Unidades;
+                            item.preciounitario = parseFloat(itemData.PrecioUnitario) *cotizacion;
+                            item.importe = parseFloat(itemData.Importe) *cotizacion;
+
+                            item.ancho = parseFloat(itemData.Ancho);
+                            item.alto = parseFloat(itemData.Alto);
+                            item.carpinteria = parseFloat(itemData.Carpinteria) * cotizacion;
+                            item.tapajuntas = parseFloat(itemData.Tapajuntas) * cotizacion;
+                            //alert("b " +item.VidriosId);
+                            //item.vidriosId = item.VidriosId;
+                            //item.vidriosPrecio = parseFloat(item.VidriosPrecio);
+                            //item.vidriosDescripcion = item.VidriosDescripcion;
+                            //item.vidriosCalculado = parseFloat(item.VidriosCalculado);
+
+                            //item.colocacionId = item.ColocacionId;
+                            //item.colocacionPrecio = parseFloat(item.ColocacionPrecio);
+                            //item.colocacionDescripcion =  item.ColocacionDescripcion;
+                            //item.colocacionCalculado = parseFloat(item.ColocacionCalculado);
+                            //item.vidriosId = itemData.VidriosId;
+                            //item.vidriosPrecio = parseFloat(itemData.VidriosPrecio);
+                            //item.vidriosDescripcion = "";
+                            //item.vidriosCalculado = parseFloat(itemData.VidriosCalculado);
+
+                            //item.colocacionId = itemData.ColocacionId;
+                            //item.colocacionPrecio = parseFloat(itemData.ColocacionPrecio);
+                            //item.colocacionDescripcion = "";
+                            //item.colocacionCalculado = parseFloat(itemData.ColocacionCalculado);
+                            item.detalle = itemData.Detalle;
+
+                            ITEMS_STORE.push(item);
+                            addRow(item, $GRID, handleOnAfterEmbeddedRow);
+
+                            ITEMS_COUNTERNUEVOS++;
+                        }
+
+                        btn.prop("disabled", false);
+                        btn.text("Importar Excel ...");
+                        $("#file").val("");
+                    },
+                    error: function (error) { alert("Error"); }
+                });
+
+            });
+
+            function submitForm() {
+                let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+                let items = ITEMS_STORE.map(function (x) {
+                    return {
+                        Estado: x.estado,
+
+                        Id: x.estado === "NUEVO" ? "@Guid.Empty" : x.id,
+                        NumeroPosicion: x.numeroPosicion,
+                        TipologiaId: x.tipologiaId,
+                        Posicion: x.posicion,
+                        Descripcion: x.descripcion,
+                        Unidades: x.unidades,
+                        PrecioUnitario: numeral(x.preciounitario).format('0,0.00'),
+                        VidriosId: x.vidriosDescripcion != "@String.Empty" ? x.vidriosId : null,
+                        VidriosPrecio: numeral(x.vidriosPrecio).format('0,0.00'),
+                        ColocacionId: x.colocacionDescripcion != "@String.Empty" ? x.colocacionId : null,
+                        ColocacionPrecio: numeral(x.colocacionPrecio).format('0,0.00'),
+                        Ancho: numeral(x.ancho).format('0,0.00'),
+                        Alto: numeral(x.alto).format('0,0.00'),
+                        Carpinteria: numeral(x.carpinteria).format('0,0.00'),
+                        Tapajuntas: numeral(x.tapajuntas).format('0,0.00'),
+                        VidriosCalculado: numeral(x.vidriosCalculado).format('0,0.00'),
+                        ColocacionCalculado: numeral(x.colocacionCalculado).format('0,0.00'),
+                        Detalle: x.detalle,
+                        Importe: numeral(x.importe).format('0,0.00')
+                    }
+                });
+
+                //let postData = {};
+
+                //postData.presupuesto
+                let postData = {
+                    Id: $('#@Html.IdFor(x => x.Id)').val(),
+                    Codigo: $('#@Html.IdFor(x => x.Codigo)').val(),
+                    ArchivoTransaccionId: $('#@Html.IdFor(x => x.ArchivoTransaccionId)').val(),
+                    Fecha: $('#@Html.IdFor(x => x.Fecha)').val(),
+                    ClienteId: $('#@Html.IdFor(x => x.ClienteId)').val(),
+                    ObraId: $('#@Html.IdFor(x => x.ObraId)').val(),
+                    PresupuestoCategoriaId: $('#@Html.IdFor(x => x.PresupuestoCategoriaId)').val(),
+                    ConstructoraId: $('#@Html.IdFor(x => x.ConstructoraId)').val(),
+                    Solicita: $('#@Html.IdFor(x => x.Solicita)').val(),
+                    Telefono: $('#@Html.IdFor(x => x.Telefono)').val(),
+                    Email: $('#@Html.IdFor(x => x.Email)').val(),
+                    ColocacionId : $('#@Html.IdFor(x => x.ColocacionId)').val(),
+                    VidrioId : $('#@Html.IdFor(x => x.VidrioId)').val(),
+                    MonedaId : $('#@Html.IdFor(x => x.MonedaId)').val(),
+                    Cotizacion : $('#CotizacionId').val(),
+                    SubrubroId : $('#@Html.IdFor(x => x.SubrubroId)').val(),
+                    ColorId : $('#@Html.IdFor(x => x.ColorId)').val(),
+                    DescripcionHeader: $('#@Html.IdFor(x => x.DescripcionHeader)').val(),
+                    Items: items,
+                    DescripcionFooter: $('#@Html.IdFor(x => x.DescripcionFooter)').val(),
+                    ResumenCarpinteria: $('#@Html.IdFor(x => x.ResumenCarpinteria)').val(),
+                    ResumenTapajuntas: $('#@Html.IdFor(x => x.ResumenTapajuntas)').val(),
+                    ResumenVidrios: $('#@Html.IdFor(x => x.ResumenVidrios)').val(),
+                    ResumenColocacion: $('#@Html.IdFor(x => x.ResumenColocacion)').val(),
+                    ConceptosVarios: $('#@Html.IdFor(x => x.ConceptosVarios)').val(),
+                    ResumenVarios: $('#@Html.IdFor(x => x.ResumenVarios)').val(),
+                    ResumenSubtotal: $('#@Html.IdFor(x => x.ResumenSubtotal)').val(),
+                    ResumenIva: $('#@Html.IdFor(x => x.ResumenIva)').val(),
+                    ResumenTotal: $('#@Html.IdFor(x => x.ResumenTotal)').val()
+                };
+
+                postData.__RequestVerificationToken = antiForgeryToken;
+
+                $.ajax({
+                    method: "POST",
+                    url: "@(Model.Codigo != null ? Url.Action("Edit") : Url.Action("Create"))",
+                    data: postData
+                })
+                .done(function () {
+                    window.location.href = "@Url.Action("Index")";
+                })
+                .fail(function(jqXHR, textStatus, errorThrown ) {
+                    var data = jqXHR.responseJSON;
+                    data.forEach(function (err) {
+                        var $valitationElement = $('*[data-valmsg-for="' + err.key + '"]');
+                        $valitationElement.removeClass('field-validation-valid field-validation-error')
+                            .addClass('field-validation-error');
+                        // $valitationElement.hide();
+                        $valitationElement.text(err.errors[0]);
+
+                        var $keyElement = $('[id="'+ err.key +'"]:not(input[type=hidden])');
+                        // $keyElement.attr('data-valmsg', err.errors[0]);
+                        $keyElement.removeClass('field-validation-valid-input field-validation-error-input')
+                            .addClass('field-validation-error-input');
+
+                        var $autocompleteElement = $('#' + err.key + '_autocomplete');
+                        // $autocompleteElement.attr('data-valmsg', err.errors[0]);
+                        $autocompleteElement.removeClass('field-validation-valid-input field-validation-error-input')
+                            .addClass('field-validation-error-input');
+
+                        var $labelElement = $('label[for="' + err.key + '"]');
+                        $labelElement.removeClass('field-validation-valid field-validation-error')
+                            .addClass('field-validation-error');
+                        $labelElement.attr('data-valmsg', err.errors[0]);
+                    });
+                    var errorTooltips = $("*[data-valmsg]").tooltip();
+                    $( document ).uitooltip({
+                        items: "[data-valmsg]:not(input[type=hidden])",
+                        tooltipClass: "field-validation-error-ui-tooltip",
+                        position: {
+                            my: "center bottom", // the "anchor point" in the tooltip element
+                            at: "center top", // the position of that anchor point relative to selected element
+                        },
+                        content: function() {
+                            var element = $( this );
+                            return element.attr("data-valmsg");
+                        }
+                    });
+                });
+            }
+        })
+    </script>
+}

@@ -1,0 +1,163 @@
+﻿@model mvc.ViewModels.PresupuestoPageViewModel
+@{
+    ViewBag.Title = "Listado de Presupuestos";
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-6">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchPresupuesto" class="form-control" placeholder="Buscar" />
+                    <br />
+                    @Html.DropDownList("Estado", (IEnumerable<SelectListItem>)ViewBag.Estados, "--Seleccione un estado--", new { id = "estadoId", @class = "" })
+                </div>
+                <div class="ez_form_col">
+                    <button id="btnSearchPresupuesto" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-6"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <div id="presupuestoListContainer">
+                        <table id="pruebaEzGrid"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="output"></div>
+</div>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+@Styles.Render("~/bundles/pivotcss")
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/ezgridjs")
+
+@Scripts.Render("~/bundles/pivotjs")
+    <script>
+        $(function () {
+            EzHeader.breadcrumbItem = {
+                label: "Presupuestos"
+            };
+            EzHeader.collapse = {
+                id: "#collapseOne"
+            };
+            EzHeader.buttons = [
+                {
+                    label: "Nuevo Presupuesto",
+                    type: "buttonHighlight",
+                    action: function () {
+                        window.location.href = "@Url.Action("Create")";
+                    }
+                },
+            ];
+            EzHeader.show();
+
+            var $grid = $("#pruebaEzGrid").ezGrid({
+                dataSource: "@Url.Action("List")",
+                dataKey: "Id",
+                params: {
+                    filterBy: "@Model.FilterByString",
+                    searchString: "@Model.SearchString"
+                },
+                defaultParams: {
+                    sortBy: "sortBy",
+                    direction: "direction",
+                    page: "page",
+                    limit: "pageSize"
+                },
+                mapping: {
+                    dataField: "Records",
+                    totalRecordsField: "Total"
+                },
+                columns: [
+                    { field: "Id", hidden: true },
+                    { field: "Codigo", title: "Código", sortable: true },
+                    { field: "Fecha", title: "Fecha", sortable: true },
+                    { field: "CodigoObra", title: "Código de Obra", sortable: true },
+                    { field: "Obra", title: "Obra", sortable: true },
+                    { field: "Cliente", title: "Cliente", sortable: true },
+                    { field: "Solicita", title: "Solicita", sortable: true },
+                    { field: "Telefono", title: "Teléfono", sortable: true },
+                    { field: "Estado", title: "Estado", sortable: true },
+                    { field: "FechaAlerta", title: "FechaAlerta", sortable: true },
+                    { title: "Editar", field: "Edit", width: 31, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Edit", events: { "click": Edit } },
+                    { title: "Imprimir", field: "Imprimir", width: 31, type: "icon", icon: "ui-icon-document", align: 'center', tooltip: "Imprimir", events: { "click": Print } },
+                    { title: "Seguimiento", field: "Seguimiento", width: 31, type: "icon", icon: "ui-icon-flag", align: 'center', tooltip: "Seguimiento", events: { "click": Seguimiento } },
+                    { title: "Historial de Seguimientos", field: "Historial", width: 31, type: "icon", icon: "ui-icon-transferthick-e-w", align: 'center', tooltip: "Historial de Seguimientos", events: { "click": SearchSeguimiento } },
+                    { title: "Generar en Base", field: "Base", width: 31, type: "icon", icon: "ui-icon-newwin", align: 'center', tooltip: "En Base", events: { "click": EnBase } }
+                ],
+                pager: { enable: true, limit: 5, sizes: [2, 5, 10, 20, 50] },
+                rowNum: 5
+            });
+            $grid.on('rowDataBound', function (e, $row, id, record) {
+                $row.css('background-color', Color(e, $row, id, record));
+            });
+
+            $('#btnSearchPresupuesto').on('click', function () {
+                $grid.reload({ page: 1, searchString: $('#searchPresupuesto').val(), estadoId: $('#estadoId').val() });
+            });
+
+            function Color(e, $row, id, record) {
+                if (record.Estado === "EN SEGUIMIENTO") {
+                    return '#FBD389';
+                } else if (record.Estado === "ANULADO" || record.Estado === "RECHAZADO") {
+                    return '#F08080';
+                } else if (record.Estado === "APROBADO") {
+                    return '#89FB9A';
+                }
+
+            }
+            function Edit(e) {
+                $grid.on("rowSelect", function (e, $row, id, record) {
+                    window.location.href = "@Url.Action("Edit")" + "?id=" + record.Id;
+                });
+            }
+            function Print(e) {
+                $grid.on("rowSelect", function (e, $row, id, record) {
+                    window.location.href = '@Url.Action("ReportePresupuesto", "Presupuesto")/?PresupuestoId=' + record.Id;
+                });
+            }
+
+            function Seguimiento(e) {
+                $grid.on("rowSelect", function (e, $row, id, record) {
+                    if (record.Estado === "EN SEGUIMIENTO" ||
+                        record.Estado === "ENTREGADO" ||
+                        record.Estado === "APROBADO" ||
+                        record.Estado === "REGISTRADO" ||
+                        record.Estado === "POSTVENTA") {
+                        var url = "@Url.Action("Create", "PresupuestoSeguimiento")?";
+
+                        $.get(url, { id: record.Id }, function (data) {
+                            $('#crudContent').html(data);
+
+                            $('#crudModal').modal({
+                                keyboard: true
+                            }, 'show');
+                        })
+                        return false;
+                    }
+                });
+            };
+
+            function SearchSeguimiento(e) {
+                var PresupuestoId = e.data.id;
+                HistorialSeguimiento(PresupuestoId);
+            }
+
+            function EnBase(e) {
+                   $grid.on("rowSelect", function (e, $row, id, record) {
+                    window.location.href = "@Url.Action("EnBase")" + "?id=" + record.Id;
+                });
+            }
+        });
+    </script>
+}

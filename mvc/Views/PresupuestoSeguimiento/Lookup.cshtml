@@ -1,0 +1,131 @@
+﻿@model mvc.ViewModels.SeguimientoPageViewModel
+@{
+    ViewBag.Title = "Seguimiento";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Historial de Seguimiento</h3>
+</div>
+<div class="modal-body">
+    <div class="grid-layout">
+        <div class="grid-row">
+            <div class="grid-col-6">
+                <div class="ez_form_group">
+                    <div class="ez_form_col">
+                        <div class="ez_form_field">
+                            <div class="ez_form_label_wrapper">
+                                <label>Cliente</label>
+                            </div>
+                            <div class="ez_form_control_wrapper">
+                                @Html.TextBoxFor(x => x.Cliente, new { @disabled = "disabled"})
+                            </div>
+                        </div>
+                        <div class="ez_form_field">
+                            <div class="ez_form_label_wrapper">
+                                <label>Email</label>
+                            </div>
+                            <div class="ez_form_control_wrapper">
+                                @Html.TextBoxFor(x => x.Email, new { @disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="ez_form_field">
+                            <div class="ez_form_label_wrapper">
+                                <label>Obra</label>
+                            </div>
+                            <div class="ez_form_control_wrapper">
+                                @Html.TextBoxFor(x => x.Obra, new { @disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="ez_form_field">
+                            <div class="ez_form_label_wrapper">
+                                <label>Constructora</label>
+                            </div>
+                            <div class="ez_form_control_wrapper">
+                                @Html.TextBoxFor(x => x.Constructora, new { @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ez_form_col">
+                        <div class="ez_form_field">
+                            <div class="ez_form_label_wrapper">
+                                <label>Solicita</label>
+                            </div>
+                            <div class="ez_form_control_wrapper">
+                                @Html.TextBoxFor(x => x.Solicita, new { @disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="ez_form_field">
+                            <div class="ez_form_label_wrapper">
+                                <label>Teléfono</label>
+                            </div>
+                            <div class="ez_form_control_wrapper">
+                                @Html.TextBoxFor(x => x.Telefono, new { @disabled = "disabled" })
+                            </div>
+                        </div>
+                        <div class="ez_form_field">
+                            <div class="ez_form_label_wrapper">
+                                <label>Domicilio</label>
+                            </div>
+                            <div class="ez_form_control_wrapper">
+                                @Html.TextBoxFor(x => x.Domicilio, new { @disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-6"></div>
+        </div>
+        <div class="grid-row">
+            <div class="grid-col-12">
+                <div class="ez_form_group">
+                    <div class="ez_form_col">
+                        <div id="seguimientoListContainer">
+                            <table id="seguimientoEzGrid"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+<script src="~/Scripts/ezutils/ezgridjs.js"></script>
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+
+<script type="text/javascript">
+    $(function () {
+        var PresupuestoId = @(Html.Raw(Json.Encode(@Model.PresupuestoId.Value)));
+         
+            var $gridSeguimiento = $("#seguimientoEzGrid").ezGrid({
+                dataSource: "@Url.Action("GetSeguimiento", "PresupuestoSeguimiento")?PresupuestoId="+ PresupuestoId,
+                dataKey: "Id",
+                defaultParams: {
+                    sortBy: "sortBy",
+                    direction: "direction",
+                    page: "page",
+                    limit: "pageSize"
+                },
+                mapping: {
+                    dataField: "Records",
+                    totalRecordsField: "Total"
+                },
+                columns: [
+                    { field: "Id", hidden: true },
+                    { field: "Fecha", title: "Fecha", sortable: true },
+                    { field: "Estado", title: "Estado", sortable: true },
+                    { field: "FechaAlerta", title: "FechaAlerta", sortable: true },
+                    { field: "Observacion", title: "Observacion", sortable: true }
+                ],
+                pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20,50] },
+                rowNum: 15,
+                rowList: [15, 50, 100]
+            });
+        });
+    </script>
+}

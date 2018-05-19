@@ -1,0 +1,174 @@
+﻿<input data-presupuesto-item="tipologiaId" type="hidden">
+<div class="ez_form_group">
+    <div class="ez_form_col">
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Posición</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="posicion" data-calculate-item-header="posicion" type="text">
+            </div>
+        </div>
+@*         <div class="ez_form_field">
+        <div class="ez_form_label_wrapper">
+            <label>Productos</label>
+        </div>
+        <div class="ez_form_control_wrapper">
+            <!--Autocomplete-->
+            <input data-presupuesto-item="productosvariosId" type="hidden" data-id="produtosvariosId" data-calculate-item-preciounitario="productosvarios" data-calculate-item-preciounitario-value="0.0">
+            <div class="autocomplete-control ui-front">
+                <input data-presupuesto-item="productosvariosValue" data-id="productosvariosId_autocomplete" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                <span class="dropdown_button" data-id="productosvariosId_dropdown">
+                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                </span>
+            </div>
+        </div>
+    </div>*@
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Descripción</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="descripcion" data-calculate-item-header="descripcion" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="ez_form_col">
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Unidades</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="unidades" data-control-posnumber data-calculate-item-preciounitario="unidades" data-calculate-item-importe="unidades" data-calculate-item-header="unidades" type="text">
+            </div>
+        </div>
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Precio Unitario</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="preciounitario" data-control-currency data-calculate-item-preciounitario-result data-calculate-item-importe="preciounitario" data-calculate-item-header="preciounitario" type="text" disabled>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div><u><strong>Medidas</strong></u></!div>-->
+<div class="ez_form_group">
+    <div class="ez_form_col">
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Vidrios</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <!--Autocomplete-->
+                <input data-presupuesto-item="vidriosId" type="hidden" data-id="vidriosId" data-calculate-item-preciounitario="vidrios" data-calculate-item-preciounitario-value="0.0">
+                <div class="autocomplete-control ui-front">
+                    <input data-presupuesto-item="vidriosValue" data-id="vidriosId_autocomplete" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <span class="dropdown_button" data-id="vidriosId_dropdown">
+                        <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Colación</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <!--Autocomplete-->
+                <input data-presupuesto-item="colocacionId" type="hidden" data-id="colocacionId" data-calculate-item-preciounitario="colocacion" data-calculate-item-preciounitario-value="0.0">
+                <div class="autocomplete-control ui-front">
+                    <input data-presupuesto-item="colocacionValue" data-id="colocacionId_autocomplete" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <span class="dropdown_button" data-id="colocacionId_dropdown">
+                        <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Ancho(m)</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="ancho" data-control-decimal data-calculate-item-preciounitario="ancho" type="text">
+            </div>
+        </div>
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Alto(m)</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="alto" data-control-decimal data-calculate-item-preciounitario="alto" type="text">
+            </div>
+        </div>
+    </div>
+    <div class="ez_form_col">
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Carpintería</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="carpinteria" data-control-currency data-calculate-item-preciounitario="carpinteria" type="text">
+                <input data-presupuesto-item="carpinteriaTotal"  data-calculate-item-preciounitario="carpinteriaTotal" type="hidden">
+            </div>
+        </div>
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Tapajuntas</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="tapajuntas" data-control-currency data-calculate-item-preciounitario="tapajuntas" type="text">
+                <input data-presupuesto-item="tapajuntasTotal" data-calculate-item-preciounitario="tapajuntasTotal" type="hidden">
+            </div>
+        </div>
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Vidrios</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="vidriosResult" data-control-currency type="text" disabled>
+            </div>
+        </div>
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Colación</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <input data-presupuesto-item="colocacionResult" data-control-currency type="text" disabled>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ez_form_group">
+    <div class="ez_form_col">
+        <div class="ez_form_field">
+            <div class="ez_form_label_wrapper">
+                <label>Detalle</label>
+            </div>
+            <div class="ez_form_control_wrapper">
+                <textarea data-presupuesto-item="detalle" rows="6" style="height: 114px; word-wrap: break-word; resize: vertical;"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Importe Total-->
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-6"></div>
+        <div class="grid-col-6">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper ez_large">
+                            <label>Importe</label>
+                        </div>
+                        <div class="ez_form_control_wrapper ez_large">
+                            <input data-presupuesto-item="importe" data-calculate-item-header="importe" data-control-currency data-calculate-item-importe-result type="text" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,963 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges 
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default 
+input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+
+/**
+    BASE
+*/
+html {
+  height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+    font-size: 13px;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+}
+
+.ez_container {
+    height: 100%;
+    background: white;
+    color: #4c4c4c;
+}
+
+h1, h2 {
+    font-weight: bold;
+}
+
+.ez_hr {
+    height: 10px;
+    border: 0;
+    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
+
+a, a:hover {
+  text-decoration: none;
+  cursor: pointer !important;
+  background: transparent;
+}
+
+button, body {
+    line-height: normal;
+}
+
+.nav-pills li a {
+    color: #4c4c4c;
+    display: block;
+    padding: 6px 4px 2px 18px;
+}
+
+.nav-pills li a.active {
+    background-color: #7c7bad;
+    color: white;
+}
+
+.nav-pills li.active > a {
+    background-color: #7c7bad;
+    color: white;
+    border-radius: 0;
+}
+
+.nav-pills li.active a:hover, .nav-pills li.active a:focus {
+    background-color: #7c7bad;
+}
+
+/* .ez_notebook es para se utilizado en el tag ul junto con .ui-tabs-nav de jquery-ui */
+.ez_container .ez_notebook {
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 0 0 1px;
+}
+
+.ez_container .ez_notebook {
+    margin: 8px 0;
+    padding: 0 16px;
+    list-style: none;
+    zoom: 1;
+}
+
+.ez_container .ez_notebook_page {
+    padding: 0;
+}
+
+.ez_container .ez_left {
+    float: left;
+    margin-right: 8px;
+    width: 305px;
+}
+
+.ez_container .ez_right {
+    float: right;
+    margin-left: 8px;
+}
+
+.ez_container .ez_clear {
+    clear: both;
+}
+
+.ez_container .ez_button_box {
+    width: 400px;
+    text-align: right;
+}
+
+.ez_container .ez_horizontal_separator {
+  font-weight: bold;
+  font-size: 20px;
+  margin: 15px 0px 10px 0px;
+  color: #7C7BAD;
+}
+
+/**
+ * Headers
+ *
+ */
+h3 {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 15px 0px 10px 0px;
+    color: #7C7BAD;
+}
+
+.ez_bold {
+    font-weight: bold;
+}
+
+.ez_fade {
+    color: #888;
+    font-weight: normal;
+}
+
+/**
+ * Layout principal
+ *
+ */
+table.ez_table_layout {
+  width: 100%;
+  height: 100%;
+}
+
+table.ez_table_layout > tbody > tr > td {
+  vertical-align: top;
+  text-align: left;
+  padding: 0;
+}
+
+/**
+ * Barra lateral
+ *
+ */
+table.ez_table_layout td.ez_table_layout_sidebar {
+  vertical-align: top;
+  text-align: left;
+  width: 220px;
+  background: #f0eeee;
+  border-right: 1px solid #afafb6;
+}
+
+/**
+ * Barra lateral layout (layout de tabla + una fila para contener un menu)
+ *
+ */
+table.ez_table_layout td.ez_table_layout_sidebar > div.ez_table_layout_sidebar_layout {
+  display: table;
+  /* width: 100%; */
+  height: 100%;
+  width: 220px;
+  position: relative;
+}
+
+table.ez_table_layout td.ez_table_layout_sidebar > div.ez_table_layout_sidebar_layout > .ez_sidebar_row {
+  display: table-row;
+}
+
+table.ez_table_layout td.ez_table_layout_sidebar > div.ez_table_layout_sidebar_layout > .ez_sidebar_row > .ez_sidebar_row_menu {
+  height: 100%;
+  position: relative;
+  display: table-cell;
+}
+
+/**
+ * Menu (con scroll vertical en caso de que el espacio no alcance)
+ *
+ */
+table.ez_table_layout td.ez_table_layout_sidebar > div.ez_table_layout_sidebar_layout > .ez_sidebar_row > .ez_sidebar_row_menu > .ez_sidebar_row_menu_container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/**
+ * Menu: Seccion y submenu
+ *
+ */
+div.ez_sidebar_menu_section {
+  font-weight: bold;
+  margin-left: 8px;
+  color: #7C7BAD;
+}
+
+ul.ez_sidebar_menu_submenu {
+  margin-bottom: 10px !important;
+  line-height: 1.1em;
+  margin-top: 3px;
+}
+
+/**
+ * View lateral
+ *
+ */
+table.ez_table_layout td.ez_table_layout_view {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+table.ez_table_layout td.ez_table_layout_view a {
+    color: #7C7BAD;
+}
+
+/**
+ * Widget: logo
+ *
+ */
+/**
+ * Fix de contenedor de elemento <a>: // https://stackoverflow.com/questions/18585069/why-anchor-tag-does-not-take-height-and-width-of-its-containing-element
+ */
+a.ez_logo_container {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+}
+
+a.ez_logo_container > img {
+  margin: 14px 0;
+}
+
+a.ez_logo_container > span.ez_logo_edit {
+  margin: 14px 0;
+  padding: 4px;
+  width: 100%;
+  position: absolute;
+  top: 1px;
+  color: #eee;
+  background: rgba(37, 37, 37, 0.9);
+  display: none;
+}
+
+a.ez_logo_container:hover > span.ez_logo_edit {
+  display: block;
+}
+
+/**
+ * Widget: poweredby
+ *
+ */
+div.ez_poweredby_container {
+  text-align: center;
+  color: black;
+}
+
+div.ez_poweredby_container > .bylink {
+  font-weight: bold;
+  color: #2e93ff;
+}
+
+
+
+
+
+/**
+    Vista
+*/
+.ez_view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.ez_view_header {
+    width: 100%;
+    border-bottom: 1px solid #cacaca;
+    background-color: #ededed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#dedede));
+    background-image: -webkit-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -moz-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -ms-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: -o-linear-gradient(top, #fcfcfc, #dedede);
+    background-image: linear-gradient(to bottom, #fcfcfc, #dedede);
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 9px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 9px rgba(0, 0, 0, 0.1);
+}
+
+.ez_view_header .grid-row {
+    vertical-align: top;
+    text-align: left;
+    padding: 8px;
+    line-height: 26px;
+}
+  
+.ez_view_header .grid-row:first-child {
+    padding-top: 8px;
+}
+  
+.ez_view_header .grid-row:last-child {
+    padding-top: 0;
+}
+
+div.ez_view_body {
+    height: 100%;
+    overflow: auto;
+}
+
+div.ez_view_body > div.ez_view_body_layout {
+    position: relative;
+    height: 100%;
+    overflow: auto;
+}
+
+div.ez_view_body > div.ez_view_body_layout > div.ez_view_body_layout_container {
+    /* Body: (con scroll vertical en caso de que el espacio no alcance)*/
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: auto;
+}
+
+
+
+/**
+    BREADCRUMB
+*/
+.ez_breadcrumb {
+  margin: 0;
+  float: left;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.ez_breadcrumb * {
+    display: inline-block;
+    overflow: hidden;
+    font-weight: bold;
+}
+
+.ez_breadcrumb .ez_breadcrumb_item:not(:last-child) {
+    max-width: 7em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/**
+    SHEET
+*/
+.ez_form_nosheet {
+  margin: 16px;
+}
+
+.ez_form_sheetbg {
+  padding: 16px 0;
+  background: url(/Content/images/form_sheetbg.png);
+  border-bottom: 1px solid #ddd;
+  z-index: 1;
+  position: relative;
+}
+
+.ez_form_sheetbg .ez_form_sheet {
+    background: white;
+    min-width: 650px;
+    max-width: 860px;
+    min-height: 330px;
+    margin: 0 auto;
+    padding: 16px;
+  
+    border: 1px solid #c8c8d3;
+    -moz-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+/**
+    VISTA DE LISTADO
+*/
+.ez_list_grid {
+    width: 100%;
+}
+
+.ez_list_grid thead {
+    border-bottom: 2px solid #cacaca;
+    background: #eee;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.ez_list_grid td, .ez_list_grid th {
+    padding: 3px 6px;
+    line-height: 18px;
+    text-align: left;
+}
+
+.ez_list_grid th {
+    border-left: 1px solid #dfdfdf;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.ez_list_grid th.ez_sortable, .ez_list_grid th.ez_sortable div {
+    cursor: pointer;
+}
+
+.ez_list_grid tbody {
+    cursor: pointer;
+}
+
+.ez_list_grid tbody > tr {
+    height: 27px;
+    border-top: 1px solid #ddd;
+}
+
+.ez_list_grid tbody > tr:nth-child(odd) {
+    background-color: #f0f0fa;
+    background-color: #efeff8;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0fa), to(#eeeef6));
+    background-image: -webkit-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -moz-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -ms-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -o-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: linear-gradient(to bottom, #f0f0fa, #eeeef6);
+}
+
+.ez_list_grid tbody > tr > td {
+    padding: 3px 6px;
+    white-space: pre-line;
+    line-height: 18px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.ez_list_grid tfoot {
+    border-top: 2px solid #cacaca;
+    border-bottom: 1px solid #cacaca;
+    background: #eee;
+    font-weight: bold;
+}
+
+
+
+/**
+    FORM
+*/
+label {
+    font-size: 13px;
+    color: #4c4c4c;
+    font-weight: bold !important;
+    line-height: 18px;
+    display: inline;
+}
+
+label.ez_form_label_help[for], label.ez_form_label[for] {
+  white-space: nowrap;
+  padding-right: 8px;
+}
+
+input, textarea, select {
+  padding: 2px 4px;
+  border: 1px solid #ccc;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #1f1f1f;
+  background: #fff;
+}
+
+textarea {
+  width: 100%;
+  min-height: 96px;
+}
+
+input {
+    height: 22px;
+}
+
+input[type="text"], input[type="password"], input[type="file"], select {
+  height: 22px;
+}
+
+input[type="text"], input[type="password"], input[type="file"], select, textarea {
+  min-width: 60px;
+  font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  margin-right: 4px;
+  margin-left: 4px;
+}
+
+input[disabled], select[disabled], textarea[disabled] {
+  background: #f7f7f7;
+}
+
+input:not([disabled]):not([readonly]).ez_form_required, select:not([disabled]):not([readonly]).ez_form_required, textarea:not([disabled]):not([readonly]).ez_form_required {
+  background-color: #D2D2FF !important;
+}
+
+button, input[type='submit'], input[type='file'], a.button:link, a.button:visited, .ez_button {
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    color: #4c4c4c;
+    margin: 0;
+    padding: 3px 12px;
+    font-size: 13px;
+    text-align: center;
+    background-color: #e3e3e3;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#d8d8d8));
+    background-image: -webkit-linear-gradient(top, #efefef, #d8d8d8);
+    background-image: -moz-linear-gradient(top, #efefef, #d8d8d8);
+    background-image: -ms-linear-gradient(top, #efefef, #d8d8d8);
+    background-image: -o-linear-gradient(top, #efefef, #d8d8d8);
+    background-image: linear-gradient(to bottom, #efefef, #d8d8d8);
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(255, 255, 255, 0.8) inset;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
+    -webkit-font-smoothing: antialiased;
+    outline: none;
+}
+
+button:hover, input[type='submit']:hover, input[type='file']:hover, a.button:hover, a.button:hover, .ez_button:hover {
+    /*color: #191616;*/
+    border: 1px solid rgba(44, 76, 202, 0.4);
+}
+
+/**
+    FORMGROUPS
+*/
+.ez_form_group {
+    clear: both;
+    width: 100%;
+    margin: 9px 0 9px 0;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.ez_form_group .ez_form_col {
+    /*flex-grow: 1;*/
+    flex: 1 0 50%;
+    /*border: 1px solid green;*/
+}
+
+.ez_form_group .ez_form_col .ez_form_field {
+    /*   border: 1px solid green; */
+    display: flex;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_label_wrapper {
+    border-right: 1px solid #ddd;
+    padding: 4px 0px;
+    float: left;
+    flex-grow: 0;
+    flex-basis: 140px;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_label_wrapper label {
+    line-height: 18px;
+    display: block;
+    min-width: 100px;
+    padding-right: 5px;
+    font-weight: bold !important;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_label_wrapper.ez_large label {
+    font-size: 30px;
+    line-height: 35px;
+    color: #bb5454;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper {
+    /*   border: 1px solid green; */
+    flex: 1 0 40%;
+    float: left;
+    padding: 2px 0px 4px 8px;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper p {
+    padding: 2px 1px;
+    margin: 0px;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper input {
+    width: 100%;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper.ez_large input {
+    font-size: 30px;
+    height: 39px;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper select {
+    width: 100%;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper input.float {
+    width: 7em;
+}
+    
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper .autocomplete-control {
+    position: relative;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper .autocomplete-control input {
+    width: 100%;
+    margin: 0px;
+    padding-right: 13px;
+}
+    
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper .autocomplete-control span.dropdown_button  {
+    position: absolute;
+    top: 2px;
+    right: 0px;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper .date-control {
+    position: relative;
+    overflow: hidden;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper .date-control input {
+    width: 100%;
+    margin: 0px;
+    text-align: right;
+    padding-right: 24px;
+}
+
+.ez_form_group .ez_form_col .ez_form_field .ez_form_control_wrapper .date-control span.date_button  {
+    position: absolute;
+    top: 2px;
+    right: 4px;
+}
+
+.ez_form_group .ez_form_col + .ez_form_col {
+    padding-left: 20px;
+}
+
+
+
+
+/**
+    UTILS
+*/
+[data-control-posnumber], [data-control-decimal], [data-control-currency] {
+    text-align: right;
+}
+
+.ez_clearfix_container {
+    zoom: 1;
+}
+.ez_clearfix_container:before, .ez_clearfix_container:after {
+    content: "";
+    display: table;
+}
+.ez_clearfix_container:after {
+    clear: both;
+}
+
+.grid-layout {
+    margin: -0.25em -0.5em;
+    clear: both;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 100px;
+}
+.grid-row {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    clear: both;
+}
+
+.grid-col-1,
+.grid-col-2,
+.grid-col-3,
+.grid-col-4,
+.grid-col-5,
+.grid-col-6,
+.grid-col-7,
+.grid-col-8,
+.grid-col-9,
+.grid-col-10,
+.grid-col-11,
+.grid-col-12 {
+    float: left;
+    box-sizing: border-box;
+}
+
+.grid-col-1 {
+    width: 8.33333%;
+}
+
+.grid-col-2 {
+    width: 16.66666%;
+}
+
+.grid-col-3 {
+    width: 25%;
+}
+
+.grid-col-4 {
+    width: 33.33333%;
+}
+
+.grid-col-5 {
+    width: 41.66666%;
+}
+
+.grid-col-6 {
+    width: 50%;
+}
+
+.grid-col-7 {
+    width: 58.33333%;
+}
+
+.grid-col-8 {
+    width: 66.66666%;
+}
+
+.grid-col-9 {
+    width: 75%;
+}
+
+.grid-col-10 {
+    width: 83.33333%;
+}
+
+.grid-col-11 {
+    width: 91.66666%;
+}
+
+.grid-col-12 {
+    width: 100%;
+}
+
+
+.ez_highlight {
+    color: white;
+    background: #DC5F59;
+}
+
+button.ez_highlight {
+    background-color: #c02c2c;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#df3f3f), to(#a21a1a));
+    background-image: -webkit-linear-gradient(top, #df3f3f, #a21a1a);
+    background-image: -moz-linear-gradient(top, #df3f3f, #a21a1a);
+    background-image: -ms-linear-gradient(top, #df3f3f, #a21a1a);
+    background-image: -o-linear-gradient(top, #df3f3f, #a21a1a);
+    background-image: linear-gradient(to bottom, #df3f3f, #a21a1a);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(155, 155, 155, 0.4) inset;
+}
+
+
+
+.highlighted_container {
+    border: 1px solid #ccc;
+    background: #ebedf0;
+    color: #1b1d1f;
+    font-weight: normal;
+    padding: .5em .75em;
+}
+
+
+/**
+    VALIDACIONES
+*/
+.field-validation-error {
+    color: red;
+}
+.field-validation-error-input {
+    border: 1px solid red;
+}
+.ui-widget.ui-widget-content.field-validation-error-ui-tooltip {
+    color: #545454;
+    background-color: #ffdbdb;
+    border: 1px solid #9a9898;
+}
+
+
+
+/**
+    AGREGADOS PARA BOOTSTRAP
+*/
+.modal a.modal-cancel {
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer !important;
+}
+
+
+
+
+/**
+    SOBREESCRITURAS DE JQUERY UI
+*/
+.ui-front {
+    z-index: initial;
+}
+
+.ui-tooltip {
+    background-color: #afafb6;
+}
+
+.ui-widget {
+  font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+  color: #4c4c4c;
+  font-size: 13px;
+}
+
+ul.ui-menu {
+  padding: 2px 0;
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  margin-top: 4px;
+  border: 1px solid #afafb6;
+}
+
+ul.ui-menu li.ui-menu-item a {
+  text-decoration: none;
+  display: block;
+  line-height: 1.5;
+  zoom: 1;
+  font-weight: normal;
+}
+
+ul.ui-menu li.ui-menu-item a {
+  padding: 1px 16px;
+  color: #404040;
+}
+
+ul.ui-menu li.ui-menu-item a.ui-corner-all {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+
+ul.ui-menu li.ui-menu-item a.ui-state-focus, ul.ui-menu li.ui-menu-item a.ui-state-active {
+  font-weight: normal;
+  margin: 0;
+  color: #ffffff;
+  background: #0064cd;
+  background-color: #0064cd;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#049cdb), to(#0064cd));
+  background-image: -moz-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -ms-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #049cdb), color-stop(100%, #0064cd));
+  background-image: -webkit-linear-gradient(top, #049cdb, #0064cd);
+  background-image: -o-linear-gradient(top, #049cdb, #0064cd);
+  background-image: linear-gradient(top, #049cdb, #0064cd);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: #0064cd #0064cd #003E81;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+ul.ui-autocomplete {
+  border: 1px solid #afafb6;
+}
+
+ul.ui-autocomplete li.autocomplete_option a {
+  font-style: italic;
+  padding-left: 2em;
+}
+
+ul.ui-autocomplete li:not(.autocomplete_option)+li.autocomplete_option {
+  margin-top: 10px;
+}
+
+/**
+    AGREGADOS PARA JQUERY UI
+*/
+/*.autocomplete-list-container {
+    display: block; 
+    position: relative
+}*/
+
+.ez_autocomplete {
+    background: white;
+    color: #4c4c4c;
+    font-size: 13px;
+    font-family: "Lucida Grande", Helvetica, Verdana, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+    z-index: 100;
+    max-height: 220px;
+    white-space: nowrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.ez_border_radius {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+
+/**
+    AGREGADOS PARA DROPZONE
+*/
+.dropzone_container {
+    /*width: 500px;*/
+    background: #ebf3fa !important;
+    border: 2px dashed #ddd !important;
+    text-align: center;
+}
+
+.dz-remove{
+    color: #fff;
+    background-color: #e7505a;
+    border-color: #e7505a;
+}
+
+.dropzone .dz-preview .dz-error-message {
+    top: 150px !important;
+}

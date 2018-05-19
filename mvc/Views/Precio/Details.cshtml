@@ -1,0 +1,59 @@
+﻿@using ceya.Model.Models
+@model Precio
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Precio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDesde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDesde)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaHasta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaHasta)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioProducto)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecioProducto)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListaPrecio.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListaPrecio.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producto.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Codigo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

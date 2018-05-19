@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C4A40008-98A7-43C6-8E5C-B37E49D527BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ceya.Infrastructure.DataAccess</RootNamespace>
+    <AssemblyName>ceya.Infrastructure.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations\ArchivoConfiguration.cs" />
+    <Compile Include="Configurations\ConstructoraConfiguration.cs" />
+    <Compile Include="Configurations\ClienteUserConfiguration.cs" />
+    <Compile Include="Configurations\ListaPrecioConfiguration.cs" />
+    <Compile Include="Configurations\MonedaConfiguration.cs" />
+    <Compile Include="Configurations\ObraConfiguration.cs" />
+    <Compile Include="Configurations\PrecioConfiguration.cs" />
+    <Compile Include="Configurations\PresupuestoCategoriaConfiguration.cs" />
+    <Compile Include="Configurations\PresupuestoConfiguration.cs" />
+    <Compile Include="Configurations\PresupuestoEstadoConfiguration.cs" />
+    <Compile Include="Configurations\PresupuestoItemConfiguration.cs" />
+    <Compile Include="Configurations\ProductoConfiguration.cs" />
+    <Compile Include="Configurations\RubroMaestroConfiguration.cs" />
+    <Compile Include="Configurations\TipoProductoConfiguration.cs" />
+    <Compile Include="Configurations\SubrubroConfiguration.cs" />
+    <Compile Include="Configurations\RubroConfiguration.cs" />
+    <Compile Include="Configurations\TipoDocumentoConfiguration.cs" />
+    <Compile Include="Configurations\UnidadMedidaConfiguration.cs" />
+    <Compile Include="ConnectionStringFactory.cs" />
+    <Compile Include="ConnectionStringHelper.cs" />
+    <Compile Include="DatabaseFactory.cs" />
+    <Compile Include="GestionComercialWebEntities.cs" />
+    <Compile Include="Identity\AccountViewModels.cs" />
+    <Compile Include="Identity\IdentityModels.cs" />
+    <Compile Include="Identity\ManageViewModels.cs" />
+    <Compile Include="Migrations\201710131533130_Initial.cs" />
+    <Compile Include="Migrations\201710131533130_Initial.Designer.cs">
+      <DependentUpon>201710131533130_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710171421151_AddVWPrecioProducto.cs" />
+    <Compile Include="Migrations\201710171421151_AddVWPrecioProducto.Designer.cs">
+      <DependentUpon>201710171421151_AddVWPrecioProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710171445179_UpdateVWPrecioProducto.cs" />
+    <Compile Include="Migrations\201710171445179_UpdateVWPrecioProducto.Designer.cs">
+      <DependentUpon>201710171445179_UpdateVWPrecioProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710241527205_UpdateCodigoCliente.cs" />
+    <Compile Include="Migrations\201710241527205_UpdateCodigoCliente.Designer.cs">
+      <DependentUpon>201710241527205_UpdateCodigoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710270945151_Constructora.cs" />
+    <Compile Include="Migrations\201710270945151_Constructora.Designer.cs">
+      <DependentUpon>201710270945151_Constructora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710271414588_CodigoCompuestoProducto.cs" />
+    <Compile Include="Migrations\201710271414588_CodigoCompuestoProducto.Designer.cs">
+      <DependentUpon>201710271414588_CodigoCompuestoProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710271437530_AddSubrubro.cs" />
+    <Compile Include="Migrations\201710271437530_AddSubrubro.Designer.cs">
+      <DependentUpon>201710271437530_AddSubrubro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710271521519_AddCampoSistemaRubro.cs" />
+    <Compile Include="Migrations\201710271521519_AddCampoSistemaRubro.Designer.cs">
+      <DependentUpon>201710271521519_AddCampoSistemaRubro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710291524374_CodigoObra.cs" />
+    <Compile Include="Migrations\201710291524374_CodigoObra.Designer.cs">
+      <DependentUpon>201710291524374_CodigoObra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710300437085_FixCyclicFkSubrubro.cs" />
+    <Compile Include="Migrations\201710300437085_FixCyclicFkSubrubro.Designer.cs">
+      <DependentUpon>201710300437085_FixCyclicFkSubrubro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710292301014_AddSubrubroClase.cs" />
+    <Compile Include="Migrations\201710292301014_AddSubrubroClase.Designer.cs">
+      <DependentUpon>201710292301014_AddSubrubroClase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710292310306_CodigoClase.cs" />
+    <Compile Include="Migrations\201710292310306_CodigoClase.Designer.cs">
+      <DependentUpon>201710292310306_CodigoClase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710300000247_CodigoSubrubro.cs" />
+    <Compile Include="Migrations\201710300000247_CodigoSubrubro.Designer.cs">
+      <DependentUpon>201710300000247_CodigoSubrubro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710300132239_OptionalRubroId.cs" />
+    <Compile Include="Migrations\201710300132239_OptionalRubroId.Designer.cs">
+      <DependentUpon>201710300132239_OptionalRubroId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710300231316_OptionalProducto.cs" />
+    <Compile Include="Migrations\201710300231316_OptionalProducto.Designer.cs">
+      <DependentUpon>201710300231316_OptionalProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710300702424_Empty.cs" />
+    <Compile Include="Migrations\201710300702424_Empty.Designer.cs">
+      <DependentUpon>201710300702424_Empty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710301210089_ClaseColor.cs" />
+    <Compile Include="Migrations\201710301210089_ClaseColor.Designer.cs">
+      <DependentUpon>201710301210089_ClaseColor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710310405344_AddConstructoraColumnInPresupuesto.cs" />
+    <Compile Include="Migrations\201710310405344_AddConstructoraColumnInPresupuesto.Designer.cs">
+      <DependentUpon>201710310405344_AddConstructoraColumnInPresupuesto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710311500296_PresupuestoTrackingFields.cs" />
+    <Compile Include="Migrations\201710311500296_PresupuestoTrackingFields.Designer.cs">
+      <DependentUpon>201710311500296_PresupuestoTrackingFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711020432213_NumeroPosicionItemPresupuesto.cs" />
+    <Compile Include="Migrations\201711020432213_NumeroPosicionItemPresupuesto.Designer.cs">
+      <DependentUpon>201711020432213_NumeroPosicionItemPresupuesto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711021457299_PresupuestoItemTrackingFields.cs" />
+    <Compile Include="Migrations\201711021457299_PresupuestoItemTrackingFields.Designer.cs">
+      <DependentUpon>201711021457299_PresupuestoItemTrackingFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711061504013_UpdateVWPrecioProducto1.cs" />
+    <Compile Include="Migrations\201711061504013_UpdateVWPrecioProducto1.Designer.cs">
+      <DependentUpon>201711061504013_UpdateVWPrecioProducto1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711121831453_Tipo Producto.cs" />
+    <Compile Include="Migrations\201711121831453_Tipo Producto.Designer.cs">
+      <DependentUpon>201711121831453_Tipo Producto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711122012478_Rubro Maestro.cs" />
+    <Compile Include="Migrations\201711122012478_Rubro Maestro.Designer.cs">
+      <DependentUpon>201711122012478_Rubro Maestro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711141242362_relacion rubromaestro-producto.cs" />
+    <Compile Include="Migrations\201711141242362_relacion rubromaestro-producto.Designer.cs">
+      <DependentUpon>201711141242362_relacion rubromaestro-producto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711150218508_nulleable rubroId.cs" />
+    <Compile Include="Migrations\201711150218508_nulleable rubroId.Designer.cs">
+      <DependentUpon>201711150218508_nulleable rubroId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711150229192_nulleable codigorubro.cs" />
+    <Compile Include="Migrations\201711150229192_nulleable codigorubro.Designer.cs">
+      <DependentUpon>201711150229192_nulleable codigorubro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711181943019_agregado de subrubroId y colorId.cs" />
+    <Compile Include="Migrations\201711181943019_agregado de subrubroId y colorId.Designer.cs">
+      <DependentUpon>201711181943019_agregado de subrubroId y colorId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711190003138_agregado de colocacionId y vidrioId.cs" />
+    <Compile Include="Migrations\201711190003138_agregado de colocacionId y vidrioId.Designer.cs">
+      <DependentUpon>201711190003138_agregado de colocacionId y vidrioId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191737455_update vwproducto.cs" />
+    <Compile Include="Migrations\201711191737455_update vwproducto.Designer.cs">
+      <DependentUpon>201711191737455_update vwproducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711221429388_moneda.cs" />
+    <Compile Include="Migrations\201711221429388_moneda.Designer.cs">
+      <DependentUpon>201711221429388_moneda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712102318103_chage type codigo presupuesto.cs" />
+    <Compile Include="Migrations\201712102318103_chage type codigo presupuesto.Designer.cs">
+      <DependentUpon>201712102318103_chage type codigo presupuesto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712270331003_usuario.cs" />
+    <Compile Include="Migrations\201712270331003_usuario.Designer.cs">
+      <DependentUpon>201712270331003_usuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801172034369_nulleable tipodocumento.cs" />
+    <Compile Include="Migrations\201801172034369_nulleable tipodocumento.Designer.cs">
+      <DependentUpon>201801172034369_nulleable tipodocumento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801172211218_conceptos varios.cs" />
+    <Compile Include="Migrations\201801172211218_conceptos varios.Designer.cs">
+      <DependentUpon>201801172211218_conceptos varios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801222121114_Agregar PresupuestoSeguimiento.cs" />
+    <Compile Include="Migrations\201801222121114_Agregar PresupuestoSeguimiento.Designer.cs">
+      <DependentUpon>201801222121114_Agregar PresupuestoSeguimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801232135224_bool activo.cs" />
+    <Compile Include="Migrations\201801232135224_bool activo.Designer.cs">
+      <DependentUpon>201801232135224_bool activo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801232240422_se elimino campo codigo presupuesto.cs" />
+    <Compile Include="Migrations\201801232240422_se elimino campo codigo presupuesto.Designer.cs">
+      <DependentUpon>201801232240422_se elimino campo codigo presupuesto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801242001026_cambio descripcion por observacion en seguimiento.cs" />
+    <Compile Include="Migrations\201801242001026_cambio descripcion por observacion en seguimiento.Designer.cs">
+      <DependentUpon>201801242001026_cambio descripcion por observacion en seguimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801252106576_fk presupuesSeguimiento.cs" />
+    <Compile Include="Migrations\201801252106576_fk presupuesSeguimiento.Designer.cs">
+      <DependentUpon>201801252106576_fk presupuesSeguimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801252336235_NO NULL FECHA ALERTA.cs" />
+    <Compile Include="Migrations\201801252336235_NO NULL FECHA ALERTA.Designer.cs">
+      <DependentUpon>201801252336235_NO NULL FECHA ALERTA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801281853541_Agregar relacion seguimiento estado.cs" />
+    <Compile Include="Migrations\201801281853541_Agregar relacion seguimiento estado.Designer.cs">
+      <DependentUpon>201801281853541_Agregar relacion seguimiento estado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802060251347_Permisos1.cs" />
+    <Compile Include="Migrations\201802060251347_Permisos1.Designer.cs">
+      <DependentUpon>201802060251347_Permisos1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ceya.Core\ceya.Core.csproj">
+      <Project>{82B2639D-DCF7-412E-BD68-6077AE7AAA84}</Project>
+      <Name>ceya.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Model\ceya.Domain.Model.csproj">
+      <Project>{E82EBAC6-4119-44F8-B45A-49C99CDA812E}</Project>
+      <Name>ceya.Domain.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201710131533130_Initial.resx">
+      <DependentUpon>201710131533130_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710171421151_AddVWPrecioProducto.resx">
+      <DependentUpon>201710171421151_AddVWPrecioProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710171445179_UpdateVWPrecioProducto.resx">
+      <DependentUpon>201710171445179_UpdateVWPrecioProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710241527205_UpdateCodigoCliente.resx">
+      <DependentUpon>201710241527205_UpdateCodigoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710270945151_Constructora.resx">
+      <DependentUpon>201710270945151_Constructora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271414588_CodigoCompuestoProducto.resx">
+      <DependentUpon>201710271414588_CodigoCompuestoProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271437530_AddSubrubro.resx">
+      <DependentUpon>201710271437530_AddSubrubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271521519_AddCampoSistemaRubro.resx">
+      <DependentUpon>201710271521519_AddCampoSistemaRubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710291524374_CodigoObra.resx">
+      <DependentUpon>201710291524374_CodigoObra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710300437085_FixCyclicFkSubrubro.resx">
+      <DependentUpon>201710300437085_FixCyclicFkSubrubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710292301014_AddSubrubroClase.resx">
+      <DependentUpon>201710292301014_AddSubrubroClase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710292310306_CodigoClase.resx">
+      <DependentUpon>201710292310306_CodigoClase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710300000247_CodigoSubrubro.resx">
+      <DependentUpon>201710300000247_CodigoSubrubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710300132239_OptionalRubroId.resx">
+      <DependentUpon>201710300132239_OptionalRubroId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710300231316_OptionalProducto.resx">
+      <DependentUpon>201710300231316_OptionalProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710300702424_Empty.resx">
+      <DependentUpon>201710300702424_Empty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710301210089_ClaseColor.resx">
+      <DependentUpon>201710301210089_ClaseColor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710310405344_AddConstructoraColumnInPresupuesto.resx">
+      <DependentUpon>201710310405344_AddConstructoraColumnInPresupuesto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710311500296_PresupuestoTrackingFields.resx">
+      <DependentUpon>201710311500296_PresupuestoTrackingFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711020432213_NumeroPosicionItemPresupuesto.resx">
+      <DependentUpon>201711020432213_NumeroPosicionItemPresupuesto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711021457299_PresupuestoItemTrackingFields.resx">
+      <DependentUpon>201711021457299_PresupuestoItemTrackingFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061504013_UpdateVWPrecioProducto1.resx">
+      <DependentUpon>201711061504013_UpdateVWPrecioProducto1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711121831453_Tipo Producto.resx">
+      <DependentUpon>201711121831453_Tipo Producto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711122012478_Rubro Maestro.resx">
+      <DependentUpon>201711122012478_Rubro Maestro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711141242362_relacion rubromaestro-producto.resx">
+      <DependentUpon>201711141242362_relacion rubromaestro-producto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711150218508_nulleable rubroId.resx">
+      <DependentUpon>201711150218508_nulleable rubroId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711150229192_nulleable codigorubro.resx">
+      <DependentUpon>201711150229192_nulleable codigorubro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711181943019_agregado de subrubroId y colorId.resx">
+      <DependentUpon>201711181943019_agregado de subrubroId y colorId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711190003138_agregado de colocacionId y vidrioId.resx">
+      <DependentUpon>201711190003138_agregado de colocacionId y vidrioId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191737455_update vwproducto.resx">
+      <DependentUpon>201711191737455_update vwproducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711221429388_moneda.resx">
+      <DependentUpon>201711221429388_moneda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712102318103_chage type codigo presupuesto.resx">
+      <DependentUpon>201712102318103_chage type codigo presupuesto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712270331003_usuario.resx">
+      <DependentUpon>201712270331003_usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801172034369_nulleable tipodocumento.resx">
+      <DependentUpon>201801172034369_nulleable tipodocumento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801172211218_conceptos varios.resx">
+      <DependentUpon>201801172211218_conceptos varios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801222121114_Agregar PresupuestoSeguimiento.resx">
+      <DependentUpon>201801222121114_Agregar PresupuestoSeguimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801232135224_bool activo.resx">
+      <DependentUpon>201801232135224_bool activo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801232240422_se elimino campo codigo presupuesto.resx">
+      <DependentUpon>201801232240422_se elimino campo codigo presupuesto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801242001026_cambio descripcion por observacion en seguimiento.resx">
+      <DependentUpon>201801242001026_cambio descripcion por observacion en seguimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801252106576_fk presupuesSeguimiento.resx">
+      <DependentUpon>201801252106576_fk presupuesSeguimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801252336235_NO NULL FECHA ALERTA.resx">
+      <DependentUpon>201801252336235_NO NULL FECHA ALERTA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801281853541_Agregar relacion seguimiento estado.resx">
+      <DependentUpon>201801281853541_Agregar relacion seguimiento estado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802060251347_Permisos1.resx">
+      <DependentUpon>201802060251347_Permisos1.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

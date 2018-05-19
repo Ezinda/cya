@@ -1,0 +1,143 @@
+﻿@using ceya.Model.Models
+@model IEnumerable<ListaPrecio>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_noSheetLayout.cshtml";
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="search" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                    <button id="btnSearch" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="listaPrecioEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/ezgridjs")
+
+<script type="text/javascript">
+    var grid;
+
+    $('#btnSearch').on('click', function () {
+        grid.reload({ page: 1, searchString: $("#search").val() });
+    });
+
+    $(document).ready(function () {
+
+        EzHeader.breadcrumbItem = {
+            label: "Lista de Precio"
+        };
+        EzHeader.buttons = [
+            {
+                label: "Nueva Lista de Precio",
+                type: "buttonHighlight",
+                action: function () {
+                    window.location.href = "@Url.Action("Create")";
+                }
+            },
+        ];
+        EzHeader.show();
+
+        grid = $("#listaPrecioEzGrid").ezGrid({
+            dataKey: "Id",
+            dataSource: '@Url.Action("GetListas")',
+            columns: [
+                { field: "Id", sortable: true, hidden: true },
+                { field: "Codigo", width: 120, sortable: true },
+                { field: "Nombre", width: 500, sortable: true },
+                { field: "Activo", width: 120, sortable: true },
+                { title: "", field: "Edit", width: 60, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Edit", events: { "click": Edit } },
+                { title: "", field: "Delete", width: 60, type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Delete", events: { "click": DeleteConfirm } }
+
+            ],
+            pager: { enable: true, limit: 5, sizes: [2, 5, 10, 20] },
+            rowNum: 15,
+            rowList: [15, 50, 100],
+        });
+
+        $('#btnEdit').click(function (event) {
+            event.preventDefault();
+
+            var model = {
+                Id: $("#Id").val(),
+                Codigo: $("#codigo").val(),
+                Nombre: $("#nombre").val()
+            };
+
+            $.ajax({
+                url: "/ListaPrecio/Edit",
+                data: JSON.stringify(model),
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                success: function (data) {
+                    window.location.href = '@Url.Action("Index","ListaPrecio")';
+                },
+                error: function () {
+                    var err = eval("(" + xhr.responseText + ")");
+                    alert(err.Message);
+                    alert("Error occured!!")
+                }
+            });
+        });
+        $('#btnConfirmDelete').click(function (event) {
+            event.preventDefault();
+            $("#deleteConfirm").modal("hide");
+            Id = $("#Id").val();
+
+            $.ajax({
+                url: "/ListaPrecio/Delete/" + Id,
+                type: "POST",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result.data) {
+                        window.location.href = '@Url.Action("Index","ListaPrecio")';
+                    }
+                    else {
+                        $("#deleteValidation").modal("show");
+                    }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        });
+
+    });
+
+    function Edit(e) {
+        $("#Id").val(e.data.id);
+        $("#codigo").val(e.data.record.Codigo);
+        $("#nombre").val(e.data.record.Nombre);
+        $("#editModal").modal("show");
+    }
+
+    function DeleteConfirm(e) {
+        $("#Id").val(e.data.id);
+        $("#deleteConfirm").modal("show");
+    }
+</script>
+}

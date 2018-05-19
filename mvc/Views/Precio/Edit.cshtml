@@ -1,0 +1,130 @@
+﻿@model mvc.ViewModels.PrecioFormModel
+
+@{
+    ViewBag.Title = "Editar Precio";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Editar Precio</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+
+    @Html.HiddenFor(model => model.ListaPrecioId)
+
+    @Html.HiddenFor(model => model.ProductoId)
+  <div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-2"></div>
+        <div class="grid-col-8">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Producto)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Producto)" type="text" value="@Model.Producto" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Desde)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <div class="date-control">
+                                <input id="@Html.IdFor(x => x.Desde)" data-control-date value="@Model.Desde.ToShortDateString()" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                <span class="date_button">
+                                    <img draggable="false" src="~/Content/images/field_calendar.png">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Hasta)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <div class="date-control">
+                                <input id="@Html.IdFor(x => x.Hasta)" data-control-date value="@Model.Hasta.ToShortDateString()" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                <span class="date_button">
+                                    <img draggable="false" src="~/Content/images/field_calendar.png">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Precio)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Precio)" type="text" value="@Model.Precio" data-control-currency/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-2"></div>
+    </div>
+</div>
+}
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+<script>
+
+    $(function () {
+
+        $("#save").click(function () {
+            submitForm();
+        });
+
+        if ($('#Precio[data-control-currency]').length) {
+            new Cleave($('#Precio[data-control-currency]'), {
+                numeral: true,
+                numeralDecimalMark: ',',
+                delimiter: '.',
+                numeralPositiveOnly: true
+            });
+        }
+
+        $("input[data-control-date]").datepicker();
+        $("input[data-control-date]").next().click(function () {
+            $(this).before().datepicker("show");
+        });
+        $.datepicker.setDefaults($.datepicker.regional['es']);
+        function submitForm() {
+            let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+            let postData = {
+                Id: $('#@Html.IdFor(x => x.Id)').val(),
+                ProductoId: $('#@Html.IdFor(x => x.ProductoId)').val(),
+                ListaPrecioId: $('#@Html.IdFor(x => x.ListaPrecioId)').val(),
+
+
+                Desde: $('#@Html.IdFor(x => x.Desde)').val(),
+                Hasta: $('#@Html.IdFor(x => x.Hasta)').val(),
+                Precio: $('#@Html.IdFor(x => x.Precio)').val(),
+            };
+
+            postData.__RequestVerificationToken = antiForgeryToken;
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("Edit")",
+                data: postData,
+                success: function (data) {
+                    window.location.href = "@Url.Action("Index","ListaPrecio")";
+                }
+            });
+        }
+    });
+</script>

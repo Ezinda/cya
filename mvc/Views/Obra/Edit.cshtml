@@ -1,0 +1,139 @@
+﻿@model mvc.ViewModels.ObraFormModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Editar Obra</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+@Html.HiddenFor(x => x.Id)
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-2"></div>
+        <div class="grid-col-8">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Codigo)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Codigo)" type="text" value="@Model.Codigo"/>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Nombre)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Nombre)" type="text"  value="@Model.Nombre"/>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Domicilio)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Domicilio)" type="text"  value="@Model.Domicilio"/>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Cliente)
+                        </div>
+                        @*<div class="ez_form_control_wrapper">
+                            @Html.HiddenFor(x => x.ClienteId, new { @id = "ClienteId" })
+                            <input id="@Html.IdFor(x => x.Cliente)" type="text" style="width: 68%;" value="@Model.Cliente" />
+                            <button data-toggle="modal" href="#searchCliente" onclick="SearchCliente();">
+                                ...
+                            </button>
+                            <button data-toggle="modal" id="removeCliente" onclick="RemoveCliente()">
+                                X
+                            </button>
+                        </div>*@
+                        <div class="ez_form_control_wrapper">
+                            <!--Autocomplete-->
+                            @Html.HiddenFor(x => x.ClienteId)
+                            <div class="autocomplete-control ui-front">
+                                @Html.TextBoxFor(x => x.Cliente, new { @id = "ClienteId_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false", @style = "width: 68%" })
+                                @*<span class="dropdown_button" id="clienteId_dropdown">
+                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                </span>*@
+                                <button data-toggle="modal" href="#searchCliente" onclick="SearchCliente();">
+                                    ...
+                                </button>
+                                <button data-toggle="modal" id="removeCliente" onclick="RemoveCliente()">
+                                    X
+                                </button>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.ClienteId)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-2"></div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+<script>
+    $(function () {
+
+        $("#save").click(function () {
+            submitForm();
+        });
+
+        [
+          {
+              hiddenElement: "#@Html.IdFor(x => x.ClienteId)",
+              autocompleteElement: "#ClienteId_autocomplete",
+              dropdownElement: "#clienteId_dropdown",
+              source: "@Url.Action("JsonAutocomplete", "Cliente")",
+              onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+              }
+          }].forEach(function (item) {
+              initAutocomplete(
+                  $(item.hiddenElement),
+                  $(item.autocompleteElement),
+                  $(item.dropdownElement),
+                  item.source,
+                  item.onSelectCallbackHandle
+              );
+          });
+        function submitForm() {
+            let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+            let postData = {
+                Id: $('#@Html.IdFor(x => x.Id)').val(),
+                Codigo: $('#@Html.IdFor(x => x.Codigo)').val(),
+                Nombre: $('#@Html.IdFor(x => x.Nombre)').val(),
+                Domicilio: $('#@Html.IdFor(x => x.Domicilio)').val(),
+                ClienteId: $('#@Html.IdFor(x => x.ClienteId)').val()
+            };
+
+            postData.__RequestVerificationToken = antiForgeryToken;
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("Edit")",
+                data: postData,
+                success: function (data) {
+                    window.location.href = "@Url.Action("Index")";
+                }
+            });
+        }
+    });
+</script>

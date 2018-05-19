@@ -1,0 +1,208 @@
+﻿@model mvc.ViewModels.ClasePageViewModel
+@{
+    ViewBag.Title = "Lista de Clases";
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchClase" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                    <button id="btnSearchClase" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="claseEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <label>Colores asociados a la clase seleccionada</label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="claseColorEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/ezgridjs")
+    <script>
+        $(function () {
+
+            EzHeader.breadcrumbItem = {
+                label: "Clase"
+            };
+            EzHeader.collapse = {
+                id: "#collapseTwo"
+            };
+            EzHeader.buttons = [
+                {
+                    label: "Nueva Clase",
+                    type: "buttonHighlight",
+                    action: function () {
+                        $('#crudContent').load("@Url.Action("Create")", function () {
+                            $('#crudModal').modal({
+                                keyboard: true
+                            }, 'show');
+
+                            bindForm(this);
+                        });
+                        return false;
+                    }
+                },
+            ];
+            EzHeader.show();
+
+            var $gridClase = $("#claseEzGrid").ezGrid({
+                dataSource: "@Url.Action("List")",
+                params: {
+                    filterBy: "@Model.FilterByString",
+                    searchString: "@Model.SearchString"
+                },
+                defaultParams: {
+                    sortBy: "sortBy",
+                    direction: "direction",
+                    page: "page",
+                    limit: "pageSize"
+                },
+                mapping: {
+                    dataField: "Records",
+                    totalRecordsField: "Total"
+                },
+                primaryKey: 'ClaseId',
+                dataKey: "Id",
+                columns: [
+                    { field: "Id", hidden: true },
+                    { field: "Codigo", title: "Código", sortable: true },
+                    { field: "Descripcion", title: "Descripcion", sortable: true },
+                    { title: "Editar", field: "Editar", width: 60, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Editar", events: { "click": Edit } },
+                    { title: "Eliminar", field: "Eliminar", width: 60, type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Eliminar", events: { "click": Delete } },
+                    { title: "Color", field: "Color", width: 60, type: "icon", icon: "ui-icon-search", align: 'center', tooltip: "Asignar", events: { "click": SearchColor } }
+                ],
+                pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20] },
+                rowNum: 10,
+                rowList: [15, 50, 100]
+            });
+
+            var $gridClaseColor = $("#claseColorEzGrid").ezGrid({
+                dataKey: "Id",
+                dataSource: '@Url.Action("GetColoresRelacionados", "Color")',
+                autoLoad: false,
+                columns: [
+                    { field: "Id", sortable: true, hidden: true },
+                    { field: "Codigo", width: 120, sortable: true },
+                    { field: "Descripcion", width: 400, sortable: true },
+                    { title: "Quitar", field: "Quitar", width: 60, type: "icon", icon: "glyphicon-remove", tooltip: "Color", events: { "click": QuitarAsignacion } }
+
+                ],
+                pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20] },
+                rowNum: 15,
+                rowList: [15, 50, 100]
+            });
+
+            $gridClase.on('rowSelect', function (e, $row, id, record) {
+                $gridClaseColor.reload({ page: 1, ClaseId: id });
+                ClaseId = id;
+            });
+
+            $('#btnSearchClase').on('click', function () {
+                $gridClase.reload({ page: 1, searchString: $("#searchClase").val() });
+            });
+        });
+
+        function Edit(e) {
+            var url = "@Url.Action("Edit")?";
+
+            $.get(url, { id: e.data.id }, function (data) {
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function Delete(e) {
+            var url = "@Url.Action("ConfirmDelete")?";
+
+            $.get(url, { id: e.data.id }, function (data) {
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function SearchColor(e) {
+            var ClaseId = e.data.id;
+            SelectColor(ClaseId);
+        }
+
+        function QuitarAsignacion(e) {
+
+            var url = "@Url.Action("QuitarAsignacion")?";
+
+            $.get(url, { ClaseId: ClaseId, ColorId: e.data.id }, function (data) {
+
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+        
+        function bindForm(dialog) {
+            $('form', dialog).submit(function () {
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        alert(result.success);
+                        if (result.success) {
+                            $('#crudModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#crudModal').html(result);
+                            bindForm();
+                        }
+                    }
+                });
+                return false;
+            });
+        };
+
+    </script>
+}

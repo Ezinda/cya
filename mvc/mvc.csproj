@@ -1,0 +1,1435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0F42F1E5-098C-4AD1-87B2-6EE54C7239B6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mvc</RootNamespace>
+    <AssemblyName>mvc</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac, Version=4.8.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.8.1.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.8.1\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.0\lib\net451\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.0\lib\net451\Microsoft.Owin.Security.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.0\lib\net451\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.0\lib\net451\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Designer.Interfaces, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Designer.Interfaces.1.1.4323\lib\net11\Microsoft.VisualStudio.Designer.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.4\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="X.PagedList, Version=7.1.0.0, Culture=neutral, PublicKeyToken=00b6c4f97602e5e8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\X.PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\Bootstrapper.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SessionExpire.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="ViewModels\ContactoPageViewModel.cs" />
+    <Compile Include="Controllers\ContactosController.cs" />
+    <Compile Include="Controllers\PresupuestoSeguimientoController.cs" />
+    <Compile Include="Controllers\ColorController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RubroMaestroController.cs" />
+    <Compile Include="Controllers\TipoProductoController.cs" />
+    <Compile Include="Controllers\SubrubroController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ConstructoraController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListaPrecioController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ObraController.cs" />
+    <Compile Include="Controllers\PrecioController.cs" />
+    <Compile Include="Controllers\PresupuestoController.cs" />
+    <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\RubroController.cs" />
+    <Compile Include="Controllers\ClaseController.cs" />
+    <Compile Include="Controllers\UnidadMedidaController.cs" />
+    <Compile Include="GestionComercialWebDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GestionComercialWebDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="Helpers\DecimalModelBinder.cs" />
+    <Compile Include="Helpers\ExcelTools.cs" />
+    <Compile Include="Helpers\ExpressionExtensions.cs" />
+    <Compile Include="Helpers\ImageUtil.cs" />
+    <Compile Include="Helpers\MethodsHelpers.cs" />
+    <Compile Include="Helpers\Thumbnail.cs" />
+    <Compile Include="Controllers\ArchivoController.cs" />
+    <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Mappings\DomainToViewModelMappingProfile.cs" />
+    <Compile Include="Mappings\ViewModelToDomainMappingProfile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\AlcemarExcelMetadataViewModel.cs" />
+    <Compile Include="ViewModels\ConstructoraListViewModel.cs" />
+    <Compile Include="ViewModels\CuboPresupuestoViewModel.cs" />
+    <Compile Include="ViewModels\ContactosFormModel.cs" />
+    <Compile Include="ViewModels\ContactoListViewModel.cs" />
+    <Compile Include="ViewModels\ObraPageViewModel.cs" />
+    <Compile Include="ViewModels\SeguimientoPageViewModel.cs" />
+    <Compile Include="ViewModels\SeguimientoListViewModel.cs" />
+    <Compile Include="ViewModels\PresupuestoSeguimientoFormModel.cs" />
+    <Compile Include="ViewModels\ListaPrecioProductoFormModel.cs" />
+    <Compile Include="ViewModels\ListaPrecioFormModel.cs" />
+    <Compile Include="ViewModels\ListaPrecioPageViewModel.cs" />
+    <Compile Include="ViewModels\PrecioListViewModel.cs" />
+    <Compile Include="ViewModels\PrecioFormModel.cs" />
+    <Compile Include="ViewModels\RehauExcelMetadataViewModel.cs" />
+    <Compile Include="ViewModels\RubroMaestroFormModel.cs" />
+    <Compile Include="ViewModels\RubroMaestroListViewModel.cs" />
+    <Compile Include="ViewModels\RubroMaestroPageViewModel.cs" />
+    <Compile Include="ViewModels\TemData.cs" />
+    <Compile Include="ViewModels\TipoProductoFormModel.cs" />
+    <Compile Include="ViewModels\TipoProductoPageViewModel.cs" />
+    <Compile Include="ViewModels\TipoProductoListViewModel.cs" />
+    <Compile Include="ViewModels\RubroSubrubroFormModel.cs" />
+    <Compile Include="ViewModels\ClaseColorFormModel.cs" />
+    <Compile Include="ViewModels\RubroFormModel.cs" />
+    <Compile Include="ViewModels\RubroPageViewModel.cs" />
+    <Compile Include="ViewModels\RubroListViewModel.cs" />
+    <Compile Include="ViewModels\ProductoPageViewModel.cs" />
+    <Compile Include="ViewModels\SubrubroPageViewModel.cs" />
+    <Compile Include="ViewModels\ColorFormModel.cs" />
+    <Compile Include="ViewModels\ColorListViewModel.cs" />
+    <Compile Include="ViewModels\ClasePageViewModel.cs" />
+    <Compile Include="ViewModels\ColorPageViewModel.cs" />
+    <Compile Include="ViewModels\SubrubroFormModel.cs" />
+    <Compile Include="ViewModels\SubrubroListViewModel.cs" />
+    <Compile Include="ViewModels\ObraFormModel.cs" />
+    <Compile Include="ViewModels\ClienteFormModel.cs" />
+    <Compile Include="ViewModels\ConstructoraFormModel.cs" />
+    <Compile Include="ViewModels\ConstructoraViewModel.cs" />
+    <Compile Include="ViewModels\PrecioViewModel.cs" />
+    <Compile Include="ViewModels\ListaPrecioListViewModel.cs" />
+    <Compile Include="ViewModels\PresupuestoFormModel.cs" />
+    <Compile Include="ViewModels\PresupuestoItemFormModel.cs" />
+    <Compile Include="ViewModels\PresupuestoItemViewModel.cs" />
+    <Compile Include="ViewModels\PresupuestoListViewModel.cs" />
+    <Compile Include="ViewModels\ClaseFormModel.cs" />
+    <Compile Include="ViewModels\ClaseListViewModel.cs" />
+    <Compile Include="ViewModels\ProductoFormModel.cs" />
+    <Compile Include="ViewModels\UnidadMedidaPageViewModel.cs" />
+    <Compile Include="ViewModels\PresupuestoPageViewModel.cs" />
+    <Compile Include="ViewModels\ProductoListViewModel.cs" />
+    <Compile Include="ViewModels\ProductoViewModel.cs" />
+    <Compile Include="ViewModels\ObraListViewModel.cs" />
+    <Compile Include="ViewModels\ClienteListViewModel.cs" />
+    <Compile Include="ViewModels\UnidadMedidaFormModel.cs" />
+    <Compile Include="ViewModels\UnidadMedidaListViewModel.cs" />
+    <Compile Include="ViewModels\RubroViewModel.cs" />
+    <Compile Include="ViewModels\PresupuestoViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ac.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ad.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ae.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.af.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ag.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ai.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.al.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.am.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ao.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ar.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.as.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.at.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.au.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.aw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ax.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.az.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ba.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bb.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bd.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.be.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bf.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bh.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bi.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bj.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bl.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bo.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bq.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.br.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bs.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bt.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.by.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.bz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ca.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cc.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cd.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cf.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ch.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ci.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ck.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cl.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.co.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cu.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cv.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cx.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cy.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.cz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.de.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.dj.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.dk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.dm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.do.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.dz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ec.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ee.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.eg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.eh.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.er.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.es.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.et.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.fi.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.fj.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.fk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.fm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.fo.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.fr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ga.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gb.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gd.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ge.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gf.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gh.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gi.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gl.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gp.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gq.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gt.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gu.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.gy.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.hk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.hn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.hr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ht.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.hu.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.i18n.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.id.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ie.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.il.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.im.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.in.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.io.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.iq.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ir.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.is.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.it.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.je.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.jm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.jo.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.jp.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ke.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.kg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.kh.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ki.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.km.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.kn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.kp.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.kr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.kw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ky.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.kz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.la.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.lb.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.lc.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.li.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.lk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.lr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ls.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.lt.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.lu.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.lv.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ly.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ma.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mc.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.md.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.me.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mf.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mh.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ml.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mo.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mp.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mq.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ms.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mt.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mu.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mv.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mx.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.my.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.mz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.na.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.nc.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ne.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.nf.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ng.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ni.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.nl.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.no.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.np.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.nr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.nu.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.nz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.om.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pa.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pe.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pf.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ph.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pl.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ps.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pt.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.pw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.py.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.qa.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.re.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ro.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.rs.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ru.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.rw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sa.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sb.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sc.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sd.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.se.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sh.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.si.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sj.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sl.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.so.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ss.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.st.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sv.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sx.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sy.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.sz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ta.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tc.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.td.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.th.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tj.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tk.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tl.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.to.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tr.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tt.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tv.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tw.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.tz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ua.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ug.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.us.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.uy.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.uz.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.va.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.vc.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ve.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.vg.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.vi.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.vn.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.vu.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.wf.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ws.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.ye.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.yt.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.za.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.zm.js" />
+    <Content Include="bower_components\cleave.js\dist\addons\cleave-phone.zw.js" />
+    <Content Include="bower_components\cleave.js\dist\cleave-angular.js" />
+    <Content Include="bower_components\cleave.js\dist\cleave-angular.min.js" />
+    <Content Include="bower_components\cleave.js\dist\cleave-react.js" />
+    <Content Include="bower_components\cleave.js\dist\cleave-react.min.js" />
+    <Content Include="bower_components\cleave.js\dist\cleave.js" />
+    <Content Include="bower_components\cleave.js\dist\cleave.min.js" />
+    <Content Include="bower_components\cleave.js\react.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ac.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ad.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ae.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.af.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ag.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ai.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.al.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.am.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ao.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ar.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.as.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.at.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.au.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.aw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ax.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.az.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ba.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bb.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bd.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.be.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bf.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bh.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bi.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bj.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bl.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bo.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bq.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.br.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bs.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bt.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.by.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.bz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ca.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cc.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cd.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cf.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ch.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ci.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ck.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cl.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.co.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cu.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cv.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cx.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cy.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.cz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.de.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.dj.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.dk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.dm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.do.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.dz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ec.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ee.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.eg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.eh.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.er.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.es.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.et.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.fi.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.fj.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.fk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.fm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.fo.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.fr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ga.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gb.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gd.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ge.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gf.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gh.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gi.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gl.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gp.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gq.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gt.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gu.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.gy.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.hk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.hn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.hr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ht.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.hu.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.i18n.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.id.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ie.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.il.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.im.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.in.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.io.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.iq.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ir.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.is.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.it.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.je.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.jm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.jo.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.jp.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ke.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.kg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.kh.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ki.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.km.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.kn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.kp.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.kr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.kw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ky.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.kz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.la.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.lb.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.lc.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.li.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.lk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.lr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ls.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.lt.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.lu.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.lv.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ly.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ma.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mc.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.md.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.me.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mf.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mh.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ml.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mo.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mp.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mq.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ms.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mt.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mu.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mv.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mx.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.my.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.mz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.na.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.nc.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ne.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.nf.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ng.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ni.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.nl.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.no.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.np.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.nr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.nu.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.nz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.om.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pa.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pe.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pf.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ph.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pl.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ps.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pt.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.pw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.py.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.qa.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.re.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ro.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.rs.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ru.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.rw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sa.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sb.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sc.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sd.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.se.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sh.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.si.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sj.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sl.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.so.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ss.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.st.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sv.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sx.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sy.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.sz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ta.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tc.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.td.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.th.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tj.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tk.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tl.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.to.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tr.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tt.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tv.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tw.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.tz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ua.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ug.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.us.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.uy.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.uz.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.va.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.vc.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ve.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.vg.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.vi.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.vn.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.vu.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.wf.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ws.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.ye.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.yt.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.za.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.zm.js" />
+    <Content Include="bower_components\cleave.js\src\addons\phone-type-formatter.zw.js" />
+    <Content Include="bower_components\cleave.js\src\build\license.txt" />
+    <Content Include="bower_components\cleave.js\src\Cleave.angular.js" />
+    <Content Include="bower_components\cleave.js\src\Cleave.js" />
+    <Content Include="bower_components\cleave.js\src\Cleave.react.js" />
+    <Content Include="bower_components\cleave.js\src\common\DefaultProperties.js" />
+    <Content Include="bower_components\cleave.js\src\shortcuts\CreditCardDetector.js" />
+    <Content Include="bower_components\cleave.js\src\shortcuts\DateFormatter.js" />
+    <Content Include="bower_components\cleave.js\src\shortcuts\NumeralFormatter.js" />
+    <Content Include="bower_components\cleave.js\src\shortcuts\PhoneFormatter.js" />
+    <Content Include="bower_components\cleave.js\src\utils\Util.js" />
+    <Content Include="bower_components\pivottable\dist\c3_renderers.js" />
+    <Content Include="bower_components\pivottable\dist\c3_renderers.min.js" />
+    <Content Include="bower_components\pivottable\dist\d3_renderers.js" />
+    <Content Include="bower_components\pivottable\dist\d3_renderers.min.js" />
+    <Content Include="bower_components\pivottable\dist\export_renderers.js" />
+    <Content Include="bower_components\pivottable\dist\export_renderers.min.js" />
+    <Content Include="bower_components\pivottable\dist\gchart_renderers.js" />
+    <Content Include="bower_components\pivottable\dist\gchart_renderers.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.cs.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.cs.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.css" />
+    <Content Include="bower_components\pivottable\dist\pivot.da.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.da.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.de.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.de.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.es.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.es.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.fr.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.fr.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.it.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.it.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.jp.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.jp.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.min.css" />
+    <Content Include="bower_components\pivottable\dist\pivot.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.nl.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.nl.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.pl.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.pl.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.pt.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.pt.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.ru.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.ru.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.sq.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.sq.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.tr.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.tr.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.zh.js" />
+    <Content Include="bower_components\pivottable\dist\pivot.zh.min.js" />
+    <Content Include="bower_components\pivottable\dist\pivot_spec.js" />
+    <Content Include="bower_components\pivottable\dist\pivot_spec.min.js" />
+    <Content Include="bower_components\pivottable\dist\plotly_renderers.js" />
+    <Content Include="bower_components\pivottable\dist\plotly_renderers.min.js" />
+    <Content Include="bower_components\pivottable\dist\tips_data.min.js" />
+    <Content Include="bower_components\pivottable\images\animation.gif" />
+    <Content Include="bower_components\pivottable\images\cdnjs.svg" />
+    <Content Include="bower_components\pivottable\images\filters.png" />
+    <Content Include="bower_components\pivottable\images\gender_age_bins.png" />
+    <Content Include="bower_components\pivottable\images\gender_imbalance.png" />
+    <Content Include="bower_components\pivottable\images\gender_imbalance_instructions.png" />
+    <Content Include="bower_components\pivottable\images\initial_state.png" />
+    <Content Include="bower_components\pivottable\images\license.svg" />
+    <Content Include="bower_components\pivottable\images\npm.svg" />
+    <Content Include="bower_components\pivottable\images\province_x_party_heatmap.png" />
+    <Content Include="bower_components\pivottable\images\province_x_party_heatmap_instructions.png" />
+    <Content Include="bower_components\pivottable\images\simple.png" />
+    <Content Include="bower_components\pivottable\images\simple_ui.png" />
+    <Content Include="bower_components\pivottable\images\tests.svg" />
+    <Content Include="bower_components\pivottable\images\whats_what.png" />
+    <Content Include="Content\BackgroundLogin.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ezutils\ezgrid.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\grid-0.4.5.css" />
+    <Content Include="Content\grid-0.4.5.min.css" />
+    <Content Include="Content\grid\core.css" />
+    <Content Include="Content\grid\core.min.css" />
+    <Content Include="Content\grid\grid.css" />
+    <Content Include="Content\grid\grid.min.css" />
+    <Content Include="Content\images\company_logo.png" />
+    <Content Include="Content\images\dropdown-arrow.png" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\images\field_calendar.png" />
+    <Content Include="Content\images\form_sheetbg.png" />
+    <Content Include="Content\images\logoFooter.png" />
+    <Content Include="Content\images\logoHeader.png" />
+    <Content Include="Content\images\prueba-tipologia\ventana01.png" />
+    <Content Include="Content\images\prueba-tipologia\ventana02.png" />
+    <Content Include="Content\images\prueba-tipologia\ventana03.png" />
+    <Content Include="Content\images\prueba-tipologia\ventanaPv2High.png" />
+    <Content Include="Content\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\presupuesto-datatable.css" />
+    <Content Include="Content\searchbox.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="GestionComercialWebDataSet.xsc">
+      <DependentUpon>GestionComercialWebDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="bower_components\cleave.js\.bower.json" />
+    <Content Include="bower_components\cleave.js\bower.json" />
+    <Content Include="bower_components\cleave.js\codacy.json" />
+    <Content Include="bower_components\cleave.js\LICENSE" />
+    <Content Include="bower_components\pivottable\src\c3_renderers.coffee" />
+    <Content Include="bower_components\pivottable\src\d3_renderers.coffee" />
+    <Content Include="bower_components\pivottable\src\export_renderers.coffee" />
+    <Content Include="bower_components\pivottable\src\gchart_renderers.coffee" />
+    <Content Include="bower_components\pivottable\src\pivot.coffee" />
+    <Content Include="bower_components\pivottable\src\plotly_renderers.coffee" />
+    <Content Include="bower_components\pivottable\dist\c3_renderers.js.map" />
+    <Content Include="bower_components\pivottable\dist\c3_renderers.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\d3_renderers.js.map" />
+    <Content Include="bower_components\pivottable\dist\d3_renderers.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\export_renderers.js.map" />
+    <Content Include="bower_components\pivottable\dist\export_renderers.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\gchart_renderers.js.map" />
+    <Content Include="bower_components\pivottable\dist\gchart_renderers.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.cs.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.cs.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.da.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.da.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.de.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.de.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.es.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.es.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.fr.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.fr.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.it.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.it.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.jp.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.jp.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.nl.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.nl.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.pl.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.pl.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.pt.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.pt.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.ru.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.ru.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.sq.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.sq.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.tr.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.tr.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.zh.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot.zh.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot_spec.js.map" />
+    <Content Include="bower_components\pivottable\dist\pivot_spec.min.js.map" />
+    <Content Include="bower_components\pivottable\dist\plotly_renderers.js.map" />
+    <Content Include="bower_components\pivottable\dist\plotly_renderers.min.js.map" />
+    <Content Include="bower_components\pivottable\locales\pivot.cs.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.da.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.de.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.es.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.fr.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.it.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.jp.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.nl.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.pl.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.pt.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.ru.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.sq.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.tr.coffee" />
+    <Content Include="bower_components\pivottable\locales\pivot.zh.coffee" />
+    <Content Include="bower_components\pivottable\bower.json" />
+    <Content Include="bower_components\pivottable\.bower.json" />
+    <Content Include="bower_components\pivottable\LICENSE.md" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="GestionComercialWebDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GestionComercialWebDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="GestionComercialWebDataSet.xss">
+      <DependentUpon>GestionComercialWebDataSet.xsd</DependentUpon>
+    </Content>
+    <Content Include="RegisterCeyaEventSource.reg" />
+    <None Include="Properties\PublishProfiles\GestionComercial.pubxml" />
+    <None Include="Properties\PublishProfiles\Produccion.pubxml" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Scripts\ezutils\ez-breadcrumb.js" />
+    <Content Include="Scripts\ezutils\ezgridjs.js" />
+    <Content Include="Scripts\ezutils\ezhelpers.js" />
+    <Content Include="Scripts\ezutils\numeraljs-locale-es.js" />
+    <Content Include="Scripts\grid-0.4.5.js" />
+    <Content Include="Scripts\grid-0.4.5.min.js" />
+    <Content Include="Scripts\grid\core.js" />
+    <Content Include="Scripts\grid\core.min.js" />
+    <Content Include="Scripts\grid\grid.js" />
+    <Content Include="Scripts\grid\grid.min.js" />
+    <Content Include="Scripts\dropzone\basic.css" />
+    <Content Include="Scripts\dropzone\basic.min.css" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.min.js" />
+    <Content Include="Scripts\dropzone\dropzone.css" />
+    <Content Include="Scripts\dropzone\dropzone.js" />
+    <Content Include="Scripts\dropzone\dropzone.min.css" />
+    <Content Include="Scripts\dropzone\dropzone.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui-i18n.js" />
+    <Content Include="Scripts\jquery-ui-i18n.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jqueryuivsbootstrap-fix.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\numeral\numeral.js" />
+    <Content Include="Scripts\numeral\numeral.min.js" />
+    <Content Include="Scripts\popper-utils.js" />
+    <Content Include="Scripts\popper-utils.min.js" />
+    <Content Include="Scripts\popper.js" />
+    <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\presupuestos\funcionalidad-excel.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\umd\popper-utils.js" />
+    <Content Include="Scripts\umd\popper-utils.min.js" />
+    <Content Include="Scripts\umd\popper.js" />
+    <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_noSheetLayout.cshtml" />
+    <Content Include="Views\Shared\_sheetLayout.cshtml" />
+    <Content Include="Views\Presupuesto\Form.cshtml" />
+    <Content Include="Views\Presupuesto\Delete.cshtml" />
+    <Content Include="Views\Presupuesto\Details.cshtml" />
+    <Content Include="Views\Presupuesto\Edit.cshtml" />
+    <Content Include="Views\Presupuesto\Index.cshtml" />
+    <Content Include="Views\Cliente\Delete.cshtml" />
+    <Content Include="Views\Cliente\Edit.cshtml" />
+    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Obra\Create.cshtml" />
+    <Content Include="Views\Obra\Edit.cshtml" />
+    <Content Include="Views\Obra\Index.cshtml" />
+    <Content Include="Views\Rubro\Create.cshtml" />
+    <Content Include="Views\Rubro\Edit.cshtml" />
+    <Content Include="Views\Subrubro\UnidadMedida\Create.cshtml" />
+    <Content Include="Views\Subrubro\UnidadMedida\Delete.cshtml" />
+    <Content Include="Views\Subrubro\UnidadMedida\Edit.cshtml" />
+    <Content Include="Views\Precio\Create.cshtml" />
+    <Content Include="Views\Precio\Delete.cshtml" />
+    <Content Include="Views\Precio\Details.cshtml" />
+    <Content Include="Views\Precio\Edit1.cshtml" />
+    <Content Include="Views\Precio\Index.cshtml" />
+    <Content Include="Views\ListaPrecio\Index.cshtml" />
+    <Content Include="Views\Presupuesto\HtmlFilaDeItem.cshtml" />
+    <Content Include="Views\Presupuesto\HtmlCamposDeItem.cshtml" />
+    <Content Include="Views\Shared\_BreadcrumbPartial.cshtml" />
+    <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\Presupuesto\List.cshtml" />
+    <Content Include="Views\Constructora\Create.cshtml" />
+    <Content Include="Views\Constructora\Delete.cshtml" />
+    <Content Include="Views\Constructora\Edit.cshtml" />
+    <Content Include="Views\Constructora\Index.cshtml" />
+    <Content Include="Views\Constructora\_Delete.cshtml" />
+    <Content Include="Views\Cliente\_Delete.cshtml" />
+    <Content Include="Views\Subrubro\UnidadMedida\_Delete.cshtml" />
+    <Content Include="Views\Cliente\Lookup.cshtml" />
+    <Content Include="Views\Clase\_Delete.cshtml" />
+    <Content Include="Views\Clase\Create.cshtml" />
+    <Content Include="Views\Clase\Edit.cshtml" />
+    <Content Include="Views\Subrubro\_Delete.cshtml" />
+    <Content Include="Views\Subrubro\Create.cshtml" />
+    <Content Include="Views\Subrubro\Edit.cshtml" />
+    <Content Include="Views\Clase\Lookup.cshtml" />
+    <Content Include="Views\Color\_Delete.cshtml" />
+    <Content Include="Views\Color\Create.cshtml" />
+    <Content Include="Views\Color\Edit.cshtml" />
+    <Content Include="Views\Color\Lookup.cshtml" />
+    <Content Include="Views\Clase\_DeleteClaseColor.cshtml" />
+    <Content Include="Views\Color\List.cshtml" />
+    <Content Include="Views\Clase\List.cshtml" />
+    <Content Include="Views\Subrubro\List.cshtml" />
+    <Content Include="Views\Rubro\List.cshtml" />
+    <Content Include="Views\Rubro\_Delete.cshtml" />
+    <Content Include="Views\Subrubro\Lookup.cshtml" />
+    <Content Include="Views\Rubro\_DeleteRubroSubrubro.cshtml" />
+    <Content Include="Views\Subrubro\UnidadMedida\List.cshtml" />
+    <Content Include="Views\Producto\List.cshtml" />
+    <Content Include="Views\Producto\Create.cshtml" />
+    <Content Include="Views\Producto\Edit.cshtml" />
+    <Content Include="Views\Producto\_Delete.cshtml" />
+    <Content Include="Views\ListaPrecio\List.cshtml" />
+    <Content Include="Views\ListaPrecio\Create.cshtml" />
+    <Content Include="Views\ListaPrecio\Edit.cshtml" />
+    <Content Include="Views\ListaPrecio\_Delete.cshtml" />
+    <Content Include="Views\Shared\_sheetBackgroundLayout.cshtml" />
+    <Content Include="Views\Producto\Lookup.cshtml" />
+    <Content Include="Views\Precio\Edit.cshtml" />
+    <Content Include="Views\Precio\_DeletePrecioProducto.cshtml" />
+    <Content Include="Views\TipoProducto\_Delete.cshtml" />
+    <Content Include="Views\TipoProducto\Create.cshtml" />
+    <Content Include="Views\TipoProducto\Edit.cshtml" />
+    <Content Include="Views\TipoProducto\List.cshtml" />
+    <Content Include="Views\RubroMaestro\_Delete.cshtml" />
+    <Content Include="Views\RubroMaestro\_DeleteRubroMaestroRubro.cshtml" />
+    <Content Include="Views\RubroMaestro\Create.cshtml" />
+    <Content Include="Views\RubroMaestro\Edit.cshtml" />
+    <Content Include="Views\RubroMaestro\List.cshtml" />
+    <Content Include="Views\Rubro\Lookup.cshtml" />
+    <Content Include="Views\Presupuesto\Form2.cshtml" />
+    <Content Include="Views\Color\_Validation.cshtml" />
+    <Content Include="Views\Clase\_Validation.cshtml" />
+    <Content Include="Views\Rubro\_Validation.cshtml" />
+    <Content Include="Views\Subrubro\_Validation.cshtml" />
+    <Content Include="Views\RubroMaestro\_Validation.cshtml" />
+    <Content Include="Views\Subrubro\UnidadMedida\_Validation.cshtml" />
+    <Content Include="Views\ListaPrecio\_Validation.cshtml" />
+    <Content Include="Views\TipoProducto\_Validation.cshtml" />
+    <Content Include="Views\Cliente\_Validation.cshtml" />
+    <Content Include="Views\Constructora\_Validation.cshtml" />
+    <Content Include="Views\Obra\_Delete.cshtml" />
+    <Content Include="Views\Obra\_Validation.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Registrar.cshtml" />
+    <Content Include="Views\PresupuestoSeguimiento\Create.cshtml" />
+    <Content Include="Views\PresupuestoSeguimiento\Lookup.cshtml" />
+    <Content Include="Views\PresupuestoSeguimiento\List.cshtml" />
+    <Content Include="Views\Presupuesto\CuboPresupuesto.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\umd\popper.min.js.map" />
+    <Content Include="Scripts\umd\popper.js.map" />
+    <Content Include="Scripts\umd\popper-utils.min.js.map" />
+    <Content Include="Scripts\umd\popper-utils.js.map" />
+    <Content Include="Scripts\README.md" />
+    <Content Include="Scripts\popper.min.js.map" />
+    <Content Include="Scripts\popper.js.map" />
+    <Content Include="Scripts\popper-utils.min.js.map" />
+    <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Contactos\Create.cshtml" />
+    <Content Include="Views\Contactos\Index.cshtml" />
+    <Content Include="Views\Constructora\Lookup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="ceya\Domain\Service\" />
+    <Folder Include="Views\Archivo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ceya.Application.Service\ceya.Domain.Service.csproj">
+      <Project>{241D7B54-5D99-450F-956A-0229C06B2FAF}</Project>
+      <Name>ceya.Domain.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Core\ceya.Core.csproj">
+      <Project>{82b2639d-dcf7-412e-bd68-6077ae7aaa84}</Project>
+      <Name>ceya.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Domain.Repository\ceya.Domain.Repository.csproj">
+      <Project>{FA358F79-3CFE-4E01-84D9-F51DDEDAA011}</Project>
+      <Name>ceya.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Infrastructure.DataAccess\ceya.Infrastructure.DataAccess.csproj">
+      <Project>{C4A40008-98A7-43C6-8E5C-B37E49D527BF}</Project>
+      <Name>ceya.Infrastructure.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Infrastructure.Repository\ceya.Infrastructure.Repository.csproj">
+      <Project>{A8C17166-930F-44A2-B858-458C46CD555B}</Project>
+      <Name>ceya.Infrastructure.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Infrastructure.Service\ceya.Infrastructure.Service.csproj">
+      <Project>{C44CF167-F085-46FC-AB21-E1387F8CB915}</Project>
+      <Name>ceya.Infrastructure.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Model\ceya.Domain.Model.csproj">
+      <Project>{e82ebac6-4119-44f8-b45a-49c99cda812e}</Project>
+      <Name>ceya.Domain.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Web.Core\ceya.Web.Core.csproj">
+      <Project>{b88f2e4e-4257-4a93-ba1c-dfc7b0e86b01}</Project>
+      <Name>ceya.Web.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Word">
+      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>8</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\PresupuestoReport.rdlc">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50546</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50546/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

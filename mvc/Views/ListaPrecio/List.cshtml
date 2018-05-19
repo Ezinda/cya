@@ -1,0 +1,234 @@
+﻿@model mvc.ViewModels.ListaPrecioPageViewModel
+@{
+    ViewBag.Title = "Lista de Precio";
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchListaPrecio" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                    <button id="btnSearchListaPrecio" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="listaPrecioEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <label>Productos asociados a la Lista de Precio seleccionada</label>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12" style="margin-bottom: 100px;">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="listaPrecioProductoEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/ezgridjs")
+    <script>
+        $(function () {
+
+            EzHeader.breadcrumbItem = {
+                label: "Lista de Precio"
+            };
+            EzHeader.collapse = {
+                id: "#collapseTwo"
+            };
+            EzHeader.buttons = [
+                {
+                    label: "Nueva Lista",
+                    type: "buttonHighlight",
+                    action: function () {
+                        $('#crudContent').load("@Url.Action("Create")", function () {
+                            $('#crudModal').modal({
+                                keyboard: true
+                            }, 'show');
+
+                            bindForm(this);
+                        });
+                        return false;
+                    }
+                },
+            ];
+            EzHeader.show();
+
+            var $gridListaPrecio = $("#listaPrecioEzGrid").ezGrid({
+                dataSource: "@Url.Action("List")",
+                params: {
+                    filterBy: "@Model.FilterByString",
+                    searchString: "@Model.SearchString"
+                },
+                defaultParams: {
+                    sortBy: "sortBy",
+                    direction: "direction",
+                    page: "page",
+                    limit: "pageSize"
+                },
+                mapping: {
+                    dataField: "Records",
+                    totalRecordsField: "Total"
+                },
+                primaryKey: 'ListaPrecioId',
+                dataKey: "Id",
+                columns: [
+                    { field: "Id", hidden: true },
+                    { field: "Codigo", title: "Código", sortable: true },
+                    { field: "Nombre", title: "Nombre", sortable: true },
+                    { field: "Activo", title: "Activa", sortable: true },
+                    { title: "Editar", field: "Editar", width: 60, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Editar", events: { "click": Edit } },
+                    { title: "Eliminar", field: "Eliminar", width: 60, type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Eliminar", events: { "click": Delete } },
+                    { title: "Producto", field: "Producto", width: 60, type: "icon", icon: "ui-icon-search", align: 'center', tooltip: "Asignar", events: { "click": SearchProducto } }
+                ],
+                pager: { enable: true, limit: 5, sizes: [2, 5, 10, 20] },
+                rowNum: 15,
+                rowList: [15, 50, 100]
+            });
+
+            var $gridListaPrecioProducto = $("#listaPrecioProductoEzGrid").ezGrid({
+                dataKey: "Id",
+                dataSource: '@Url.Action("GetProductoPrecioRelacionados", "Precio")',
+                autoLoad: false,
+
+                mapping: {
+                    dataField: "Records",
+                    totalRecordsField: "Total"
+                },
+                columns: [
+                    { field: "Id", sortable: true, hidden: true },
+                    { field: "CodigoCompuesto", width: 120, sortable: true },
+                    { field: "Descripcion", width: 400, sortable: true },
+                    { field: "Rubro", width: 400, sortable: true },
+                    { field: "Subrubro", width: 400, sortable: true },
+                    { field: "Desde", width: 400, sortable: true },
+                    { field: "Hasta", width: 400, sortable: true },
+                    { field: "Precio", width: 400, sortable: true, align: 'right'},
+                    { title: "Precio", field: "Precio", width: 60, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Precio", events: { "click": AsignarPrecio } },
+                    { title: "Quitar", field: "Quitar", width: 60, type: "icon", type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Quitar", events: { "click": QuitarAsignacion } }
+                ],
+                pager: { enable: true, limit: 5, sizes: [2, 5, 10, 20] },
+                rowNum: 15,
+                rowList: [15, 50, 100]
+            });
+
+            $gridListaPrecio.on('rowSelect', function (e, $row, id, record) {
+                $gridListaPrecioProducto.reload({ page: 1, ListaPrecioId: id });
+                listaPrecioId = id;
+            });
+
+            $('#btnSearchListaPrecio').on('click', function () {
+                $gridListaPrecio.reload({ page: 1, searchString: $("#searchListaPrecio").val() });
+            });
+        });
+
+        function Edit(e) {
+            var url = "@Url.Action("Edit")?";
+
+            $.get(url, { id: e.data.id }, function (data) {
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function Delete(e) {
+            var url = "@Url.Action("ConfirmDelete")?";
+
+            $.get(url, { id: e.data.id }, function (data) {
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function SearchProducto(e) {
+            var listaPrecioId = e.data.id;
+            SelectProducto(listaPrecioId);
+        }
+
+         function AsignarPrecio(e) {
+
+            var url = "@Url.Action("Edit","Precio")?";
+
+            $.get(url, { PrecioId: e.data.id }, function (data) {
+
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function QuitarAsignacion(e) {
+
+            var url = "@Url.Action("QuitarAsignacion","Precio")?";
+
+            $.get(url, { Id: e.data.id }, function (data) {
+
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function bindForm(dialog) {
+            $('form', dialog).submit(function () {
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        alert(result.success);
+                        if (result.success) {
+                            $('#crudModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#crudModal').html(result);
+                            bindForm();
+                        }
+                    }
+                });
+                return false;
+            });
+        };
+
+    </script>
+}

@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Ce&A</title>
+    <link rel="shortcut icon" href="~/Content/images/favicon.ico" type="image/x-icon" />
+    @Styles.Render("~/Content/css")
+    @RenderSection("styles", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+    *@
+    <div class="ez_container">
+        <table class="ez_table_layout">
+            <tbody>
+                <tr>
+                    <!--Columna: Sidebar-->
+                    <td class="ez_table_layout_sidebar">
+                        <div class="ez_table_layout_sidebar_layout">
+                            <div class="ez_sidebar_row">
+                                <a class="ez_logo_container" href="@Url.Action("Index", "Home")">
+                                    <span class="ez_logo_edit">Editar información</span>
+                                    <img src="@Url.Content("~/Content/images/company_logo.png")">
+                                </a>
+                            </div>
+                            <div class="ez_sidebar_row">
+                                <div class="ez_sidebar_row_menu">
+                                    <div class="ez_sidebar_row_menu_container">
+                                        <div class="panel-group" id="accordion">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                            <span class="glyphicon glyphicon-folder-close">
+                                                            </span>Módulos
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Presupuesto")">Gestión de Presupuestos</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                                            <span class="glyphicon glyphicon-th">
+                                                            </span>Maestros
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Cliente")">Clientes</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Obra")">Obras</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Constructora")">Constructora - Estudio</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Contactos")">Contactos</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Producto")">Productos</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "TipoProducto")">Tipos de Productos</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "ListaPrecio")">Lista de Precios</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "UnidadMedida")">Unidades de Medida</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "RubroMaestro")">Rubros Primarios</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Rubro")">Rubros Secundarios</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Subrubro")">Subrubro</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Clase")">Clases</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("Index", "Color")">Colores</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                            <span class="glyphicon glyphicon-user">
+                                                            </span>Account
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="http://www.jquery2dotnet.com">Change Password</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="http://www.jquery2dotnet.com">Notifications</a> <span class="label label-info">5</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="http://www.jquery2dotnet.com">Import/Export</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="glyphicon glyphicon-trash text-danger"></span><a href="http://www.jquery2dotnet.com" class="text-danger">
+                                                                        Delete Account
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                            <span class="glyphicon glyphicon-file">
+                                                            </span>Reportes
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        <table class="table">
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="@Url.Action("CuboPresupuesto", "Presupuesto")">Cubo de Presupuestos</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ez_sidebar_row">
+                                <div class="ez_poweredby_container">
+                                    Impulsado por <a class="bylink" href="#" target="_blank">EZiNDA S.A.</a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!--Columna: View-->
+                    <td class="ez_table_layout_view">
+                        <div class="ez_view">
+                            @Html.Partial("~/Views/Shared/_BreadcrumbPartial.cshtml")
+                            <div class="ez_view_body">
+                                <div class="ez_view_body_layout">
+                                    <div id="body-container" class="ez_view_body_layout_container">
+                                        @RenderBody()
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="crudModal" tabindex="-1" role="dialog"
+         aria-labelledby="crudLabel" data-keyboard="false" 
+         data-backdrop="static" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id='crudContent'></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="lookupModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" data-keyboard="false" 
+         data-backdrop="static"
+         aria-hidden="true">
+
+        <div class="modal-body">
+            <div class="modal-content">
+                <div id='lookupModalContent'></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="lookupValidationModal" tabindex="-1" role="dialog" 
+         aria-labelledby="myModalLabel" data-keyboard="false" 
+         data-backdrop="static"
+         aria-hidden="true">
+       
+        <div class="modal-body" >
+            <div class="modal-content">
+                <div id='lookupValidationContent'></div>
+            </div>
+        </div>        
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/cleavejs")
+    @Scripts.Render("~/bundles/numeraljs")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/ezutils")
+
+    <script>
+        /**
+        DEFAULTS
+        */
+        numeral.locale('es');
+
+        $(function () {
+            $.datepicker.setDefaults({
+                dateFormat: "dd/mm/yy",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+
+            //$(document).on('click', '.panel-collapse.collapse.in', function (e) {
+            //    alert(e.target);
+            //    $(e.target).collapse('hide');
+               
+            //});
+        })
+
+        /**
+         * LOOKUP CLIENTE y Constructora
+         */
+        function SearchCliente() {
+            var url = "@Url.Action("Lookup","Cliente")";
+            $.get(url, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        function SearchConstructora() {
+            var url = "@Url.Action("Lookup","Constructora")";
+            $.get(url, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        function selectCliente(ClienteId, ClienteNombre) {
+            $("#ClienteId").val(ClienteId);
+            $("#ClienteId_autocomplete").val(ClienteNombre);
+            $("#searchClienteClose").trigger("click");
+        };
+
+        function selectConstrucrtora(ConstructoraId, ConstructoraNombre) {
+            $("#ConstructoraId").val(ConstructoraId);
+            $("#ConstructoraId_autocomplete").val(ConstructoraNombre);
+            $("#searchConstructoraClose").trigger("click");
+        };
+
+        function RemoveCliente() {
+            $("#ClienteId").val('');
+            $("#Cliente").val('');
+        }
+
+        function RemoveConstructora() {
+            $("#ConstructoraId").val('');
+            $("#Constructora").val('');
+        }
+
+        function ValidationDeleteCliente(postData) {
+            var url = "@Url.Action("ValidationDeleteCliente", "Cliente")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+         * LOOKUP CLASE
+         */
+        function SearchClase() {
+            var url = "@Url.Action("Lookup","Clase")";
+            $.get(url, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        function selectClase(ClaseId, Clase) {
+            $("#ClaseId").val(ClaseId);
+            $("#Clase").val(Clase);
+            $("#searchClaseCloselookup").trigger("click");
+        };
+
+        function RemoveClase() {
+            $("#ClaseId").val('');
+            $("#Clase").val('');
+        }
+
+        function ValidationDeleteClase(postData) {
+            var url = "@Url.Action("ValidationDeleteClase", "Clase")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+         * LOOKUP COLOR
+         */
+        function SelectColor(ClaseId) {
+            var url = "@Url.Action("Lookup","Color")";
+            $.get(url, { 'ClaseId': ClaseId }, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        function ValidationDeleteColor(postData) {
+            var url = "@Url.Action("ValidationDeleteColor", "Color")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+         * LOOKUP SUBRUBRO
+         */
+        function SelectSubrubro(RubroId) {
+            var url = "@Url.Action("Lookup","Subrubro")";
+            $.get(url, { 'RubroId': RubroId }, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        function ValidationDeleteSubrubro(postData) {
+            var url = "@Url.Action("ValidationDeleteSubrubro", "Subrubro")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+         * LOOKUP PRODUCTOS
+         */
+        function SelectProducto(ListaPrecioId) {
+            var url = "@Url.Action("Lookup","Producto")";
+            $.get(url, { 'ListaPrecioId': ListaPrecioId }, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+         * LOOKUP RUBRO
+         */
+        function SelectRubro(RubroMaestroId) {
+            var url = "@Url.Action("Lookup","Rubro")";
+            $.get(url, { 'RubroMaestroId': RubroMaestroId }, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        function ValidationDeleteRubro(postData) {
+            var url = "@Url.Action("ValidationDeleteRubro", "Rubro")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+        * LOOKUP RUBRO MAESTRO
+        */
+        function ValidationDeleteRubroMaestro(postData) {
+            var url = "@Url.Action("ValidationDeleteRubroMaestro", "RubroMaestro")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+        * LOOKUP UNIDAD MEDIDA
+        */
+        function ValidationDeleteUnidad(postData) {
+            var url = "@Url.Action("ValidationDeleteUnidad", "UnidadMedida")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+        * LOOKUP LISTA PRECIO
+        */
+        function ValidationDeleteListaPrecio(postData) {
+            var url = "@Url.Action("ValidationDeleteListaPrecio", "ListaPrecio")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+        * LOOKUP TIPO PRODUCTO
+        */
+        function ValidationDeleteTipoProducto(postData) {
+            var url = "@Url.Action("ValidationDeleteTipoProducto", "TipoProducto")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+        * LOOKUP CONSTRUCTORA
+        */
+        function ValidationDeleteConstructora(postData) {
+            var url = "@Url.Action("ValidationDeleteConstructora", "Constructora")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+        * LOOKUP OBRA
+        */
+        function ValidationDeleteObra(postData) {
+            var url = "@Url.Action("ValidationDeleteObra", "Obra")";
+            $.get(url, { 'id': postData.Id }, function (result) {
+                $("#lookupValidationContent").html(result);
+                $('#lookupValidationModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+        /**
+        * LOOKUP HISTORIAL SEGUIMIENTO
+        */
+        function HistorialSeguimiento(PresupuestoId) {
+            var url = "@Url.Action("Lookup","PresupuestoSeguimiento")";
+            $.get(url, { 'PresupuestoId': PresupuestoId }, function (result) {
+                $("#lookupModalContent").html(result);
+                $('#lookupModal').modal({
+                    keyboard: true
+                }, 'show');
+            });
+        };
+
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

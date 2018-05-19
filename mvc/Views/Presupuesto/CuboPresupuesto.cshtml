@@ -1,0 +1,33 @@
+﻿@model mvc.ViewModels.PresupuestoPageViewModel
+@{
+    ViewBag.Title = "Listado de Presupuestos";
+}
+
+<div class="grid-layout">
+    <div id="output"></div>
+</div>
+
+@section styles {
+@Styles.Render("~/Content/css/ezgrid")
+@Styles.Render("~/bundles/pivotcss")
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/ezgridjs")
+
+@Scripts.Render("~/bundles/pivotjs")
+    <script>
+        $(function () {
+            EzHeader.collapse = {
+                id: "#collapseThree"
+            };
+            $.ajax({
+                method: "GET",
+                url: "@Url.Action("Obtener")",
+                success: function (data) {
+                    $("#output").pivotUI(data.data, {},false,"es");
+                }
+            });
+        });
+    </script>
+}

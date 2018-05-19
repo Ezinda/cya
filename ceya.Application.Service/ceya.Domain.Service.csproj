@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{241D7B54-5D99-450F-956A-0229C06B2FAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ceya.Application.Service</RootNamespace>
+    <AssemblyName>ceya.Application.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X.PagedList">
+      <HintPath>..\mvc\Bin\X.PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IArchivoService.cs" />
+    <Compile Include="IColorService.cs" />
+    <Compile Include="IConstructoraService.cs" />
+    <Compile Include="IClienteService.cs" />
+    <Compile Include="IContactoService.cs" />
+    <Compile Include="IListaPrecioService.cs" />
+    <Compile Include="IMonedaService.cs" />
+    <Compile Include="IObraService.cs" />
+    <Compile Include="IPrecioService.cs" />
+    <Compile Include="IPresupuestoCategoriaService.cs" />
+    <Compile Include="IPresupuestoEstadoService.cs" />
+    <Compile Include="IPresupuestoItemService.cs" />
+    <Compile Include="IPresupuestoSeguimientoService.cs" />
+    <Compile Include="IPresupuestoService.cs" />
+    <Compile Include="IProductoService.cs" />
+    <Compile Include="IRubroMaestroService.cs" />
+    <Compile Include="ITipoProductoService.cs" />
+    <Compile Include="ISubrubroService.cs" />
+    <Compile Include="IRubroService.cs" />
+    <Compile Include="ITipoDocumentoService.cs" />
+    <Compile Include="IClaseService.cs" />
+    <Compile Include="IUnidadMedidaService.cs" />
+    <Compile Include="IVWPrecioProductoService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ceya.Core\ceya.Core.csproj">
+      <Project>{82b2639d-dcf7-412e-bd68-6077ae7aaa84}</Project>
+      <Name>ceya.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Model\ceya.Domain.Model.csproj">
+      <Project>{E82EBAC6-4119-44F8-B45A-49C99CDA812E}</Project>
+      <Name>ceya.Domain.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

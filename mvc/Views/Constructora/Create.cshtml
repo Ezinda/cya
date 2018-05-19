@@ -1,0 +1,182 @@
+﻿@model mvc.ViewModels.ConstructoraFormModel
+
+@{
+    ViewBag.Title = "Nueva Constructora";
+    // Layout = "~/Views/Shared/_NosheetLayout.cshtml";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Nueva Constructora</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+<div class="modal-body">
+    <div class="grid-layout">
+             <div class="grid-row">
+                 <div class="grid-col-2"></div>
+                 <div class="grid-col-8">
+                     <input id="@Html.IdFor(x => x.Id)" type="hidden">
+                     <div class="ez_form_group">
+                         <div class="ez_form_col">
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.RazonSocial)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.RazonSocial)" type="text" />
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Apellido)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Apellido)" type="text" />
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Nombre)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Nombre)" type="text" />
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     <label>@Html.LabelFor(x => x.TipoDocumentoId)</label>
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <!--Autocomplete-->
+                                     <input type="hidden" id="@Html.IdFor(x => x.TipoDocumentoId)">
+                                     <div class="autocomplete-control ui-front">
+                                         <input id="tipoDocumentoId_autocomplete" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                         <span class="dropdown_button" id="tipoDocumentoId_dropdown">
+                                             <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                         </span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Documento)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Documento)" type="text" />
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Domicilio)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Domicilio)" type="text" />
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Telefono)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Telefono)" type="text" />
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Celular)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Celular)" type="text" />
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Email)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Email)" type="text" />
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="grid-col-2"></div>
+             </div>
+         </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+    <script>
+        //$("form").removeData("validator");
+        //$("form").removeData("unobtrusiveValidation");
+        //$.validator.unobtrusive.parse("form");
+
+        $(function () {
+
+            $( "#save" ).click(function() {
+                submitForm();
+            });
+
+            var TIPODOCUMENTO = [
+               @foreach (var item in Model.TipoDocumentos)
+            {
+                @:{ key: "@item.Value", value: "@String.Format("{0}", item.Text)" },
+                }
+            ];
+
+            [
+            {
+                hiddenElement: "#@Html.IdFor(x => x.TipoDocumentoId)",
+                autocompleteElement: "#tipoDocumentoId_autocomplete",
+                dropdownElement: "#tipoDocumentoId_dropdown",
+                source: TIPODOCUMENTO.concat([{ showSearch: false }])
+            },
+            ].forEach(function (item) {
+                initAutocomplete(
+                    $(item.hiddenElement),
+                    $(item.autocompleteElement),
+                    $(item.dropdownElement),
+                    item.source,
+                    item.onSelectCallbackHandle
+                );
+            });
+
+            function submitForm() {
+                let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+                let postData = {
+                    Id : $('#@Html.IdFor(x => x.Id)').val(),
+                    RazonSocial: $('#@Html.IdFor(x => x.RazonSocial)').val(),
+                    Apellido: $('#@Html.IdFor(x => x.Apellido)').val(),
+                    Nombre: $('#@Html.IdFor(x => x.Nombre)').val(),
+                    TipoDocumentoId: $('#@Html.IdFor(x => x.TipoDocumentoId)').val(),
+                    Documento: $('#@Html.IdFor(x => x.Documento)').val(),
+                    Domicilio: $('#@Html.IdFor(x => x.Domicilio)').val(),
+                    Telefono: $('#@Html.IdFor(x => x.Telefono)').val(),
+                    Celular: $('#@Html.IdFor(x => x.Celular)').val(),
+                    Email: $('#@Html.IdFor(x => x.Email)').val(),
+                };
+
+                postData.__RequestVerificationToken = antiForgeryToken;
+
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("Create")",
+                    data: postData,
+                success: function (data) {
+                    window.location.href = "@Url.Action("Index")";
+                }
+            });
+
+            }
+        });
+    </script>

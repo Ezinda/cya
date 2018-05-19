@@ -1,0 +1,22 @@
+﻿1>------ Operación Compilar iniciada: proyecto: ceya.Core, configuración: Debug Any CPU ------
+1>  ceya.Core -> C:\REPO\CeyaMvc-master\ceya.Core\bin\Debug\ceya.Core.dll
+2>------ Operación Compilar iniciada: proyecto: ceya.Domain.Model, configuración: Debug Any CPU ------
+2>  ceya.Domain.Model -> C:\REPO\CeyaMvc-master\ceya.Model\bin\Debug\ceya.Domain.Model.dll
+3>------ Operación Compilar iniciada: proyecto: ceya.Domain.Repository, configuración: Debug Any CPU ------
+4>------ Operación Compilar iniciada: proyecto: ceya.Infrastructure.DataAccess, configuración: Debug Any CPU ------
+5>------ Operación Compilar iniciada: proyecto: ceya.Domain.Service, configuración: Debug Any CPU ------
+6>------ Operación Compilar iniciada: proyecto: ceya.Web.Core, configuración: Debug Any CPU ------
+3>  ceya.Domain.Repository -> C:\REPO\CeyaMvc-master\ceya.Domain.Repository\bin\Debug\ceya.Domain.Repository.dll
+5>  ceya.Domain.Service -> C:\REPO\CeyaMvc-master\ceya.Application.Service\bin\Debug\ceya.Application.Service.dll
+6>  ceya.Web.Core -> C:\REPO\CeyaMvc-master\ceya.Web.Core\bin\Debug\ceya.Web.Core.dll
+4>  ceya.Infrastructure.DataAccess -> C:\REPO\CeyaMvc-master\ceya.Infrastructure.DataAccess\bin\Debug\ceya.Infrastructure.DataAccess.dll
+7>------ Operación Compilar iniciada: proyecto: ceya.Infrastructure.Repository, configuración: Debug Any CPU ------
+7>  ceya.Infrastructure.Repository -> C:\REPO\CeyaMvc-master\ceya.Infrastructure.Repository\bin\Debug\ceya.Infrastructure.Repository.dll
+8>------ Operación Compilar iniciada: proyecto: ceya.Infrastructure.Service, configuración: Debug Any CPU ------
+8>C:\REPO\CeyaMvc-master\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets(243,5): warning : All projects referencing ceya.Infrastructure.Repository.csproj must install nuget package Microsoft.Bcl.Build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317569.
+8>  ceya.Infrastructure.Service -> C:\REPO\CeyaMvc-master\ceya.Infrastructure.Service\bin\Debug\ceya.Infrastructure.Service.dll
+9>------ Operación Compilar iniciada: proyecto: mvc, configuración: Debug Any CPU ------
+9>C:\REPO\CeyaMvc-master\mvc\Controllers\PresupuestoSeguimientoController.cs(126,30,126,31): warning CS0168: La variable 'e' se ha declarado pero nunca se usa
+9>C:\REPO\CeyaMvc-master\mvc\Controllers\PresupuestoController.cs(2049,30,2049,32): warning CS0168: La variable 'ex' se ha declarado pero nunca se usa
+9>  mvc -> C:\REPO\CeyaMvc-master\mvc\bin\mvc.dll
+========== Compilar: 9 correctos, 0 incorrectos, 0 actualizados, 0 omitidos ==========

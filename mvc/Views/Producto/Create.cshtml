@@ -1,0 +1,259 @@
+﻿@model mvc.ViewModels.ProductoFormModel
+
+@{
+    ViewBag.Title = "Nuevo Producto";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Nuevo Producto</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-2"></div>
+        <div class="grid-col-8">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.CodigoProveedor)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.CodigoProveedor)" type="text" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Descripcion)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Descripcion)" type="text" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            <label>@Html.LabelFor(x => x.TipoProductoId)</label>
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <!--Autocomplete-->
+                            <input type="hidden" id="@Html.IdFor(x => x.TipoProductoId)">
+                            <div class="autocomplete-control ui-front">
+                                <input id="tipoProductoId_autocomplete" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                <span class="dropdown_button" id="tipoProductoId_dropdown">
+                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            <label>@Html.LabelFor(x => x.UnidadMedidaId)</label>
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <!--Autocomplete-->
+                            <input type="hidden" id="@Html.IdFor(x => x.UnidadMedidaId)">
+                            <div class="autocomplete-control ui-front">
+                                <input id="unidadId_autocomplete" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                <span class="dropdown_button" id="unidadId_dropdown">
+                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            <label>@Html.LabelFor(x => x.RubroMaestroId)</label>
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <!--Autocomplete-->
+                            <input type="hidden" id="@Html.IdFor(x => x.RubroMaestroId)">
+                            <div class="autocomplete-control ui-front">
+                                <input id="rubroMaestroId_autocomplete" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                <span class="dropdown_button" id="rubroMaestroId_dropdown">
+                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            <label>@Html.LabelFor(x => x.RubroId)</label>
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <!--Autocomplete-->
+                            <input type="hidden" id="@Html.IdFor(x => x.RubroId)">
+                            <div class="autocomplete-control ui-front">
+                                <input id="rubroId_autocomplete" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                <span class="dropdown_button" id="rubroId_dropdown">
+                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            <label>@Html.LabelFor(x => x.SubrubroId)</label>
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <!--Autocomplete-->
+                            <input type="hidden" id="@Html.IdFor(x => x.SubrubroId)">
+                            <div class="autocomplete-control ui-front">
+                                <input id="subrubroId_autocomplete" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                <span class="dropdown_button" id="subrubroId_dropdown">
+                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-2"></div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+<script>
+    $(function () {
+
+        $("#save").click(function () {
+            submitForm();
+        });
+
+        var TIPOPRODUCTO = [
+           @foreach (var item in Model.TipoProductos)
+        {
+            @:{ key: "@item.Value", value: "@String.Format("{0}", item.Text)" },
+            }
+        ];
+
+        var UNIDAD = [
+            @foreach (var item in Model.UnidadMedidas)
+            {
+                @:{ key: "@item.Value", value: "@String.Format("{0}", item.Text)" },
+            }
+        ];
+
+        [
+            {
+                hiddenElement: "#@Html.IdFor(x => x.TipoProductoId)",
+                autocompleteElement: "#tipoProductoId_autocomplete",
+                dropdownElement: "#tipoProductoId_dropdown",
+                source: TIPOPRODUCTO.concat([{ showSearch: false }])
+            },
+            {
+                hiddenElement: "#@Html.IdFor(x => x.UnidadMedidaId)",
+                autocompleteElement: "#unidadId_autocomplete",
+                dropdownElement: "#unidadId_dropdown",
+                source: UNIDAD.concat([{ showSearch: false }])
+            },
+        ].forEach(function (item) {
+            initAutocomplete(
+                $(item.hiddenElement),
+                $(item.autocompleteElement),
+                $(item.dropdownElement),
+                item.source,
+                item.onSelectCallbackHandle
+            );
+        });
+
+        [
+            {
+                hiddenElement: "#@Html.IdFor(x => x.RubroMaestroId)",
+                autocompleteElement: "#rubroMaestroId_autocomplete",
+                dropdownElement: "#rubroMaestroId_dropdown",
+                source: "@Url.Action("JsonAutocomplete", "RubroMaestro")",
+                onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                    $('#rubroId_autocomplete').attr('disabled', false);
+                    let $rubroHidden = $("#@Html.IdFor(x => x.RubroId)");
+                    let $rubroAutocomplete = $("#rubroId_autocomplete");
+                    updateAutocompleteBox("", "", $rubroHidden, $rubroAutocomplete);
+
+                    //$('#subrubroId_autocomplete').attr('disabled', true);
+                    let $subrubroHidden = $("#@Html.IdFor(x => x.SubrubroId)").text('');
+                    let $subrubroAutocomplete = $("#subrubroId_autocomplete").text('');
+                    updateAutocompleteBox("", "", $subrubroHidden, $subrubroAutocomplete);
+                },
+            },
+            {
+                hiddenElement: "#@Html.IdFor(x => x.RubroId)",
+                autocompleteElement: "#rubroId_autocomplete",
+                dropdownElement: "#rubroId_dropdown",
+                source: function(){
+                    let rubroMaestroId = $("#@Html.IdFor(x => x.RubroMaestroId)").val();
+                    return "@Url.Action("JsonAutocompleteRubrosRelacionados", "Rubro")" + "?" + "RubroMaestroId=" + rubroMaestroId
+                    let $subrubroHidden = $("#@Html.IdFor(x => x.SubrubroId)").text('');
+                    let $subrubroAutocomplete = $("#subrubroId_autocomplete").val('');
+                    updateAutocompleteBox("", "", $subrubroHidden, $subrubroAutocomplete);
+                },
+                onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                    $('#subrubroId_autocomplete').attr('disabled', false);
+                    let $subrubroHidden = $("#@Html.IdFor(x => x.SubrubroId)");
+                    let $subrubroAutocomplete = $("#subrubroId_autocomplete");
+                    updateAutocompleteBox("", "", $subrubroHidden, $subrubroAutocomplete);
+                }
+            },
+            {
+                hiddenElement: "#@Html.IdFor(x => x.SubrubroId)",
+                autocompleteElement: "#subrubroId_autocomplete",
+                dropdownElement: "#subrubroId_dropdown",
+                source: function () {
+                    let rubroId = $("#@Html.IdFor(x => x.RubroId)").val();
+                    return "@Url.Action("JsonAutocomplete", "Subrubro")" + "?" + "rubroId=" + rubroId
+                }
+            }
+        ].forEach(function (item) {
+            initAutocomplete(
+                $(item.hiddenElement),
+                $(item.autocompleteElement),
+                $(item.dropdownElement),
+                item.source,
+                item.onSelectCallbackHandle
+            );
+        });
+
+    @if (Model.RubroId == null || Model.RubroId == Guid.Empty)
+    {
+        @:$('#rubroId_autocomplete').attr('disabled', true);
+    }
+    @if (Model.SubrubroId == null || Model.SubrubroId == Guid.Empty)
+    {
+        @:$('#subrubroId_autocomplete').attr('disabled', true);
+    }
+        function submitForm() {
+            let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+            let postData = {
+                CodigoProveedor: $('#@Html.IdFor(x => x.CodigoProveedor)').val(),
+                UnidadMedidaId: $('#@Html.IdFor(x => x.UnidadMedidaId)').val(),
+                TipoProductoId: $('#@Html.IdFor(x => x.TipoProductoId)').val(),
+                RubroMaestroId: $('#@Html.IdFor(x => x.RubroMaestroId)').val(),
+                RubroId: $('#@Html.IdFor(x => x.RubroId)').val(),
+                SubrubroId: $('#@Html.IdFor(x => x.SubrubroId)').val(),
+                Descripcion: $('#@Html.IdFor(x => x.Descripcion)').val(),
+            };
+
+            postData.__RequestVerificationToken = antiForgeryToken;
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("Create")",
+                data: postData,
+                success: function (data) {
+                    window.location.href = "@Url.Action("Index")";
+                }
+            });
+        }
+    });
+</script>

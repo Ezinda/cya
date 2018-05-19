@@ -1,0 +1,82 @@
+﻿@model IEnumerable<mvc.ViewModels.ClaseListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+   
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Seleccionar Clase</h3>
+</div>
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchClaselookup" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                   <button id="btnSearchClaselookup" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="claseEzGridlookup"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" id="searchClaseCloselookup">Cerrar</button>
+</div>
+
+<script src="~/Scripts/ezutils/ezgridjs.js"></script>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+
+<script type="text/javascript">
+    $(function () {
+
+        $gridClase = $("#claseEzGridlookup").ezGrid({
+            dataKey: "Id",
+            dataSource: '@Url.Action("GetClases")',
+            defaultParams: {
+                sortBy: "sortBy",
+                direction: "direction",
+                page: "page",
+                limit: "pageSize"
+            },
+            mapping: {
+                dataField: "Records",
+                totalRecordsField: "Total"
+            },
+            columns: [
+                { field: "Id", sortable: true, hidden: true },
+                { field: "Codigo", width: 120, sortable: true },
+                { field: "Descripcion", width: 400, sortable: true },
+
+            ],
+            pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20] },
+            rowNum: 15,
+            rowList: [15, 50, 100],
+        });
+        $gridClase.on("rowOpen", function (e, $row, id, record) {
+           selectClase(record.Id, record.Descripcion);
+        });
+        $('#btnSearchClaselookup').click(function () {
+            $gridClase.reload({ page: 1, searchString: $("#searchClaselookup").val() });
+        });
+    });
+</script>

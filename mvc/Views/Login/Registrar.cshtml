@@ -1,0 +1,415 @@
+﻿@model BuySmartAdmin.ViewModels.RegistrarViewModel
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login-BuySmart</title>
+    @Styles.Render("~/Content/css")
+    <style>
+        .adminHeading {
+            font-size: 36px;
+            margin-left: 400px;
+            color: white;
+            margin-bottom: 50px;
+        }
+        /* For Firefox */
+        input[type='number'] {
+            -moz-appearance:textfield;
+        }
+        /* Webkit browsers like Safari and Chrome */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+    <link href="~/Content/login.css" rel="stylesheet" />
+</head>
+<body>
+    <section id="aa-myaccount">
+        <div class="container">
+        <h1 class="adminHeading">Panel Administrador</h1>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-login">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <a href="#" class="active" id="login-form-link">Nueva Cuenta</a>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form id="login-form" method="post" role="form" style="display: block;">
+                                        <div class="panel-body">
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control nombre", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    </div>
+                                                </div>
+
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Apellido, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Apellido, new { htmlAttributes = new { @class = "form-control apellido", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Apellido, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.FechaNacimiento, htmlAttributes: new { @class = "control-label col-md-2 " })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.FechaNacimiento, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control datepicker", style = "Width:80%", @maxlength = "30" } })
+                                                        @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Edad, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Edad, new { htmlAttributes = new { @class = "form-control edad", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Edad, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+
+                                            <hr class="style14">
+
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.EmpresaId, "Seleccione una empresa", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.DropDownList("EmpresaId", null, htmlAttributes: new { @class = "form-control EmpresaId", style = "Width:80%" })
+                                                        @Html.ValidationMessageFor(model => model.EmpresaId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Empresa, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Empresa, new { htmlAttributes = new { @class = "form-control empresa", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Empresa, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Direccion, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control direccion", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control telefono", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Celular, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Celular, new { htmlAttributes = new { @class = "form-control celular", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Celular, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control email", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="style14">
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.TipoSuscripcionId, "Tipo Suscripcion", htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.DropDownList("TipoSuscripcionId", null, htmlAttributes: new { @class = "form-control tipoSuscripcion", style = "Width:80%" })
+                                                        @Html.ValidationMessageFor(model => model.TipoSuscripcionId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Usuario, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Usuario, new { htmlAttributes = new { @class = "form-control usuario", style = "Width:80%" } })
+                                                        @Html.ValidationMessageFor(model => model.Usuario, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="input-group col-md-12">
+                                                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control password", style = "Width:80%", @type = "password" } })
+                                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                          <br />
+                                          <div class="row">
+                                              <div class="col-md-6"></div>
+                                             <div class="col-md-6 col-xs-6">
+                                                  <div class="form-group">
+                                                      <div class="pull-right">
+                                                          <a class="btn btn-primary lnkRegistrar">Registrar</a>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </section>
+    @Scripts.Render("~/Scripts/js")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+    @Styles.Render("~/Content/bootstrap-datetimepicker-theme")
+</body>
+</html>
+
+<div id="dialog-alert" style="display: none">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+    </p>
+</div>
+
+<script>
+    $(function () {
+        $(".EmpresaId").change(function () {
+            if ($(".EmpresaId").val().toUpperCase() === 'D0FFE2AA-AB17-400D-926A-20893565416C') {
+                $(".empresa").removeAttr('disabled');
+                $(".direccion").removeAttr('disabled');
+            } else {
+
+                $(".empresa").attr("disabled", "disabled");
+                $(".direccion").attr("disabled", "disabled");
+            }
+        });
+
+        $(".datepicker").datepicker.defaults.language = 'es';
+        $('.datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            autoclose: true,
+            //onSelect: function () {
+               
+            //    dp =  $(this).change().val();
+
+            //    var dia = dp.substring(0, 2);
+            //    var mes = dp.substring(3, 5);
+            //    var anio = dp.substring(6, 10);
+            //    if (dp != "") {
+            //        var a = calculateAge(dia, mes, anio);
+            //        if (a > 0) {
+            //            $('.edad').val(a);
+            //        }
+            //        else {
+            //            $('.edad').val(0);
+            //        }
+            //    } else {
+            //        $('.edad').val(0);
+            //    }
+            //},
+            //onChangeMonthYear: function () {
+
+            //    dp = $(this).change().val();
+
+            //    var dia = dp.substring(0, 2);
+            //    var mes = dp.substring(3, 5);
+            //    var anio = dp.substring(6, 10);
+            //    if (dp != "") {
+            //        var a = calculateAge(dia, mes, anio);
+            //        if (a > 0) {
+            //            $('.edad').val(a);
+            //        }
+            //        else {
+            //            $('.edad').val(0);
+            //        }
+            //    } else {
+            //        $('.edad').val(0);
+            //    }
+            //}
+        });
+      
+        $(".lnkRegistrar").live("click", function (e) {
+            var nombre = $('.nombre').val();
+            var apellido = $('.apellido').val();
+            var datepicker = $('.datepicker').val();
+            var empresa = $('.empresa').val();
+            var direccion = $('.direccion').val();
+            var telefono = $('.telefono').val();
+            var celular = $('.celular').val();
+            var email = $('.email').val();
+            var usuario = $('.usuario').val();
+            var password = $('.password').val();
+            var tipoSuscripcion = $('.tipoSuscripcion').val();
+            var empresaId = $('.EmpresaId').val();
+
+            var model = {
+                Nombre: nombre,
+                Apellido: apellido,
+                FechaNacimiento: datepicker,
+                Empresa: empresa,
+                Direccion: direccion,
+                Telefono: telefono,
+                Celular: celular,
+                Email: email,
+                Usuario: usuario,
+                Password: password,
+                TipoSuscripcionId: tipoSuscripcion,
+                EmpresaId : empresaId
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/Login/Registrar",
+                data: JSON.stringify(model),
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+                    if (data.status) {
+                        @*var link = "@Url.Action("Index", "Dashboard")";*@
+                        var link = "@Url.Action("Index", "Login")";
+                        window.location.href = link;
+
+                        return false;
+                    } else {
+                        $("#dialog-alert").dialog('option', 'title', 'Atención');
+                        $("#dialog-alert").text(data.responseText);
+                        $("#dialog-alert").dialog('open');
+                        return false;
+                    }
+                },
+                error: function () {
+                    $("#dialog-alert").dialog('option', 'title', 'Atención');
+                    $("#dialog-alert").text(data.responseText);
+                    $("#dialog-alert").dialog('open');
+                    return false;
+                }
+            });
+        });
+
+        $("#dialog-alert").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: 170,
+            width: 350,
+            show: { effect: 'drop', direction: "up" },
+            modal: true,
+            draggable: true,
+            open: function (event, ui) {
+                $(".ui-dialog-titlebar-close").hide();
+                $(this).load(url);
+            },
+            buttons:
+            {
+                "OK": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+
+        $(".edad").keydown(function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl/cmd+A
+                (e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: Ctrl/cmd+C
+                (e.keyCode == 67 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: Ctrl/cmd+X
+                (e.keyCode == 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+                // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        });
+
+        $('.password').bind("cut copy paste", function (e) {
+            e.preventDefault();
+        });
+
+
+        $('.edad').keypress(function () {
+            return this.value.length < 2
+        })
+
+        $('.edad').attr("disabled", true);
+
+        $(".datepicker").datepicker()
+            .on('changeDate', function (e) {
+                dp = $(".datepicker").val();
+
+                var dia = dp.substring(0, 2);
+                var mes = dp.substring(3, 5);
+                var anio = dp.substring(6, 10);
+                if (dp != "") {
+                    var a = calculateAge(dia, mes, anio);
+                    $('.edad').val(a);
+                } else {
+                    $('.edad').val(0);
+                }
+            });
+        function calculateAge(birthMonth, birthDay, birthYear) {
+            todayDate = new Date();
+            todayYear = todayDate.getFullYear();
+            todayMonth = todayDate.getMonth();
+            todayDay = todayDate.getDate();
+            age = todayYear - birthYear;
+
+            if (todayMonth < birthMonth - 1) {
+                age--;
+            }
+
+            if (birthMonth - 1 == todayMonth && todayDay < birthDay) {
+                age--;
+            }
+            return age;
+        }
+    });
+    
+</script>

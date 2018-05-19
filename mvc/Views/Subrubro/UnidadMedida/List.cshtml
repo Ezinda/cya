@@ -1,0 +1,148 @@
+﻿@model mvc.ViewModels.UnidadMedidaPageViewModel
+@{
+    ViewBag.Title = "Lista de Subrubros";
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchUnidad" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                    <button id="btnSearchUnidad" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="unidadEzGrid" data-primary-key="UnidadId"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/ezgridjs")
+    <script>
+        $(function () {
+
+            EzHeader.breadcrumbItem = {
+                label: "Unidad de Medida"
+            };
+            EzHeader.collapse = {
+                id: "#collapseTwo"
+            };
+            EzHeader.buttons = [
+                {
+                    label: "Nueva Unidad de Medida",
+                    type: "buttonHighlight",
+                    action: function () {
+                        $('#crudContent').load("@Url.Action("Create")", function () {
+                            $('#crudModal').modal({
+                                keyboard: true
+                            }, 'show');
+
+                            bindForm(this);
+                        });
+                        return false;
+                    }
+                },
+            ];
+            EzHeader.show();
+
+            var $gridUnidad = $("#unidadEzGrid").ezGrid({
+                dataSource: "@Url.Action("List")",
+                params: {
+                    filterBy: "@Model.FilterByString",
+                    searchString: "@Model.SearchString"
+                },
+                defaultParams: {
+                    sortBy: "sortBy",
+                    direction: "direction",
+                    page: "page",
+                    limit: "pageSize"
+                },
+                mapping: {
+                    dataField: "Records",
+                    totalRecordsField: "Total"
+                },
+                primaryKey: 'UnidadId',
+                dataKey: "Id",
+                columns: [
+                    { field: "Id", hidden: true },
+                    { field: "Codigo", title: "Código", sortable: true },
+                    { field: "Abreviacion", title: "Abreviación", sortable: true },
+                    { field: "Descripcion", title: "Descripcion", sortable: true },
+                    { title: "Editar", field: "Edit", width: 60, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Edit", events: { "click": Edit } },
+                    { title: "Eliminar", field: "Delete", width: 60, type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Delete", events: { "click": Delete } },
+                ],
+                pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20] },
+                rowNum: 15,
+                rowList: [15, 50, 100]
+            });
+
+            $('#btnSearchUnidad').on('click', function () {
+                $gridUnidad.reload({ page: 1, searchString: $("#searchUnidad").val() });
+            });
+        });
+
+        function Edit(e) {
+            var url = "@Url.Action("Edit")?";
+
+            $.get(url, { id: e.data.id }, function (data) {
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function Delete(e) {
+            var url = "@Url.Action("ConfirmDelete")?";
+
+            $.get(url, { id: e.data.id }, function (data) {
+                $('#crudContent').html(data);
+
+                $('#crudModal').modal({
+                    keyboard: true
+                }, 'show');
+            })
+            return false;
+        }
+
+        function bindForm(dialog) {
+            $('form', dialog).submit(function () {
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        alert(result.success);
+                        if (result.success) {
+                            $('#crudModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#crudModal').html(result);
+                            bindForm();
+                        }
+                    }
+                });
+                return false;
+            });
+        };
+
+    </script>
+}

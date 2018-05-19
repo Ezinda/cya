@@ -1,0 +1,149 @@
+﻿@model mvc.ViewModels.ContactosFormModel
+
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Nuevo Contacto</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-2"></div>
+        <div class="grid-col-8">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Nombre)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Nombre)" type="text" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Domicilio)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Domicilio)" type="text" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Telefono)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Telefono)" type="text" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Email)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Email )" type="text" />
+                        </div>
+                    </div>
+
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.ConstructoraId, "Constructora")
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <!--Autocomplete-->
+                            @Html.HiddenFor(x => x.ConstructoraId)
+                            <div class="autocomplete-control ui-front">
+                                @Html.TextBoxFor(x => x.Constructora, new { @id = "ConstructoraId_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false", @style = "width: 82%" })
+                                @*@<span class="dropdown_button" id="ConstructoraId_dropdown">
+                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                    </span>*@
+                                <button data-toggle="modal" href="#searchConstructora" onclick="SearchConstructora()">
+                                    ...
+                                </button>
+                                <button data-toggle="modal" id="removeConstructora" onclick="RemoveConstructora()">
+                                    X
+                                </button>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.ConstructoraId)
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid-col-2"></div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+<script>
+    $(function () {
+
+        $("#save").click(function () {
+            submitForm();
+        });
+        [
+        {
+            hiddenElement: "#@Html.IdFor(x => x.ConstructoraId)",
+            autocompleteElement: "#ConstructoraId_autocomplete",
+            dropdownElement: "#ConstrutoraId_dropdown",
+            source: "@Url.Action("JsonAutocomplete", "Constructora")",
+            onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+            }
+        }].forEach(function (item) {
+            initAutocomplete(
+                $(item.hiddenElement),
+                $(item.autocompleteElement),
+                $(item.dropdownElement),
+                item.source,
+                item.onSelectCallbackHandle
+            );
+        });
+        function submitForm() {
+            let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+            let postData = {
+                Id: $('#@Html.IdFor(x => x.Id)').val(),
+                Codigo: $('#@Html.IdFor(x => x.Codigo)').val(),
+                Nombre: $('#@Html.IdFor(x => x.Nombre)').val(),
+                Domicilio: $('#@Html.IdFor(x => x.Domicilio)').val(),
+                Telefono: $('#@Html.IdFor(x => x.Telefono)').val(),
+                Email: $('#@Html.IdFor(x => x.Email)').val(),
+                ConstructoraId: $('#@Html.IdFor(x => x.ConstructoraId)').val()
+            };
+
+            postData.__RequestVerificationToken = antiForgeryToken;
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("Create")",
+                data: postData,
+                success: function (data) {
+                    if (data.success == true) {
+                        window.location.href = "@Url.Action("Index")";
+                    }
+                    else {
+                        alert(data.message);
+                    }
+
+                }
+            });
+        }
+    });
+</script>

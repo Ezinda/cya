@@ -1,0 +1,63 @@
+﻿.presupuesto-datatable .datatable-header {
+    border: 1px solid #d9d9d9;
+    border-bottom: 0 none;
+    color: #1b1d1f;
+    font-weight: normal;
+    background: #f6f7f9 0 0 repeat-x;
+    background: -moz-linear-gradient(top, #f6f7f9 0%, #ebedf0 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f6f7f9), color-stop(100%, #ebedf0));
+    background: -webkit-linear-gradient(top, #f6f7f9 0%, #ebedf0 100%);
+    background: -o-linear-gradient(top, #f6f7f9 0%, #ebedf0 100%);
+    background: -ms-linear-gradient(top, #f6f7f9 0%, #ebedf0 100%);
+    background: linear-gradient(to bottom, #f6f7f9 0%, #ebedf0 100%);
+    text-align: center;
+    padding: .5em .75em;
+    box-sizing: border-box;
+}
+
+.presupuesto-datatable table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.presupuesto-datatable thead tr {
+    border: 1px solid #d6d6d6;
+}
+
+.presupuesto-datatable tbody tr {
+    border: 1px solid #ccc;
+}
+
+.presupuesto-datatable tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.presupuesto-datatable thead th, .presupuesto-datatable tfoot td {
+    text-align: center;
+    position: relative;
+    border: 1px solid #ccc;
+    background: #ebedf0;
+    font-weight: bold;
+}
+
+.presupuesto-datatable thead th, .presupuesto-datatable tbody td, .presupuesto-datatable tfoot td {
+    white-space: nowrap;
+    overflow: hidden;
+    padding: .25em .5em;
+    border-color: inherit;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.presupuesto-datatable tbody td {
+    padding: .5em;
+}
+
+/**
+    UTILS
+*/
+.presupuesto-datatable .row-toggler {
+    cursor: pointer;
+    color: #222222;
+}

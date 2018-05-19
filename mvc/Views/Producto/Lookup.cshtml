@@ -1,0 +1,119 @@
+﻿@model mvc.ViewModels.ListaPrecioProductoFormModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Seleccionar Productos</h3>
+</div>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id, new { @Id = "Id" })
+  }
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchProductoLookup" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                   <button id="btnsearchProductoLookup" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="productoEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" id="btnProductoSelectionLookup">Asignar</button>
+    <button type="button" data-dismiss="modal" id="searchProductoLookupClose">Cerrar</button>
+</div>
+
+<script src="~/Scripts/ezutils/ezgridjs.js"></script>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+
+<script type="text/javascript">
+    var $gridProducto;
+
+    $(function () {
+
+        $gridProducto = $("#productoEzGrid").ezGrid({
+            dataKey: "Id",
+            dataSource: '@Url.Action("GetProductos")',
+            defaultParams: {
+                sortBy: "sortBy",
+                direction: "direction",
+                page: "page",
+                limit: "pageSize"
+            },
+            mapping: {
+                dataField: "Records",
+                totalRecordsField: "Total"
+            },
+            selectionMethod: 'checkbox',
+            selectionType: 'multiple',
+            columns: [
+                { field: "Id", sortable: true, hidden: true },
+                { field: "Codigo", width: 120, sortable: true },
+                { field: "Descripcion", width: 400, sortable: true },
+
+            ],
+            pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20] },
+            rowNum: 15,
+            rowList: [15, 50, 100],
+        });
+
+        $('#btnsearchProductoLookup').click(function () {
+            $gridProducto.reload({ page: 1, searchString: $("#searchProductoLookup").val() });
+        });
+
+        $('#btnProductoSelectionLookup').click(function () {
+            var selections = $gridProducto.getSelections();
+            submitForm(selections);
+        });
+
+        $("#save").click(function () {
+            submitForm();
+        });
+    });
+
+    function submitForm(ProductosId) {
+        let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+        let postData = {
+            Id: $("#Id").val(),
+            ProductosId: ProductosId
+        };
+
+        postData.__RequestVerificationToken = antiForgeryToken;
+
+        $.ajax({
+            method: "POST",
+            url: "@Url.Action("CreateListaPrecioProducto", "ListaPrecio")",
+            data: postData,
+            success: function (data) {
+                window.location.href = "@Url.Action("Index","ListaPrecio")";
+            }
+        });
+    };
+
+</script>

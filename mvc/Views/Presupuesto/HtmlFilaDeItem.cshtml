@@ -1,0 +1,27 @@
+﻿<tr data-row-id="">
+    <td data-headercol="toggler" style="text-align:center;vertical-align: middle;" class="row-toggler"><span class="fa fa-fw fa-plus-circle"></span></td>
+    <td data-headercol="tipologia" style="text-align:center;vertical-align: middle;">
+        <div style="height: 40px; background: url('') center center / contain no-repeat;"></div>
+    </td>
+    <td data-headercol="posicion" data-calculate-item-header-result="posicion" style="text-align:center;vertical-align: middle;">{{ posicion }}</td>
+    <td data-headercol="descripcion" data-calculate-item-header-result="descripcion" style="text-align:left;vertical-align: middle;">{{ descripcion }}</td>
+    <td data-headercol="unidades" data-calculate-item-header-result="unidades" style="text-align:center;vertical-align: middle;">{{ unidades }}</td>
+    <td data-headercol="preciounitario" data-calculate-item-header-result="preciounitario" style="text-align:right;vertical-align: middle;">{{ preciounitario }}</td>
+    <td data-headercol="importe" data-calculate-item-header-result="importe" style="text-align:right;vertical-align: middle;">{{ importe }}</td>
+</tr>
+<tr style="display: none">
+    <td colspan="7" style="overflow: visible">
+        <div class="grid-layout">
+            <div class="grid-row">
+                <div class="grid-col-2">
+                    <div style="text-align:center;height: 100px;">
+                        <img data-presupuesto-item="tooltip" data-presupuesto-item-src="" src="" style="vertical-align: middle;max-height: 100px;max-width: 160px;cursor:pointer" height=100>
+                    </div>
+                </div>
+                <div class="grid-col-10" data-calculate-item-container>
+                    @RenderPage("HtmlCamposDeItem.cshtml")
+                </div>
+            </div>
+        </div>
+    </td>
+</tr>

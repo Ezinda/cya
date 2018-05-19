@@ -1,0 +1,90 @@
+﻿@model IEnumerable<mvc.ViewModels.ClienteListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+   
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Seleccionar Cliente</h3>
+</div>
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchCliente" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                   <button id="btnSearchCliente" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="clienteEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" id="searchClienteClose">Cerrar</button>
+</div>
+<script src="~/Scripts/ezutils/ezgridjs.js"></script>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+
+<script>
+    var gridCliente;
+
+    $(function () {
+
+        $("#btnSearchCliente").click(function () {
+            gridCliente.reload({ page: 1, searchString: $("#searchCliente").val() });
+        });
+
+        gridCliente = $("#clienteEzGrid").ezGrid({
+            dataKey: "Id",
+            dataSource: '@Url.Action("List")',
+            defaultParams: {
+                sortBy: "sortBy",
+                direction: "direction",
+                page: "page",
+                limit: "pageSize"
+            },
+            mapping: {
+                dataField: "Records",
+                totalRecordsField: "Total"
+            },
+            columns: [
+                { field: "Id", sortable: true, hidden: true },
+                { field: "Codigo", width: 100, sortable: true },
+                { field: "Cliente", width: 300, sortable: true },
+                { field: "Documento", width: 110, sortable: true },
+                { field: "Domicilio", width: 200, sortable: true },
+                { field: "Telefono", width: 120, sortable: true },
+                { field: "Celular", width: 100, sortable: true },
+                { field: "Email", width: 220, sortable: true },
+            ],
+            pager: { enable: true, limit: 5, sizes: [2, 5, 10, 20] },
+            rowNum: 15,
+            rowList: [15, 50, 100]
+        });
+
+        gridCliente.on("rowOpen", function (e, $row, id, record) {
+            selectCliente(record.Id, record.Cliente);
+        });
+    });
+
+</script>

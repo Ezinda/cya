@@ -1,0 +1,78 @@
+﻿@model mvc.ViewModels.RubroFormModel
+
+@{    
+    ViewBag.Title = "Nuevo Rubro";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Nuevo Rubro</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-2"></div>
+        <div class="grid-col-8">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Descripcion)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Descripcion)" type="text" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Sistema)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Sistema)" type="checkbox" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-2"></div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+<script>
+    $(function () {
+        $("#save").click(function () {
+            submitForm();
+        });
+
+        function submitForm() {
+            let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+            let postData = {
+                Descripcion: $('#@Html.IdFor(x => x.Descripcion)').val(),
+                Sistema: $('#Sistema').is(":checked")
+            };
+
+            postData.__RequestVerificationToken = antiForgeryToken;
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("Create")",
+                data: postData,
+                success: function (data) {
+                    window.location.href = "@Url.Action("Index")";
+                }
+            });
+        }
+    });
+</script>

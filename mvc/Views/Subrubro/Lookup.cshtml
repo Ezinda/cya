@@ -1,0 +1,110 @@
+﻿@model mvc.ViewModels.RubroSubrubroFormModel
+@{
+    ViewBag.Title = "Lista de Subrubros";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Seleccionar Subrubros</h3>
+</div>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.Id, new { @Id = "Id" })
+}
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="searchSubrubroLookup" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                    <button id="btnSearchSubrubroLookup" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="subrubroEzGrid" data-primary-key="SubrubroId"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" data-dismiss="modal" id="btnSubrubroSelectionLookup">Asignar</button>
+    <button type="button" data-dismiss="modal" id="searchSubrubroLookupClose">Cerrar</button>
+</div>
+
+<script src="~/Scripts/ezutils/ezgridjs.js"></script>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+
+<script>
+    $(function () {
+
+        var $gridSubrubro = $("#subrubroEzGrid").ezGrid({
+            primaryKey: 'SubrubroId',
+            dataKey: "Id",
+            dataSource: "@Url.Action("GetSubrubros")",
+            defaultParams: {
+                sortBy: "sortBy",
+                direction: "direction",
+                page: "page",
+                limit: "pageSize"
+            },
+            mapping: {
+                dataField: "Records",
+                totalRecordsField: "Total"
+            },
+            selectionMethod: 'checkbox',
+            selectionType: 'multiple',
+            columns: [
+                { field: "Id", hidden: true },
+                { field: "Codigo", title: "Código" },
+                { field: "Descripcion", title: "Descripcion" },
+                { field: "Clase", width: 400, sortable: true }
+            ],
+            pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20] },
+            rowNum: 15,
+            rowList: [15, 50, 100]
+        });
+        $('#btnSearchSubrubroLookup').click(function () {
+            $gridSubrubro.reload({ page: 1, searchString: $("#searchSubrubroLookup").val() });
+        });
+        $('#btnSubrubroSelectionLookup').click(function () {
+            var selections = $gridSubrubro.getSelections();
+            submitForm(selections);
+        });
+
+    });
+
+     function submitForm(SubrubrosId) {
+        let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+        let postData = {
+            Id: $("#Id").val(),
+            SubrubrosId: SubrubrosId
+        };
+
+        postData.__RequestVerificationToken = antiForgeryToken;
+
+        $.ajax({
+            method: "POST",
+            url: "@Url.Action("CreateRubroSubrubro", "Rubro")",
+            data: postData,
+            success: function (data) {
+                window.location.href = "@Url.Action("Index","Rubro")";
+            }
+        });
+    };
+</script>

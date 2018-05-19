@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C44CF167-F085-46FC-AB21-E1387F8CB915}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ceya.Infrastructure.Service</RootNamespace>
+    <AssemblyName>ceya.Infrastructure.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X.PagedList, Version=7.1.0.0, Culture=neutral, PublicKeyToken=00b6c4f97602e5e8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\mvc\Bin\X.PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArchivoService.cs" />
+    <Compile Include="ColorService.cs" />
+    <Compile Include="ConstructoraService.cs" />
+    <Compile Include="ClienteService.cs" />
+    <Compile Include="ContactoService.cs" />
+    <Compile Include="ListaPrecioService.cs" />
+    <Compile Include="MonedaService.cs" />
+    <Compile Include="ObraService.cs" />
+    <Compile Include="PrecioService.cs" />
+    <Compile Include="PresupuestoCategoriaService.cs" />
+    <Compile Include="PresupuestoSeguimientoService.cs" />
+    <Compile Include="PresupuestoEstadoService.cs" />
+    <Compile Include="PresupuestoItemService.cs" />
+    <Compile Include="PresupuestoService.cs" />
+    <Compile Include="ProductoService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RubroMaestroService.cs" />
+    <Compile Include="TipoProductoService.cs" />
+    <Compile Include="SubrubroService.cs" />
+    <Compile Include="RubroService.cs" />
+    <Compile Include="TipoDocumentoService.cs" />
+    <Compile Include="ClaseService.cs" />
+    <Compile Include="UnidadMedidaService.cs" />
+    <Compile Include="VWPrecioProductoService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ceya.Application.Service\ceya.Domain.Service.csproj">
+      <Project>{241D7B54-5D99-450F-956A-0229C06B2FAF}</Project>
+      <Name>ceya.Domain.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Core\ceya.Core.csproj">
+      <Project>{82b2639d-dcf7-412e-bd68-6077ae7aaa84}</Project>
+      <Name>ceya.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Domain.Repository\ceya.Domain.Repository.csproj">
+      <Project>{FA358F79-3CFE-4E01-84D9-F51DDEDAA011}</Project>
+      <Name>ceya.Domain.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Infrastructure.Repository\ceya.Infrastructure.Repository.csproj">
+      <Project>{A8C17166-930F-44A2-B858-458C46CD555B}</Project>
+      <Name>ceya.Infrastructure.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Model\ceya.Domain.Model.csproj">
+      <Project>{E82EBAC6-4119-44F8-B45A-49C99CDA812E}</Project>
+      <Name>ceya.Domain.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

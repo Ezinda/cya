@@ -1,0 +1,197 @@
+﻿@model mvc.ViewModels.PresupuestoSeguimientoFormModel
+
+@{
+    ViewBag.Title = "Seguimiento";
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Seguimiento</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+}
+<input id="@Html.IdFor(x => x.PresupuestoId)" type="hidden" value="@Model.PresupuestoId">
+<div class="modal-body">
+    <div class="grid-layout">
+             <div class="grid-row">
+                 <div class="grid-col-2"></div>
+                 <div class="grid-col-8">
+                      <div class="ez_form_group">
+                         <div class="ez_form_col">
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.NombreCliente)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.NombreCliente)" type="text" value="@Model.NombreCliente" disabled="disabled"/>
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.NombreObra)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.NombreObra)" type="text" value="@Model.NombreObra" disabled="disabled"/>
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     @Html.LabelFor(x => x.Estado)
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <input id="@Html.IdFor(x => x.Estado)" type="text" value="@Model.Estado" disabled="disabled"/>
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     <label>@Html.LabelFor(x => x.Estados)</label>
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <!--Autocomplete-->
+                                     <input type="hidden" id="@Html.IdFor(x => x.EstadoId)">
+                                     <div class="autocomplete-control ui-front">
+                                         <input id="estadoId_autocomplete" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                         <span class="dropdown_button" id="estadoId_dropdown">
+                                             <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                                         </span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     <label>Fecha</label>
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <!--Date-->
+                                     <div class="date-control">
+                                         <input id="@Html.IdFor(x => x.Fecha)" data-control-date value="@Model.Fecha.ToShortDateString()" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                                         <span class="date_button">
+                                             <img draggable="false" src="~/Content/images/field_calendar.png">
+                                         </span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper alerta" hidden="hidden">
+                                     <label>Fecha Alerta</label>
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     <!--Date-->
+                                     <div class="date-control">
+                                         <input id="@Html.IdFor(x => x.FechaAlerta)" data-control-date value="@Model.FechaAlerta.ToShortDateString()" class="ez_form_required" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" hidden="hidden">
+                                         <span class="date_button">
+                                             <img draggable="false" src="~/Content/images/field_calendar.png">
+                                         </span>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="ez_form_field">
+                                 <div class="ez_form_label_wrapper">
+                                     <label>Observacion</label>
+                                 </div>
+                                 <div class="ez_form_control_wrapper">
+                                     @Html.TextAreaFor(x => x.Observacion, new { @rows = "6", @style = "height: 114px; word-wrap: break-word; resize: vertical;" })
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="grid-col-2"></div>
+             </div>
+         </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+    <script>
+        //$("form").removeData("validator");
+        //$("form").removeData("unobtrusiveValidation");
+        //$.validator.unobtrusive.parse("form");
+
+        $(function () {
+
+            $( "#save" ).click(function() {
+                submitForm();
+            });
+
+            var ESTADOS = [
+               @foreach (var item in Model.Estados)
+            {
+                @:{ key: "@item.Value", value: "@String.Format("{0}", item.Text)" },
+                }
+            ];
+
+            [
+                {
+                    hiddenElement: "#@Html.IdFor(x => x.EstadoId)",
+                    autocompleteElement: "#estadoId_autocomplete",
+                    dropdownElement: "#estadoId_dropdown",
+                    source: ESTADOS.concat([{ showSearch: false }]),
+                    onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                        let estado = $("#estadoId_autocomplete").val();
+                        if (estado === "EN SEGUIMIENTO") {
+                            $(".alerta").removeAttr('hidden');
+                            $("#@Html.IdFor(x => x.FechaAlerta)").removeAttr('hidden');
+                        } else {
+                            $(".alerta").prop('hidden', 'hidden');
+                            $("#@Html.IdFor(x => x.FechaAlerta)").prop('hidden', 'hidden');
+                        }
+                    }
+                },
+            ].forEach(function (item) {
+                initAutocomplete(
+                    $(item.hiddenElement),
+                    $(item.autocompleteElement),
+                    $(item.dropdownElement),
+                    item.source,
+                    item.onSelectCallbackHandle
+                );
+            });
+
+
+            $('select').change(function () {
+                var optionSelected = $(this).find("option:selected");
+                var valueSelected = optionSelected.val();
+                var textSelected = optionSelected.text();
+            });
+
+            $("input[data-control-date]").datepicker();
+            $("input[data-control-date]").next().click(function () {
+                $(this).before().datepicker("show");
+            });
+
+            function submitForm() {
+                let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+                let postData = {
+                    PresupuestoId: $('#@Html.IdFor(x => x.PresupuestoId)').val(),
+                    EstadoId: $('#@Html.IdFor(x => x.EstadoId)').val(),
+                    Fecha: $('#@Html.IdFor(x => x.Fecha)').val(),
+                    FechaAlerta: $('#@Html.IdFor(x => x.FechaAlerta)').val(),
+            //        Descripcion: $('#@Html.IdFor(x => x.Observacion)').val(),
+                    Observacion: $('#@Html.IdFor(x => x.Observacion)').val(),
+
+                    NombreCliente: $('#@Html.IdFor(x => x.NombreCliente)').val(),
+                    NombreObra: $('#@Html.IdFor(x => x.NombreObra)').val(),
+                    Estado: $('#@Html.IdFor(x => x.Estado)').val(),
+                };
+
+                postData.__RequestVerificationToken = antiForgeryToken;
+
+                $.ajax({
+                    method: "POST",
+                    url: "@Url.Action("Create")",
+                    data: postData,
+                    success: function (data) {
+                        window.location.href = "@Url.Action("Index","Presupuesto")";
+                    }
+                });
+            }
+        });
+    </script>

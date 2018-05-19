@@ -1,0 +1,119 @@
+﻿@using ceya.Model.Models
+@model IEnumerable<Presupuesto>
+
+@{
+    ViewBag.Title = "Presupuestos";
+}
+
+<div style="margin: -16px -16px 0px;">
+    <table class="ez_list_grid">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Solicita)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionHeader)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionFooter)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Obra.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PresupuestoCategoria.Codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PresupuestoEstado.Codigo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Codigo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Solicita)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DescripcionHeader)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DescripcionFooter)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Obra.Codigo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PresupuestoCategoria.Codigo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PresupuestoEstado.Codigo)</td>
+                    <td>@Html.ActionLink("Editar", "Edit", new { id = item.Id })@*@Html.ActionLink("Details", "Details", new { id = item.Id })*@@*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <table id="pruebaEzGrid"></table>
+</div>
+
+@section styles {
+@Styles.Render("~/Content/css/ezgrid")
+}
+@section Scripts
+{
+@Scripts.Render("~/bundles/ezgridjs")
+<script>
+    $(function () {
+        EzHeader.breadcrumbItem = {
+            label: "Presupuestos"
+        };
+        EzHeader.buttons = [
+            {
+                label: "Nuevo Presupuesto",
+                type: "buttonHighlight",
+                action: function () {
+                    window.location.href = "@Url.Action("Create")";
+                }
+            },
+        ];
+        EzHeader.show();
+
+        $("#pruebaEzGrid").ezGrid({
+            columns: [
+                { title: "Código" },
+                { title: "Fecha" },
+                { title: "Solicita" },
+                { title: "Teléfono" },
+                { title: "Email" }
+            ],
+            pager: { enable: true, limit: 5, sizes: [2, 5, 10, 20] },
+            rowNum: 15,
+            rowList: [15, 50, 100]
+        });
+    });
+</script>
+}

@@ -1,0 +1,150 @@
+﻿@using ceya.Model.Models
+@model IEnumerable<Obra>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_nosheetLayout.cshtml";
+}
+
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="search" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                    <button id="btnSearch" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="obraEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/ezgridjs")
+
+<script type="text/javascript">
+    var grid;
+
+    $('#btnSearch').on('click', function () {
+        grid.reload({ page: 1, searchString: $("#search").val() });
+    });
+
+    $(document).ready(function () {
+
+        EzHeader.breadcrumbItem = {
+            label: "Obras"
+        };
+        EzHeader.collapse = {
+            id: "#collapseTwo"
+        };
+        EzHeader.buttons = [
+            {
+                label: "Nueva Obra",
+                type: "buttonHighlight",
+                action: function () {
+                        $('#crudContent').load("@Url.Action("Create")", function () {
+                        $('#crudModal').modal({
+                            keyboard: true
+                        }, 'show');
+
+                        bindForm(this);
+                    });
+                    return false;
+                }
+            },
+        ];
+        EzHeader.show();
+
+
+
+        grid = $("#obraEzGrid").ezGrid({
+            dataKey: "Id",
+            dataSource: '@Url.Action("List")',
+            defaultParams: {
+                sortBy: "sortBy",
+                direction: "direction",
+                page: "page",
+                limit: "pageSize"
+            },
+            mapping: {
+                dataField: "Records",
+                totalRecordsField: "Total"
+            },
+            columns: [
+                { field: "Id", sortable: true, hidden: true },
+                { field: "Codigo", width: 120, sortable: true },
+                { field: "Nombre", width: 300, sortable: true },
+                { field: "Domicilio", width: 120, sortable: true },
+                { field: "Cliente", width: 300, sortable: true },
+                { title: "", field: "Edit", width: 60, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Edit", events: { "click": Edit } },
+                { title: "", field: "Delete", width: 60, type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Delete", events: { "click": DeleteConfirm } }
+
+            ],
+            pager: { enable: true, limit: 10, sizes: [2, 5, 10, 15] }
+        });
+    });
+
+     function Edit(e) {
+        var url = "@Url.Action("Edit")?";
+
+        $.get(url, { id: e.data.id }, function (data) {
+            $('#crudContent').html(data);
+
+            $('#crudModal').modal({
+                keyboard: true
+            }, 'show');
+        })
+        return false;
+    }
+
+    function DeleteConfirm(e) {
+
+        var url = "@Url.Action("ConfirmDelete")?";
+
+        $.get(url, { id: e.data.id }, function (data) {
+            $('#crudContent').html(data);
+
+            $('#crudModal').modal({
+                keyboard: true
+            }, 'show');
+        })
+        return false;
+    }
+
+    function bindForm(dialog) {
+        $('form', dialog).submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+                        $('#crudModal').modal('hide');
+                        location.reload();
+                    } else {
+                        $('#crudModal').html(result);
+                        bindForm();
+                    }
+                }
+            });
+            return false;
+        });
+    };
+
+</script>
+}

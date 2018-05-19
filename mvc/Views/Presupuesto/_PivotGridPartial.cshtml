@@ -1,0 +1,105 @@
+@Html.DevExpress().PivotGrid(settings => {
+    settings.Name = "PivotGrid";
+    settings.CallbackRouteValues = new { Controller = "Presupuesto", Action = "PivotGridPartial" };
+
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Codigo";
+        field.Caption = "Codigo";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Fecha";
+        field.Caption = "Fecha";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "CodigoObra";
+        field.Caption = "CodigoObra";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Obra";
+        field.Caption = "Obra";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Cliente";
+        field.Caption = "Cliente";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Solicita";
+        field.Caption = "Solicita";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Telefono";
+        field.Caption = "Telefono";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Email";
+        field.Caption = "Email";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "CodigoCategoria";
+        field.Caption = "CodigoCategoria";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "Estado";
+        field.Caption = "Estado";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "FechaAlerta";
+        field.Caption = "FechaAlerta";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenCarpinteria";
+        field.Caption = "ResumenCarpinteria";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenTapajuntas";
+        field.Caption = "ResumenTapajuntas";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenVidrios";
+        field.Caption = "ResumenVidrios";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenColocacion";
+        field.Caption = "ResumenColocacion";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ConceptosVarios";
+        field.Caption = "ConceptosVarios";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenVarios";
+        field.Caption = "ResumenVarios";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenSubtotal";
+        field.Caption = "ResumenSubtotal";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenIva";
+        field.Caption = "ResumenIva";
+    });
+		settings.Fields.Add(field => {
+        field.Area = PivotArea.FilterArea;
+        field.FieldName = "ResumenTotal";
+        field.Caption = "ResumenTotal";
+    });
+	}).Bind(Model).GetHtml()

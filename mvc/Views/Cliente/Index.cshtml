@@ -1,0 +1,161 @@
+﻿@model IEnumerable<mvc.ViewModels.ClienteListViewModel>
+
+@{
+    ViewBag.Title = "Index";
+   
+        Layout = "~/Views/Shared/_noSheetLayout.cshtml";
+   }
+<div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-4">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <input type="text" id="search" class="form-control" placeholder="Buscar" />
+                </div>
+                <div class="ez_form_col">
+                   <button id="btnSearch" type="button">Buscar</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-8"></div>
+    </div>
+    <div class="grid-row">
+        <div class="grid-col-12">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <table id="clienteEzGrid"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- Modal Cliente-->
+@*<div class="modal fade" id="clienteModal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='clienteContent'></div>
+        </div>
+    </div>
+</div>*@
+
+@section styles {
+    @Styles.Render("~/Content/css/ezgrid")
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/ezgridjs")
+
+<script type="text/javascript">
+    var grid;
+
+    $('#btnSearch').on('click', function () {
+        grid.reload({ page: 1, searchString: $("#search").val() });
+    });
+
+    $(document).ready(function () {
+        EzHeader.breadcrumbItem = {
+            label: "Clientes"
+        };
+        EzHeader.collapse = {
+            id: "#collapseTwo"
+        };
+        EzHeader.buttons = [
+            {
+                label: "Nuevo Cliente",
+                type: "buttonHighlight",
+                action: function () {
+                    $('#crudContent').load("@Url.Action("Create")", function () {
+                        $('#crudModal').modal({
+                            keyboard: true
+                        }, 'show');
+
+                        bindForm(this);
+                    });
+                    return false;
+                }
+            },
+        ];
+        EzHeader.show();
+
+        grid = $("#clienteEzGrid").ezGrid({
+            dataKey: "Id",
+            dataSource: '@Url.Action("List")',
+            defaultParams: {
+                sortBy: "sortBy",
+                direction: "direction",
+                page: "page",
+                limit: "pageSize"
+            },
+            mapping: {
+                dataField: "Records",
+                totalRecordsField: "Total"
+            },
+            columns: [
+                { field: "Id", sortable: true, hidden: true },
+                { field: "Codigo", width: 100, sortable: true },
+                { field: "Cliente", width: 300, sortable: true },
+                { field: "Documento", width: 110, sortable: true },
+                { field: "Domicilio", width: 200, sortable: true },
+                { field: "Telefono", width: 120, sortable: true },
+                { field: "Celular", width: 100, sortable: true },
+                { field: "Email", width: 220, sortable: true },
+                { title: "Editar", field: "Edit", width: 31, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Edit", events: { "click": Edit } },
+                { title: "Eliminar", field: "Delete", width: 31, type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Delete", events: { "click": DeleteConfirm } }
+            ],
+            pager: { enable: true, limit: 10, sizes: [2, 5, 10, 20] },
+            rowNum: 10,
+            rowList: [15, 50, 100],
+        });
+    });
+
+    function Edit(e) {
+        var url = "@Url.Action("Edit")?";
+
+        $.get(url, { id: e.data.id }, function (data) {
+            $('#crudContent').html(data);
+
+            $('#crudModal').modal({
+                keyboard: true
+            }, 'show');
+        })
+        return false;
+    }
+
+    function DeleteConfirm(e) {
+
+        var url = "@Url.Action("ConfirmDelete")?";
+
+        $.get(url, { id: e.data.id }, function (data) {
+            $('#crudContent').html(data);
+
+            $('#crudModal').modal({
+                keyboard: true
+            }, 'show');
+        })
+        return false;
+    }
+
+    function bindForm(dialog) {
+        $('form', dialog).submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    alert(result.success);
+                    if (result.success) {
+                        $('#crudModal').modal('hide');
+                        location.reload();
+                    } else {
+                        $('#crudModal').html(result);
+                        bindForm();
+                    }
+                }
+            });
+            return false;
+        });
+    };
+
+</script>
+}

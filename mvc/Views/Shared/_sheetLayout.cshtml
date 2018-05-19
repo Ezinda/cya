@@ -1,0 +1,17 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ez_form_sheetbg">
+    <div class="ez_form_sheet">
+        @RenderBody()
+    </div>
+</div>
+
+@section styles {
+    @RenderSection("styles", required: false)
+}
+
+@section scripts {
+    @RenderSection("scripts", required: false)
+}

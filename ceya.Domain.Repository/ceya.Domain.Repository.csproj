@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FA358F79-3CFE-4E01-84D9-F51DDEDAA011}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ceya.Domain.Repository</RootNamespace>
+    <AssemblyName>ceya.Domain.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="X.PagedList, Version=7.2.4.0, Culture=neutral, PublicKeyToken=00b6c4f97602e5e8, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.7.2.4\lib\net45\X.PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IArchivoRepository.cs" />
+    <Compile Include="IColorRepository.cs" />
+    <Compile Include="IConstructoraRepository.cs" />
+    <Compile Include="IClienteRepository.cs" />
+    <Compile Include="IContactoRespository.cs" />
+    <Compile Include="IListaPrecioRepository.cs" />
+    <Compile Include="IMonedaRepository.cs" />
+    <Compile Include="IObraRepository.cs" />
+    <Compile Include="IPrecioRepository.cs" />
+    <Compile Include="IPresupuestoCategoriaRepository.cs" />
+    <Compile Include="IPresupuestoEstadoRepository.cs" />
+    <Compile Include="IPresupuestoItemRepository.cs" />
+    <Compile Include="IPresupuestoSeguimientoRepository.cs" />
+    <Compile Include="IPresupuestoRepository.cs" />
+    <Compile Include="IProductoRepository.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IRubroMaestroRepository.cs" />
+    <Compile Include="ISubrubroRepository.cs" />
+    <Compile Include="IRubroRepository.cs" />
+    <Compile Include="ITipoProductoRepository.cs" />
+    <Compile Include="ITipoDocumentoRepository.cs" />
+    <Compile Include="IClaseRepository.cs" />
+    <Compile Include="IUnidadMedidaRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IVWPrecioProductoRepository.cs" />
+    <Compile Include="IWVRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ceya.Core\ceya.Core.csproj">
+      <Project>{82B2639D-DCF7-412E-BD68-6077AE7AAA84}</Project>
+      <Name>ceya.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ceya.Model\ceya.Domain.Model.csproj">
+      <Project>{E82EBAC6-4119-44F8-B45A-49C99CDA812E}</Project>
+      <Name>ceya.Domain.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

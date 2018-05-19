@@ -1,0 +1,100 @@
+﻿@using ceya.Model.Models
+@model Presupuesto
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_sheetLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Presupuesto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Solicita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Solicita)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ObservacionesHeader)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObservacionesHeader)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ObservacionesFooter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ObservacionesFooter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obra.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obra.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresupuestoCategoria.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresupuestoCategoria.Codigo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresupuestoEstado.Codigo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresupuestoEstado.Codigo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

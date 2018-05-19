@@ -1,0 +1,98 @@
+﻿@model mvc.ViewModels.ListaPrecioFormModel
+
+@{
+    ViewBag.Title = "Editar Lista";
+    Layout = null;
+}
+
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title" id="title">Editar Lista</h3>
+</div>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
+  <div class="grid-layout">
+    <div class="grid-row">
+        <div class="grid-col-2"></div>
+        <div class="grid-col-8">
+            <div class="ez_form_group">
+                <div class="ez_form_col">
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Codigo)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Codigo)" type="text" value="@Model.Codigo" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Nombre)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Nombre)" type="text" value="@Model.Nombre"/>
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Activo)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Activo)" type="checkbox" checked="@Model.Activo" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.Predefinida)
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.Predefinida)" type="checkbox" checked="@Model.Predefinida" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-col-2"></div>
+    </div>
+</div>
+}
+<div class="modal-footer">
+    <button type="button" id="save">Guardar</button>
+    <button type="button" data-dismiss="modal">Cerrar</button>
+</div>
+
+<script>
+
+    $(function () {
+
+        $("#save").click(function () {
+            submitForm();
+        });
+
+        function submitForm() {
+            let antiForgeryToken = $('#__AjaxAntiForgeryForm > input[name="__RequestVerificationToken"]').val();
+
+            let postData = {
+                Id: $('#@Html.IdFor(x => x.Id)').val(),
+                Codigo: $('#@Html.IdFor(x => x.Codigo)').val(),
+                Nombre: $('#@Html.IdFor(x => x.Nombre)').val(),
+                Activo: $('#Activo').is(":checked"),
+                Predefinida: $('#Predefinida').is(":checked")
+            };
+
+            postData.__RequestVerificationToken = antiForgeryToken;
+
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("Edit")",
+                data: postData,
+                success: function (data) {
+                    window.location.href = "@Url.Action("Index")";
+                }
+            });
+        }
+    });
+</script>
