@@ -13,6 +13,7 @@ using System.Linq.Expressions;
 using ceya.Core.Helpers;
 using ceya.Domain.Model.Extensions;
 using ceya.Domain.Repository;
+using System.Net;
 
 namespace mvc.Controllers
 {
@@ -75,9 +76,30 @@ namespace mvc.Controllers
         }
 
         // GET: Contactos/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(Guid id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Contacto contacto = ContactoService.GetContactos(id);
+
+            if (contacto == null)
+            {
+                return HttpNotFound();
+            }
+
+            var editVM = new ContactosFormModel();
+            editVM.Id = contacto.Id;
+            editVM.Nombre = contacto.Nombre;
+            editVM.Domicilio = contacto.Domicilio;
+            editVM.Telefono = contacto.Telefono;
+            editVM.Email = contacto.Email;
+            editVM.ConstructoraId = contacto.ConstructoraId;
+          //  editVM.Constructora = contacto.Constructora.Nombre;
+
+            return PartialView(editVM);
         }
 
         // POST: Contactos/Edit/5

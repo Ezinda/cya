@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\PrecioActualizado.cs" />
     <Compile Include="Extensions\CodigoExtensions.cs" />
     <Compile Include="Extensions\SearchNameExtensions.cs" />
     <Compile Include="Models\Archivo.cs" />

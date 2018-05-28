@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using X.PagedList;
+using ceya.Domain.Model.DTOs;
 
 namespace ceya.Domain.Service
 {
@@ -18,13 +19,16 @@ namespace ceya.Domain.Service
         private readonly IArchivoRepository archivoRepository;
         private readonly IPresupuestoSeguimientoService presupuestoSeguimientoService;
         private readonly IUnitOfWork unitOfWork;
-        public PresupuestoService(IPresupuestoRepository presupuestoRepository, 
-            IPresupuestoItemRepository presupuestoItemRepository, 
-            IPresupuestoEstadoRepository presupuestoEstadoRepository, 
-            IPresupuestoItemRepository itemRepository, 
+        private readonly IListaPrecioRepository listaPrecioRepository;
+
+        public PresupuestoService(IPresupuestoRepository presupuestoRepository,
+            IPresupuestoItemRepository presupuestoItemRepository,
+            IPresupuestoEstadoRepository presupuestoEstadoRepository,
+            IPresupuestoItemRepository itemRepository,
             IArchivoRepository archivoRepository,
             IPresupuestoSeguimientoService presupuestoSeguimientoService,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IListaPrecioRepository listaPrecioRepository)
         {
             this.presupuestoRepository = presupuestoRepository;
             this.presupuestoItemRepository = presupuestoItemRepository;
@@ -33,6 +37,7 @@ namespace ceya.Domain.Service
             this.archivoRepository = archivoRepository;
             this.presupuestoSeguimientoService = presupuestoSeguimientoService;
             this.unitOfWork = unitOfWork;
+            this.listaPrecioRepository = listaPrecioRepository;
         }
 
         public Presupuesto GetPresupuesto(Guid id)
@@ -47,9 +52,9 @@ namespace ceya.Domain.Service
             return (ultimo + 1);
         }
 
-        public IPagedList<Presupuesto> GetPresupuestosByPage(int currentPage, int noOfRecords, string sortBy,string direction, string filterBy, string searchString, Guid? estadoId)
+        public IPagedList<Presupuesto> GetPresupuestosByPage(int currentPage, int noOfRecords, string sortBy, string direction, string filterBy, string searchString, Guid? estadoId)
         {
-            return this.presupuestoRepository.GetPresupuestosByPage(currentPage, noOfRecords, sortBy, direction ,filterBy, searchString, estadoId);
+            return this.presupuestoRepository.GetPresupuestosByPage(currentPage, noOfRecords, sortBy, direction, filterBy, searchString, estadoId);
         }
 
         public IEnumerable<ValidationResult> CanAddPresupuesto(Presupuesto nuevoPresupuesto)
@@ -201,7 +206,7 @@ namespace ceya.Domain.Service
             this.presupuestoRepository.Add(presupuesto);
             this.SavePresupuesto();
             SeguimientoEstado(presupuesto);
-          }
+        }
 
         public void EditPresupuesto(Presupuesto presupuestoNuevo)
         {
@@ -246,6 +251,34 @@ namespace ceya.Domain.Service
             seguimiento.FechaAlerta = presupuesto.Fecha;
             seguimiento.Activo = true;
             presupuestoSeguimientoService.Add(seguimiento);
+        }
+
+        public IEnumerable<PrecioActualizado> ObtenerPreciosActualizados(Guid presupuestoId)
+        {
+            var preciosActualizados = new List<PrecioActualizado>();
+            var items = presupuestoItemRepository.GetMany(x => x.PresupuestoId == presupuestoId);
+            foreach (var item in items)
+            {
+                var precioColocacion = ObtenerPrecioActualizadoPorProducto("COLOCACION", item.ColocacionId.Value);
+                var precioVidrio = ObtenerPrecioActualizadoPorProducto("VIDRIOS", item.VidriosId.Value);
+                preciosActualizados.Add(new PrecioActualizado
+                {
+                    PrecioVidrio = ((item.Alto * item.Ancho) * precioColocacion) * item.Unidades,
+                    PrecioColocacion = (((item.Alto + item.Ancho) * 2) * precioColocacion) * item.Unidades,
+                    Id = item.Id
+                });
+            }
+            return preciosActualizados;
+        }
+
+        private decimal ObtenerPrecioActualizadoPorProducto(string nombre, Guid id)
+        {
+            var fechaActual = DateTime.Now;
+            var colocacion = listaPrecioRepository.Get(x => x.Nombre == nombre);
+            var idProducto = colocacion.Precio.FirstOrDefault(x => x.Id == id).Producto.Id;
+            var precioActual = colocacion.Precio.FirstOrDefault(x => x.ProductoId == idProducto && x.FechaDesde <= fechaActual && fechaActual <= x.FechaHasta);
+            if (precioActual == null) throw new Exception(string.Format("No hay precio Actual para {0}", nombre));
+            return precioActual.PrecioProducto;
         }
     }
 }

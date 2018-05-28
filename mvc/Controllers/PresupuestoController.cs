@@ -30,6 +30,7 @@ using System.IO.IsolatedStorage;
 
 using Microsoft.Reporting.WebForms;
 using System.Globalization;
+using ceya.Domain.Model.DTOs;
 
 namespace mvc.Controllers
 {
@@ -84,13 +85,13 @@ namespace mvc.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List(string sortBy = "Codigo",string direction = "desc", string filterBy = "All", string searchString = "",  Guid? estadoId = null,
+        public ActionResult List(string sortBy = "Codigo", string direction = "desc", string filterBy = "All", string searchString = "", Guid? estadoId = null,
             int pageSize = 10, int page = 1)
         {
             ViewBag.Estados = new SelectList(db.PresupuestoEstado, "Id", "Descripcion");
-            var pageList = this.presupuestoService.GetPresupuestosByPage(page, pageSize, sortBy,direction, filterBy, searchString, estadoId);
+            var pageList = this.presupuestoService.GetPresupuestosByPage(page, pageSize, sortBy, direction, filterBy, searchString, estadoId);
             var presupuestosVM = Mapper.Map<IEnumerable<Presupuesto>, IEnumerable<PresupuestoListViewModel>>(pageList.ToList()).ToList();
-            
+
             if (Request.IsAjaxRequest())
             {
                 var result = new
@@ -110,7 +111,7 @@ namespace mvc.Controllers
 
             return View("List", pageVM);
         }
-   
+
         public ActionResult Create()
         {
             var createVM = new PresupuestoFormModel();
@@ -324,7 +325,7 @@ namespace mvc.Controllers
             {
                 if (Request["SubrubroId"] != string.Empty || Request["SubrubroId"] != null)
                 {
-                   SubrubroId = Guid.Parse(Request["SubrubroId"]);
+                    SubrubroId = Guid.Parse(Request["SubrubroId"]);
                 }
                 if (Request.Files.Count > 0)
                 {
@@ -614,12 +615,12 @@ namespace mvc.Controllers
             catch (Exception ex)
             {
                 isSavedSuccessfully = false;
-                result = new { error = ex.Message + ex.InnerException +ex.TargetSite +  "  Error al intentar procesar el archivo" };
+                result = new { error = ex.Message + ex.InnerException + ex.TargetSite + "  Error al intentar procesar el archivo" };
             }
 
             if (isSavedSuccessfully)
             {
-               
+
                 return Json(result);
             }
             else
@@ -668,7 +669,7 @@ namespace mvc.Controllers
                 {
                     wb = excel.Workbooks.Open(filename);
                 }
-                
+
                 // La primer hoja es 1 no 0
                 Excel.Worksheet sheet = wb.Sheets[1] as Excel.Worksheet;
                 Excel.Range range = null;
@@ -694,23 +695,23 @@ namespace mvc.Controllers
                     //count = count + 1;
                     //if (count <= sheet.Shapes.Count - 1)
                     //{
-                        shape.CopyPicture(Excel.XlPictureAppearance.xlScreen, Excel.XlCopyPictureFormat.xlBitmap);
-                        Bitmap image = null;
-                        var thread = new System.Threading.Thread(() =>
-                        {
-                            var bitmapSource = (System.Windows.Clipboard.ContainsImage() ? System.Windows.Clipboard.GetImage() : null);
-                            image = GetBitmap(bitmapSource);
-                        });
-                        thread.SetApartmentState(System.Threading.ApartmentState.STA);
-                        thread.Start();
-                        thread.Join();
-                        imagenes.Add(new RehauItemShapeMetadataViewModel()
-                        {
-                            Top = shape.Top,
-                            Left = shape.Left,
-                            Name = shape.Name,
-                            Image = image
-                        });
+                    shape.CopyPicture(Excel.XlPictureAppearance.xlScreen, Excel.XlCopyPictureFormat.xlBitmap);
+                    Bitmap image = null;
+                    var thread = new System.Threading.Thread(() =>
+                    {
+                        var bitmapSource = (System.Windows.Clipboard.ContainsImage() ? System.Windows.Clipboard.GetImage() : null);
+                        image = GetBitmap(bitmapSource);
+                    });
+                    thread.SetApartmentState(System.Threading.ApartmentState.STA);
+                    thread.Start();
+                    thread.Join();
+                    imagenes.Add(new RehauItemShapeMetadataViewModel()
+                    {
+                        Top = shape.Top,
+                        Left = shape.Left,
+                        Name = shape.Name,
+                        Image = image
+                    });
                     //}
                 }
                 var headerEmpresa = new RehauHeaderEmpresaMetadataViewModel();
@@ -1629,7 +1630,7 @@ namespace mvc.Controllers
         //        {
         //            wb = excel.Workbooks.Open(filename);
         //        }
-                
+
         //        // La primer hoja es 1 no 0
         //        Excel.Worksheet sheet = wb.Sheets[1] as Excel.Worksheet;
         //        Excel.Range range = null;
@@ -1763,7 +1764,7 @@ namespace mvc.Controllers
         //            headerCliente.Fecha = range.Text.ToString();
         //        }
         //        range = excel.get_Range("A" + find01LastRowNumber, "R65536");
-              
+
         //        var items = new List<RehauItemMetadataViewModel>();
         //        int firstItemRowNumber = -1;
 
@@ -1893,7 +1894,7 @@ namespace mvc.Controllers
         //        {
         //            throw new Exception("No se ha podido encontrar la seccion TOTAL NETO");
         //        }
-                
+
         //        result.Resumen = resumen;
 
         //        // Guardar Datos
@@ -2092,7 +2093,7 @@ namespace mvc.Controllers
 
             Precio precio = null;
 
-            if(presupuesto.ColocacionId != null)
+            if (presupuesto.ColocacionId != null)
             {
                 precio = precioService.GetPrecio(presupuesto.ColocacionId.Value);
             }
@@ -2105,7 +2106,7 @@ namespace mvc.Controllers
 
             string Obra = presupuesto.Obra != null && presupuesto.Obra.Nombre != null ? presupuesto.Obra.Nombre.ToUpper() : string.Empty;
 
-            string Ubicacion = presupuesto.Obra != null && presupuesto.Obra.Domicilio != null ?  presupuesto.Obra.Domicilio.ToUpper() : string.Empty;
+            string Ubicacion = presupuesto.Obra != null && presupuesto.Obra.Domicilio != null ? presupuesto.Obra.Domicilio.ToUpper() : string.Empty;
 
             string Email = (presupuesto.Email ?? String.Empty).ToUpper();
 
@@ -2119,7 +2120,7 @@ namespace mvc.Controllers
 
             string ObservacionFooter = "Observación: " + presupuesto.DescripcionFooter;
 
-            string TotalVidrio = "$ " + presupuesto.ResumenVidrios.ToString("F") ;
+            string TotalVidrio = "$ " + presupuesto.ResumenVidrios.ToString("F");
 
             string TotalColocacion = "$ " + presupuesto.ResumenColocacion.ToString("F");
 
@@ -2135,8 +2136,8 @@ namespace mvc.Controllers
 
             string TotalCarpinteria = "$ " + presupuesto.ResumenCarpinteria.ToString("F");
 
-            string SubTotalComplementos = "$ " + (presupuesto.ResumenSubtotal + presupuesto.ResumenVidrios + 
-                                    presupuesto.ResumenColocacion + presupuesto.ResumenCarpinteria + 
+            string SubTotalComplementos = "$ " + (presupuesto.ResumenSubtotal + presupuesto.ResumenVidrios +
+                                    presupuesto.ResumenColocacion + presupuesto.ResumenCarpinteria +
                                     presupuesto.ResumenTapajuntas).ToString("F");
 
             string Total = "$ " + (presupuesto.ResumenSubtotal + presupuesto.ResumenIva).ToString("F");
@@ -2188,7 +2189,7 @@ namespace mvc.Controllers
                         ArchivoTipologiaId = x.ArchivoTipologiaId,
                         NumeroPosicion = x.NumeroPosicion,
                         Posicion = x.Posicion,
-                        Descripcion = x.Posicion + "\r\n" + (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty)+ "\r\n" +
+                        Descripcion = x.Posicion + "\r\n" + (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +
                                   (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
                                   x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle,
                         Unidades = x.Unidades,
@@ -2223,14 +2224,14 @@ namespace mvc.Controllers
                     item.Posicion = x.Posicion;
                     if (x.PrecioVidrio != null && x.PrecioColocacion != null)
                     {
-                        item.Descripcion = x.Posicion + "\r\n" +( x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +
+                        item.Descripcion = x.Posicion + "\r\n" + (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +
                                            (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
                                            x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
 
                     }
                     else
                     {
-                        item.Descripcion = x.Posicion + "\r\n" +x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
+                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
 
                     }
                     item.Unidades = x.Unidades;
@@ -2255,7 +2256,7 @@ namespace mvc.Controllers
             Reporte.LocalReport.DataSources.Add(DataSource);
             Reporte.LocalReport.Refresh();
 
-            var archivos = archivoService.GetArchivosPorTransaccion(presupuesto.ArchivoTransaccionId).OrderBy(x=>x.FechaHoraSubida);
+            var archivos = archivoService.GetArchivosPorTransaccion(presupuesto.ArchivoTransaccionId).OrderBy(x => x.FechaHoraSubida);
 
             ReportDataSource DataSource1 = new ReportDataSource("DataSet1", archivos);
             Reporte.LocalReport.DataSources.Add(DataSource1);
@@ -2266,7 +2267,7 @@ namespace mvc.Controllers
             return File(new MemoryStream(file).ToArray(),
                       System.Net.Mime.MediaTypeNames.Application.Octet,
             /*Esto para forzar la descarga del archivo*/
-            string.Format("{0}{1}", "Presupuesto" + presupuesto.Cliente.RazonSocial+presupuesto.Cliente.Apellido + presupuesto.Cliente.Nombre, ".PDF"));
+            string.Format("{0}{1}", "Presupuesto" + presupuesto.Cliente.RazonSocial + presupuesto.Cliente.Apellido + presupuesto.Cliente.Nombre, ".PDF"));
 
 
         }
@@ -2375,17 +2376,40 @@ namespace mvc.Controllers
             int pageSize = 10, int page = 1)
         {
             ViewBag.Estados = new SelectList(db.PresupuestoEstado, "Id", "Descripcion");
-            var pageList = db.Presupuesto.Where(x=>x.PresupuestoNuevoId == null).Distinct().ToList();// this.presupuestoService.GetPresupuestosByPage(page, pageSize, sortBy, direction, filterBy, searchString, estadoId);
+            var pageList = db.Presupuesto.Where(x => x.PresupuestoNuevoId == null).Distinct().ToList();// this.presupuestoService.GetPresupuestosByPage(page, pageSize, sortBy, direction, filterBy, searchString, estadoId);
             var presupuestosVM = Mapper.Map<IEnumerable<Presupuesto>, IEnumerable<CuboPresupuestoViewModel>>(pageList.ToList()).ToList();
-            
 
-            return Json( new { data = presupuestosVM }, JsonRequestBehavior.AllowGet);
-      
+
+            return Json(new { data = presupuestosVM }, JsonRequestBehavior.AllowGet);
+
         }
 
         public ActionResult CuboPresupuesto()
         {
             return View();
+        }
+
+        public JsonResult ObtenerPreciosActualizados(Guid presupuestoId)
+        {
+            var resultado = new List<PrecioActualizado>();
+            var exito = true;
+            var mensaje = "";
+            try
+            {
+                var preciosActualizados = presupuestoService.ObtenerPreciosActualizados(presupuestoId);
+            }
+            catch (Exception ex)
+            {
+                exito = false;
+                mensaje = ex.Message;
+            }
+            var respuesta = new
+            {
+                exito = exito,
+                preciosActualizados = resultado,
+                mensaje = mensaje
+            };
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
         }
     }
 }

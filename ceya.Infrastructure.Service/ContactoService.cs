@@ -92,5 +92,13 @@ namespace ceya.Infrastructure.Service
             }
             return GetContactos();
         }
+
+        public Contacto GetContactos(Guid id)
+        {
+            var cliente = contactoRepository.GetById(id);
+
+            return cliente;
+        }
+
     }
 }

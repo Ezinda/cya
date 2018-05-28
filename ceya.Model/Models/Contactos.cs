@@ -5,6 +5,9 @@
 
     public partial class Contacto
     {
+        public Contacto()
+        { }
+
         public System.Guid Id { get; set; }
         public string Nombre { get; set; }
         public string Domicilio { get; set; }

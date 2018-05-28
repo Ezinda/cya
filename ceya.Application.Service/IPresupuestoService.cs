@@ -1,4 +1,5 @@
 ﻿using ceya.Core.Common;
+using ceya.Domain.Model.DTOs;
 using ceya.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,6 @@ namespace ceya.Domain.Service
         IEnumerable<ValidationResult> CanAddNewRevisionPresupuesto(Presupuesto presupuestoPorEditar);
         void CreatePresupuesto(Presupuesto presupuesto);
         void UpdateEstado(PresupuestoSeguimiento seguimiento);
+        IEnumerable<PrecioActualizado> ObtenerPreciosActualizados(Guid presupuestoId);
     }
 }

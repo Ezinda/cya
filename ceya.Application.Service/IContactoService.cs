@@ -16,6 +16,7 @@ namespace ceya.Application.Service
         IEnumerable<Contacto> GetContactoFilter(string search);
         IEnumerable<Contacto> GetContactoFilterWithConstructora(string search, Guid? constructoraId);
         IPagedList<Contacto> GetContactoByPage(int currentPage, int noOfRecords, string sortBy, string direction, string filterBy, string searchString);
+        Contacto GetContactos(Guid id);
     }
 
 }

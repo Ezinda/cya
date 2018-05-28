@@ -235,6 +235,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Contactos.cs" />
     <Compile Include="ViewModels\ContactoPageViewModel.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\PresupuestoSeguimientoController.cs" />
@@ -1302,6 +1303,7 @@
     <Content Include="Views\Contactos\Create.cshtml" />
     <Content Include="Views\Contactos\Index.cshtml" />
     <Content Include="Views\Constructora\Lookup.cshtml" />
+    <Content Include="Views\Contactos\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
