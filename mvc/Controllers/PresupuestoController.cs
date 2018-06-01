@@ -49,6 +49,7 @@ namespace mvc.Controllers
         private IPrecioService precioService;
 
         private GestionComercialWebEntities db;
+        private string ObservacionHeater;
 
         public PresupuestoController(
             IDatabaseFactory dbFactory,
@@ -2108,17 +2109,19 @@ namespace mvc.Controllers
 
             string Ubicacion = presupuesto.Obra != null && presupuesto.Obra.Domicilio != null ? presupuesto.Obra.Domicilio.ToUpper() : string.Empty;
 
-            string Email = (presupuesto.Email ?? String.Empty).ToUpper();
+            string Email = (presupuesto.Solicita == null ? presupuesto.Cliente.Email : presupuesto.Email ?? String.Empty).ToUpper();
 
             string Fecha = presupuesto.Fecha.ToShortDateString();
 
-            string Solicita = (presupuesto.Solicita ?? String.Empty).ToUpper();
-
-            string Telefono = presupuesto.Telefono ?? String.Empty;
+            string NombreCliente = presupuesto.Cliente.RazonSocial != String.Empty ? presupuesto.Cliente.Apellido + "," + presupuesto.Cliente.Nombre : presupuesto.Cliente.RazonSocial;
+            string Solicita = ((presupuesto.Solicita == null ? NombreCliente : presupuesto.Solicita) ?? String.Empty).ToUpper();
+            
+            string Telefono = presupuesto.Solicita == null ? presupuesto.Cliente.Telefono + " " +  presupuesto.Cliente.Celular : presupuesto.Telefono ?? String.Empty;
 
             string LineaColor = ProductoNombre + " - " + SubrubroNombre + " - " + ColorNombre;
 
-            string ObservacionFooter = "Observación: " + presupuesto.DescripcionFooter;
+            //string ObservacionFooter = "Observación: " + presupuesto.DescripcionFooter;
+            string ObservacionFooter = presupuesto.DescripcionFooter;
 
             string TotalVidrio = "$ " + presupuesto.ResumenVidrios.ToString("F");
 
@@ -2142,6 +2145,12 @@ namespace mvc.Controllers
 
             string Total = "$ " + (presupuesto.ResumenSubtotal + presupuesto.ResumenIva).ToString("F");
 
+            string ObservacionHeader = presupuesto.DescripcionHeader;
+            string CodPresupuesto = string.Concat("00000000", Convert.ToString(presupuesto.Codigo));
+            string CodigoPresupuesto = CodPresupuesto.Substring(CodPresupuesto.Length - 8);
+            string CodigoObra = presupuesto.Obra.CodigoObra;
+
+                                            
             string DirectorioReportesRelativo = "~/";
 
             string urlArchivo = string.Format("{0}.{1}", "PresupuestoReport", "rdlc");
@@ -2155,7 +2164,7 @@ namespace mvc.Controllers
             Reporte.LocalReport.ReportPath = "Reports/PresupuestoReport.rdlc";//FullPathReport;
             /*Configuramos los datos al dataset dentro del reporte*/
 
-            ReportParameter[] p = new ReportParameter[17];
+            ReportParameter[] p = new ReportParameter[20];
 
             p[0] = new ReportParameter("OBRA", Obra);
             p[1] = new ReportParameter("UBICACION", Ubicacion);
@@ -2174,6 +2183,9 @@ namespace mvc.Controllers
             p[14] = new ReportParameter("SUBTOTAL", SubtotalSinIva);
             p[15] = new ReportParameter("IVA", TotalIva);
             p[16] = new ReportParameter("PTOTAL", Total);
+            p[17] = new ReportParameter("OBSERVACIONHEADER", ObservacionHeader);
+            p[18] = new ReportParameter("CODIGOPRESUPUESTO", CodigoPresupuesto);
+            p[19] = new ReportParameter("CODIGOOBRA", CodigoObra);
 
             Reporte.LocalReport.EnableExternalImages = true;
             Reporte.LocalReport.SetParameters(p);
@@ -2189,9 +2201,14 @@ namespace mvc.Controllers
                         ArchivoTipologiaId = x.ArchivoTipologiaId,
                         NumeroPosicion = x.NumeroPosicion,
                         Posicion = x.Posicion,
-                        Descripcion = x.Posicion + "\r\n" + (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +
-                                  (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
-                                  x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle,
+                        //                        Descripcion = x.Posicion + "\r\n" + (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +
+                        //                                  (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
+                        //                                  x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle,
+
+                        Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle +
+                                      (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty),
+
+
                         Unidades = x.Unidades,
                         PrecioUnitario = Decimal.Round(x.PrecioUnitario, 2),
                         VidriosId = x.VidriosId,
@@ -2224,9 +2241,13 @@ namespace mvc.Controllers
                     item.Posicion = x.Posicion;
                     if (x.PrecioVidrio != null && x.PrecioColocacion != null)
                     {
-                        item.Descripcion = x.Posicion + "\r\n" + (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +
-                                           (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
-                                           x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
+                        //  item.Descripcion = x.Posicion + "\r\n" + (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +
+                        //                     (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
+                        //                     x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
+
+                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle +
+                                           (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty);
+                                             
 
                     }
                     else

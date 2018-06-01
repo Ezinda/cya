@@ -13,6 +13,8 @@
                   <TextRun>
                     <Value>=Parameters!OBRA.Value</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>14pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -21,7 +23,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>OBRA</rd:DefaultName>
-            <Top>0.3175cm</Top>
+            <Top>0.28028cm</Top>
             <Left>2.5635cm</Left>
             <Height>0.6cm</Height>
             <Width>7.20089cm</Width>
@@ -43,15 +45,18 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!UBICACION.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>UBICACION</rd:DefaultName>
-            <Top>1.00155cm</Top>
-            <Left>2.5635cm</Left>
+            <Top>1.83306cm</Top>
+            <Left>2.59173cm</Left>
             <Height>0.6cm</Height>
             <Width>7.22911cm</Width>
             <ZIndex>1</ZIndex>
@@ -73,15 +78,17 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!MAIL.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>arial</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MAIL</rd:DefaultName>
-            <Top>1.72121cm</Top>
-            <Left>2.5635cm</Left>
+            <Top>2.56997cm</Top>
+            <Left>2.59173cm</Left>
             <Height>0.6cm</Height>
             <Width>7.22912cm</Width>
             <ZIndex>2</ZIndex>
@@ -103,15 +110,18 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!FECHA.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FECHA</rd:DefaultName>
-            <Top>0.3175cm</Top>
-            <Left>12.25843cm</Left>
+            <Top>1.07845cm</Top>
+            <Left>12.25842cm</Left>
             <Height>0.6cm</Height>
             <Width>7.12199cm</Width>
             <ZIndex>3</ZIndex>
@@ -133,15 +143,18 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!TELEFONO.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TELEFONO</rd:DefaultName>
-            <Top>1.72121cm</Top>
-            <Left>12.25843cm</Left>
+            <Top>2.56997cm</Top>
+            <Left>12.28666cm</Left>
             <Height>0.6cm</Height>
             <Width>7.12199cm</Width>
             <ZIndex>4</ZIndex>
@@ -163,15 +176,18 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!SOLICITA.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>SOLICITA</rd:DefaultName>
-            <Top>1.00155cm</Top>
-            <Left>12.25843cm</Left>
+            <Top>1.83306cm</Top>
+            <Left>12.28666cm</Left>
             <Height>0.6cm</Height>
             <Width>7.12199cm</Width>
             <ZIndex>5</ZIndex>
@@ -194,6 +210,8 @@
                   <TextRun>
                     <Value>OBRA:</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -202,7 +220,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.3175cm</Top>
+            <Top>0.28028cm</Top>
             <Left>0.18521cm</Left>
             <Height>0.6cm</Height>
             <Width>1.48576cm</Width>
@@ -226,6 +244,8 @@
                   <TextRun>
                     <Value>UBICACIÓN:</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -234,8 +254,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.00155cm</Top>
-            <Left>0.18521cm</Left>
+            <Top>1.83306cm</Top>
+            <Left>0.21344cm</Left>
             <Height>0.6cm</Height>
             <Width>2.37829cm</Width>
             <ZIndex>7</ZIndex>
@@ -258,6 +278,8 @@
                   <TextRun>
                     <Value>MAIL:</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -266,8 +288,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.73846cm</Top>
-            <Left>0.18521cm</Left>
+            <Top>2.56997cm</Top>
+            <Left>0.21344cm</Left>
             <Height>0.6cm</Height>
             <Width>1.25646cm</Width>
             <ZIndex>8</ZIndex>
@@ -290,6 +312,8 @@
                   <TextRun>
                     <Value>FECHA:</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -298,8 +322,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.3175cm</Top>
-            <Left>10.02242cm</Left>
+            <Top>1.07845cm</Top>
+            <Left>10.02241cm</Left>
             <Height>0.6cm</Height>
             <Width>1.60161cm</Width>
             <ZIndex>9</ZIndex>
@@ -322,6 +346,8 @@
                   <TextRun>
                     <Value>SOLICITA:</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -330,8 +356,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.00155cm</Top>
-            <Left>10.02242cm</Left>
+            <Top>1.83306cm</Top>
+            <Left>10.05065cm</Left>
             <Height>0.6cm</Height>
             <Width>2.07726cm</Width>
             <ZIndex>10</ZIndex>
@@ -354,6 +380,8 @@
                   <TextRun>
                     <Value>TELEFONO:</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -362,11 +390,145 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.73846cm</Top>
-            <Left>10.02242cm</Left>
+            <Top>2.56997cm</Top>
+            <Left>10.05065cm</Left>
             <Height>0.6cm</Height>
             <Width>2.23601cm</Width>
             <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox28">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>PRESUPUESTO NRo.:</Value>
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>0.28028cm</Top>
+            <Left>9.99419cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.49966cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="FECHA2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!CODIGOPRESUPUESTO.Value</Value>
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>FECHA</rd:DefaultName>
+            <Top>0.28028cm</Top>
+            <Left>13.67024cm</Left>
+            <Height>0.6cm</Height>
+            <Width>5.60486cm</Width>
+            <ZIndex>13</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox29">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>COD.OBRA:</Value>
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>1.07845cm</Top>
+            <Left>0.21344cm</Left>
+            <Height>0.6cm</Height>
+            <Width>2.37829cm</Width>
+            <ZIndex>14</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="UBICACION2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!CODIGOOBRA.Value</Value>
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>UBICACION</rd:DefaultName>
+            <Top>1.07845cm</Top>
+            <Left>2.53528cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.22911cm</Width>
+            <ZIndex>15</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -381,7 +543,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>0.14111cm</Top>
         <Left>0.12382cm</Left>
-        <Height>2.52646cm</Height>
+        <Height>3.40311cm</Height>
         <Width>19.63454cm</Width>
         <Style>
           <Border>
@@ -401,6 +563,7 @@
                   <TextRun>
                     <Value>=Parameters!LINEACOLOR.Value</Value>
                     <Style>
+                      <FontFamily>agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                       <Color>White</Color>
@@ -427,7 +590,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>2.76811cm</Top>
+        <Top>3.72061cm</Top>
         <Left>0.12382cm</Left>
         <Height>0.79488cm</Height>
         <Width>19.63454cm</Width>
@@ -451,6 +614,8 @@
 *EL COSTO DE ACRISTALADO ESTA SUJETO A VERIFICACION DE ACCESIBILIDAD EN OBRA
 </Value>
                 <Style>
+                  <FontFamily>agency FB</FontFamily>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>SemiBold</FontWeight>
                 </Style>
               </TextRun>
@@ -459,12 +624,17 @@
 * NO INCLUYE ALZADO DE CARPINTERIA Y VIDRIOS EN ALTURA, AYUDA DE GREMIOS, NI EQUIPOS DE ELEVACION Y ANDAMIOS QUE PUDIERAN SER NECESARIOS PARA LA REALIZACION DE LA OBRA.-
 * NO INCLUYE PERMISOS DE DESCARGA, COSTOS DE ESTACIONAMIENTOS, EN CASO QUE FUESEN NECESARIOS.-
 </Value>
-                <Style />
+                <Style>
+                  <FontFamily>agency FB</FontFamily>
+                  <FontSize>12pt</FontSize>
+                </Style>
               </TextRun>
               <TextRun>
                 <Value>* NO INCLINE FLETE NI VIATICOS, FUERA DEL GRAN SAN MIGUEL DE TUCUMAN Y YERBA BUENA.-
 </Value>
                 <Style>
+                  <FontFamily>agency FB</FontFamily>
+                  <FontSize>12pt</FontSize>
                   <FontWeight>SemiBold</FontWeight>
                 </Style>
               </TextRun>
@@ -476,15 +646,18 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
 * SOMOS AGENTES DE PERCEPCION DE INGRESOS BRUTOS. SI SE EMITE FACTURA 'A' SE ADICIONARA LA PERCEPCION AL IMPORTE PRESUPUESTADO.-
 *ESTE PRESUPUESTO ESTA SUJETO A VARIACIONES SIN PREVIO AVISO.-
 </Value>
-                <Style />
+                <Style>
+                  <FontFamily>agency FB</FontFamily>
+                  <FontSize>12pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>18.88174cm</Top>
-        <Left>0.34607cm</Left>
+        <Top>19.2257cm</Top>
+        <Left>0.30903cm</Left>
         <Height>8.05575cm</Height>
         <Width>19.1952cm</Width>
         <ZIndex>2</ZIndex>
@@ -508,17 +681,21 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>TOTAL                                                                               </Value>
+                    <Value xml:space="preserve"> </Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                   <TextRun>
                     <Value>=Parameters!TOTALITEMS.Value</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -528,10 +705,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>3.82235cm</Top>
-            <Left>3.39677cm</Left>
+            <Top>2.20839cm</Top>
+            <Left>14.83179cm</Left>
             <Height>0.6cm</Height>
-            <Width>14.80304cm</Width>
+            <Width>3.36802cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -551,6 +728,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                   <TextRun>
                     <Value>TOTAL VIDRIO</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -559,10 +738,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>4.72865cm</Top>
-            <Left>7.70569cm</Left>
+            <Top>3.43219cm</Top>
+            <Left>8.68465cm</Left>
             <Height>0.6cm</Height>
-            <Width>7.1261cm</Width>
+            <Width>6.14714cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -583,6 +762,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                   <TextRun>
                     <Value>TOTAL COLOCACIÓN</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -591,10 +772,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>5.46556cm</Top>
-            <Left>7.7041cm</Left>
+            <Top>4.1691cm</Top>
+            <Left>8.68147cm</Left>
             <Height>0.6cm</Height>
-            <Width>7.12769cm</Width>
+            <Width>6.15032cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -615,6 +796,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                   <TextRun>
                     <Value>TOTAL TAPAJUNTA</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -623,10 +806,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>6.17139cm</Top>
-            <Left>7.70728cm</Left>
+            <Top>4.87493cm</Top>
+            <Left>8.68465cm</Left>
             <Height>0.6cm</Height>
-            <Width>7.12451cm</Width>
+            <Width>6.14714cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -647,6 +830,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                   <TextRun>
                     <Value>=Parameters!CONCEPTOSVARIOS.Value</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                     </Style>
                   </TextRun>
@@ -655,10 +840,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>6.85544cm</Top>
-            <Left>7.70728cm</Left>
+            <Top>5.58544cm</Top>
+            <Left>8.68465cm</Left>
             <Height>0.6cm</Height>
-            <Width>7.12451cm</Width>
+            <Width>6.14714cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -677,17 +862,21 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>SUBTOTAL                                                                      </Value>
+                    <Value xml:space="preserve"> </Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                   <TextRun>
                     <Value>=Parameters!SUBTOTAL.Value</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -697,10 +886,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>7.6876cm</Top>
-            <Left>3.39676cm</Left>
+            <Top>6.71013cm</Top>
+            <Left>14.83179cm</Left>
             <Height>0.6cm</Height>
-            <Width>14.80145cm</Width>
+            <Width>3.36642cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
               <Border>
@@ -719,17 +908,12 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>IVA                                                                                     </Value>
-                    <Style>
-                      <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
                     <Value>=Parameters!IVA.Value</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -739,10 +923,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>8.42871cm</Top>
-            <Left>5.56382cm</Left>
+            <Top>7.45124cm</Top>
+            <Left>14.90985cm</Left>
             <Height>0.6cm</Height>
-            <Width>12.63598cm</Width>
+            <Width>3.28996cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
               <Border>
@@ -761,17 +945,21 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>PRESUPUESTO TOTAL                                                 </Value>
+                    <Value xml:space="preserve"> </Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                   <TextRun>
                     <Value>=Parameters!PTOTAL.Value</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>Underline</TextDecoration>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -781,10 +969,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>9.16982cm</Top>
-            <Left>3.39676cm</Left>
+            <Top>8.22763cm</Top>
+            <Left>14.8318cm</Left>
             <Height>0.6cm</Height>
-            <Width>14.80304cm</Width>
+            <Width>3.36801cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
               <Border>
@@ -804,7 +992,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!TOTALVIDRIO.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -813,7 +1004,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TOTALVIDRIO</rd:DefaultName>
-            <Top>4.72865cm</Top>
+            <Top>3.43219cm</Top>
             <Left>14.83179cm</Left>
             <Height>0.6cm</Height>
             <Width>3.36802cm</Width>
@@ -836,7 +1027,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!TOTALCOLOCACION.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -845,7 +1039,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TOTALCOLOCACION</rd:DefaultName>
-            <Top>5.50503cm</Top>
+            <Top>4.1691cm</Top>
             <Left>14.83179cm</Left>
             <Height>0.6cm</Height>
             <Width>3.36802cm</Width>
@@ -868,7 +1062,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!TOTALTAPAJUNTA.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -877,7 +1074,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TOTALTAPAJUNTA</rd:DefaultName>
-            <Top>6.17139cm</Top>
+            <Top>4.87493cm</Top>
             <Left>14.83179cm</Left>
             <Height>0.6cm</Height>
             <Width>3.36802cm</Width>
@@ -900,7 +1097,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!TOTALVARIOS.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -909,46 +1109,11 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TOTALCURVADO</rd:DefaultName>
-            <Top>6.85124cm</Top>
+            <Top>5.58544cm</Top>
             <Left>14.83179cm</Left>
             <Height>0.6cm</Height>
             <Width>3.36802cm</Width>
             <ZIndex>11</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Textbox17">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!OBSERVACIONFOOTER.Value</Value>
-                    <Style>
-                      <FontWeight>SemiBold</FontWeight>
-                      <TextDecoration>None</TextDecoration>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.1175cm</Top>
-            <Left>0.41183cm</Left>
-            <Height>2.95479cm</Height>
-            <Width>17.78798cm</Width>
-            <ZIndex>12</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -966,8 +1131,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Cantidad de Unidades    </Value>
+                    <Value xml:space="preserve">    </Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                       <TextDecoration>None</TextDecoration>
                     </Style>
@@ -975,21 +1142,60 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                   <TextRun>
                     <Value>=Sum(Fields!Unidades.Value, "DSPresupuestoItem")</Value>
                     <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Right</TextAlign>
+                  <TextAlign>Center</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>3.1518cm</Top>
-            <Left>3.39517cm</Left>
+            <Left>10.05329cm</Left>
             <Height>0.6cm</Height>
-            <Width>14.80304cm</Width>
+            <Width>2.38167cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox17">
+            <CanGrow>true</CanGrow>
+            <CanShrink>true</CanShrink>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!OBSERVACIONFOOTER.Value</Value>
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>9.06658cm</Top>
+            <Left>0.33377cm</Left>
+            <Height>0.89104cm</Height>
+            <Width>17.86604cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
@@ -1001,11 +1207,221 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox21">
+            <CanGrow>true</CanGrow>
+            <CanShrink>true</CanShrink>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!OBSERVACIONHEADER.Value</Value>
+                    <Style>
+                      <FontFamily>agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>0.77639cm</Top>
+            <Left>0.33377cm</Left>
+            <Height>0.89104cm</Height>
+            <Width>17.86604cm</Width>
+            <ZIndex>14</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox22">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>IVA</Value>
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>7.45124cm</Top>
+            <Left>8.68465cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.14714cm</Width>
+            <ZIndex>15</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox23">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>TOTAL</Value>
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>2.20839cm</Top>
+            <Left>8.68465cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.14714cm</Width>
+            <ZIndex>16</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox25">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>SUBTOTAL</Value>
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>6.71013cm</Top>
+            <Left>8.68465cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.14714cm</Width>
+            <ZIndex>17</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox27">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>PRESUPUESTO TOTAL</Value>
+                    <Style>
+                      <FontFamily>Agency FB</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>SemiBold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>8.22763cm</Top>
+            <Left>8.68465cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.14714cm</Width>
+            <ZIndex>18</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Line Name="Line1">
+            <Top>2.80839cm</Top>
+            <Left>8.68147cm</Left>
+            <Height>0cm</Height>
+            <Width>9.44028cm</Width>
+            <ZIndex>19</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="Line2">
+            <Top>8.86291cm</Top>
+            <Left>8.75953cm</Left>
+            <Height>0cm</Height>
+            <Width>9.44028cm</Width>
+            <ZIndex>20</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
+          <Line Name="Line3">
+            <Top>7.31013cm</Top>
+            <Left>8.75793cm</Left>
+            <Height>0cm</Height>
+            <Width>9.44028cm</Width>
+            <ZIndex>21</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Line>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>8.05962cm</Top>
+        <Top>9.01212cm</Top>
         <Left>0.63768cm</Left>
-        <Height>10.20124cm</Height>
+        <Height>10.03719cm</Height>
         <Width>18.45552cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
@@ -1044,7 +1460,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>DESCRIPCIÓN</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1089,7 +1508,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>UNIDADES</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1134,7 +1556,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>P. UNITARIO</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1179,7 +1604,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>IMPORTE</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1230,7 +1658,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                             <TextRun>
                               <Value>=Fields!Descripcion.Value</Value>
                               <Style>
-                                <FontSize>9pt</FontSize>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1273,7 +1702,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Unidades.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1317,7 +1749,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!PrecioUnitario.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1361,7 +1796,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Importe.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1418,7 +1856,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DSPresupuestoItem</DataSetName>
-        <Top>3.92165cm</Top>
+        <Top>4.87415cm</Top>
         <Left>5.36226cm</Left>
         <Height>3.75735cm</Height>
         <Width>13.12769cm</Width>
@@ -1450,7 +1888,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                           <TextRuns>
                             <TextRun>
                               <Value>TIPOLOGIA</Value>
-                              <Style />
+                              <Style>
+                                <FontFamily>Agency FB</FontFamily>
+                                <FontSize>12pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -1528,7 +1969,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>3.92165cm</Top>
+        <Top>4.87415cm</Top>
         <Left>0.63768cm</Left>
         <Height>3.75735cm</Height>
         <Width>4.72458cm</Width>
@@ -1874,6 +2315,24 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="OBSERVACIONFOOTER">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="OBSERVACIONHEADER">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CODIGOPRESUPUESTO">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CODIGOOBRA">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <AllowBlank>true</AllowBlank>
