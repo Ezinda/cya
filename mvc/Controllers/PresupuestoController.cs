@@ -2432,5 +2432,49 @@ namespace mvc.Controllers
             };
             return Json(respuesta, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult EliminarItem(Guid itemId)
+        {        
+
+            var exito = true;
+            var mensaje = "";
+            try
+            {
+                presupuestoService.EliminarItem(itemId);
+            }
+            catch (Exception ex)
+            {
+                exito = false;
+                mensaje = ex.Message;
+            }
+            var respuesta = new
+            {
+                exito = exito,
+                mensaje = mensaje
+            };
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarArchivoItem(Guid itemId)
+        {
+
+            var exito = true;
+            var mensaje = "";
+            try
+            {
+                presupuestoService.EliminarArchivoItem(itemId);
+            }
+            catch (Exception ex)
+            {
+                exito = false;
+                mensaje = ex.Message;
+            }
+            var respuesta = new
+            {
+                exito = exito,
+                mensaje = mensaje
+            };
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
+        }
     }
 }

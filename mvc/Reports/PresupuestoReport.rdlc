@@ -23,8 +23,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>OBRA</rd:DefaultName>
-            <Top>0.28028cm</Top>
-            <Left>2.5635cm</Left>
+            <Top>0.6cm</Top>
+            <Left>2.59173cm</Left>
             <Height>0.6cm</Height>
             <Width>7.20089cm</Width>
             <Style>
@@ -55,7 +55,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>UBICACION</rd:DefaultName>
-            <Top>1.83306cm</Top>
+            <Top>1.05889cm</Top>
             <Left>2.59173cm</Left>
             <Height>0.6cm</Height>
             <Width>7.22911cm</Width>
@@ -87,7 +87,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MAIL</rd:DefaultName>
-            <Top>2.56997cm</Top>
+            <Top>1.49017cm</Top>
             <Left>2.59173cm</Left>
             <Height>0.6cm</Height>
             <Width>7.22912cm</Width>
@@ -120,8 +120,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FECHA</rd:DefaultName>
-            <Top>1.07845cm</Top>
-            <Left>12.25842cm</Left>
+            <Top>0.6cm</Top>
+            <Left>12.31488cm</Left>
             <Height>0.6cm</Height>
             <Width>7.12199cm</Width>
             <ZIndex>3</ZIndex>
@@ -153,8 +153,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TELEFONO</rd:DefaultName>
-            <Top>2.56997cm</Top>
-            <Left>12.28666cm</Left>
+            <Top>1.49017cm</Top>
+            <Left>12.28665cm</Left>
             <Height>0.6cm</Height>
             <Width>7.12199cm</Width>
             <ZIndex>4</ZIndex>
@@ -186,8 +186,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>SOLICITA</rd:DefaultName>
-            <Top>1.83306cm</Top>
-            <Left>12.28666cm</Left>
+            <Top>1.05889cm</Top>
+            <Left>12.28665cm</Left>
             <Height>0.6cm</Height>
             <Width>7.12199cm</Width>
             <ZIndex>5</ZIndex>
@@ -220,7 +220,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.28028cm</Top>
+            <Top>0.6cm</Top>
             <Left>0.18521cm</Left>
             <Height>0.6cm</Height>
             <Width>1.48576cm</Width>
@@ -254,8 +254,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.83306cm</Top>
-            <Left>0.21344cm</Left>
+            <Top>1.05889cm</Top>
+            <Left>0.17816cm</Left>
             <Height>0.6cm</Height>
             <Width>2.37829cm</Width>
             <ZIndex>7</ZIndex>
@@ -288,8 +288,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>2.56997cm</Top>
-            <Left>0.21344cm</Left>
+            <Top>1.49017cm</Top>
+            <Left>0.18521cm</Left>
             <Height>0.6cm</Height>
             <Width>1.25646cm</Width>
             <ZIndex>8</ZIndex>
@@ -322,8 +322,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.07845cm</Top>
-            <Left>10.02241cm</Left>
+            <Top>0.6cm</Top>
+            <Left>10.02242cm</Left>
             <Height>0.6cm</Height>
             <Width>1.60161cm</Width>
             <ZIndex>9</ZIndex>
@@ -356,8 +356,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.83306cm</Top>
-            <Left>10.05065cm</Left>
+            <Top>1.05889cm</Top>
+            <Left>10.02242cm</Left>
             <Height>0.6cm</Height>
             <Width>2.07726cm</Width>
             <ZIndex>10</ZIndex>
@@ -390,8 +390,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>2.56997cm</Top>
-            <Left>10.05065cm</Left>
+            <Top>1.49017cm</Top>
+            <Left>10.02242cm</Left>
             <Height>0.6cm</Height>
             <Width>2.23601cm</Width>
             <ZIndex>11</ZIndex>
@@ -424,8 +424,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>0.28028cm</Top>
-            <Left>9.99419cm</Left>
+            <Top>0.09702cm</Top>
+            <Left>10.02242cm</Left>
             <Height>0.6cm</Height>
             <Width>3.49966cm</Width>
             <ZIndex>12</ZIndex>
@@ -457,8 +457,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FECHA</rd:DefaultName>
-            <Top>0.28028cm</Top>
-            <Left>13.67024cm</Left>
+            <Top>0.09702cm</Top>
+            <Left>13.67023cm</Left>
             <Height>0.6cm</Height>
             <Width>5.60486cm</Width>
             <ZIndex>13</ZIndex>
@@ -472,78 +472,11 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="Textbox29">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>COD.OBRA:</Value>
-                    <Style>
-                      <FontFamily>agency FB</FontFamily>
-                      <FontSize>12pt</FontSize>
-                      <FontWeight>SemiBold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>1.07845cm</Top>
-            <Left>0.21344cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.37829cm</Width>
-            <ZIndex>14</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="UBICACION2">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!CODIGOOBRA.Value</Value>
-                    <Style>
-                      <FontFamily>agency FB</FontFamily>
-                      <FontSize>12pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>UBICACION</rd:DefaultName>
-            <Top>1.07845cm</Top>
-            <Left>2.53528cm</Left>
-            <Height>0.6cm</Height>
-            <Width>7.22911cm</Width>
-            <ZIndex>15</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>0.14111cm</Top>
+        <Top>0.07937cm</Top>
         <Left>0.12382cm</Left>
-        <Height>3.40311cm</Height>
+        <Height>2.25585cm</Height>
         <Width>19.63454cm</Width>
         <Style>
           <Border>
@@ -590,8 +523,8 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>3.72061cm</Top>
-        <Left>0.12382cm</Left>
+        <Top>2.52089cm</Top>
+        <Left>0.14887cm</Left>
         <Height>0.79488cm</Height>
         <Width>19.63454cm</Width>
         <ZIndex>1</ZIndex>
@@ -656,8 +589,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>19.2257cm</Top>
-        <Left>0.30903cm</Left>
+        <Top>17.9815cm</Top>
+        <Left>0.30585cm</Left>
         <Height>8.05575cm</Height>
         <Width>19.1952cm</Width>
         <ZIndex>2</ZIndex>
@@ -1419,8 +1352,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </Line>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>9.01212cm</Top>
-        <Left>0.63768cm</Left>
+        <Top>7.63573cm</Top>
+        <Left>0.56122cm</Left>
         <Height>10.03719cm</Height>
         <Width>18.45552cm</Width>
         <ZIndex>3</ZIndex>
@@ -1434,16 +1367,16 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>5.32871cm</Width>
+              <Width>5.47952cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.38167cm</Width>
+              <Width>2.53248cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3.03564cm</Width>
+              <Width>3.18645cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.38167cm</Width>
+              <Width>2.53248cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -1856,10 +1789,10 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DSPresupuestoItem</DataSetName>
-        <Top>4.87415cm</Top>
-        <Left>5.36226cm</Left>
+        <Top>3.49776cm</Top>
+        <Left>5.2858cm</Left>
         <Height>3.75735cm</Height>
-        <Width>13.12769cm</Width>
+        <Width>13.73094cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -1969,8 +1902,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSet1</DataSetName>
-        <Top>4.87415cm</Top>
-        <Left>0.63768cm</Left>
+        <Top>3.49776cm</Top>
+        <Left>0.56122cm</Left>
         <Height>3.75735cm</Height>
         <Width>4.72458cm</Width>
         <ZIndex>5</ZIndex>

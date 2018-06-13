@@ -3,11 +3,17 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Agregado por Marcelo para reemplazar los render de carga del boostrap
+    <!-- Bootstrap CSS -->  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>@ViewBag.Title - Ce&A</title>
     <link rel="shortcut icon" href="~/Content/images/favicon.ico" type="image/x-icon" />
-    @Styles.Render("~/Content/css")
-    @RenderSection("styles", required: false)
-    @Scripts.Render("~/bundles/modernizr")
+    <!-- Comentado por Marcelo por pertenecer a version vieja de boostrap
+    <!--> @Styles.Render("~/Content/css")
+    <!--> @RenderSection("styles", required: false)
+    <!--> @Scripts.Render("~/bundles/modernizr") 
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top">

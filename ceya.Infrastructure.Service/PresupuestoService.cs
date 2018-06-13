@@ -280,5 +280,37 @@ namespace ceya.Domain.Service
             if (precioActual == null) throw new Exception(string.Format("No hay precio Actual para {0}", nombre));
             return precioActual.PrecioProducto;
         }
+
+        public void EliminarItem(Guid itemId)
+        {
+            var itemParaEliminar = itemRepository.GetById(itemId);
+            if (itemParaEliminar != null)
+            {
+                itemRepository.Delete(itemParaEliminar);
+                SavePresupuesto();
+            }
+            else
+                throw new Exception("Se intentó eliminar un item que no existe");
+        }
+
+        public void EliminarArchivoItem(Guid itemId)
+        {
+            var itemParaModificar = itemRepository.GetById(itemId);
+            var archivoId = itemParaModificar.Archivo.Id;
+            if (itemParaModificar != null)
+            {
+                itemParaModificar.ArchivoTipologiaId = null;               
+                SavePresupuesto();
+
+                //var archivoParaEliminar = archivoRepository.GetById(archivoId);
+                //if (archivoParaEliminar != null)
+                //{
+                //    archivoRepository.Delete(archivoParaEliminar);
+                //    unitOfWork.Commit();
+                //}               
+            }
+            else
+                throw new Exception("Se intentó eliminar un item que no existe");
+        }
     }
 }

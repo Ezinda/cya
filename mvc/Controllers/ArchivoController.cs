@@ -1,4 +1,5 @@
-﻿using ceya.Infrastructure.DataAccess;
+﻿using ceya.Domain.Service;
+using ceya.Infrastructure.DataAccess;
 using mvc.Helpers;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,39 @@ namespace mvc.Controllers
     public class ArchivoController : Controller
     {
         private GestionComercialWebEntities db = new GestionComercialWebEntities();
+        private readonly IArchivoService _archivoService;
+        public ArchivoController(IArchivoService archivoService)
+        {
+            _archivoService = archivoService;
+        }
 
         public FileResult Get(Guid id)
         {
             var archivo = this.db.Archivo.Find(id);
 
             return File(archivo.Ubicacion, archivo.MimeType);
+        }
+
+        public JsonResult Eliminar(Guid id)
+        {            
+            var exito = true;
+            var mensaje = "";
+            try
+            {
+                _archivoService.Eliminar(id);
+            }
+            catch (Exception ex)
+            {
+                exito = false;
+                mensaje = ex.Message;
+            }
+            var respuesta = new
+            {
+                exito = exito,
+                mensaje = mensaje
+            };
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
+
         }
 
         public FileResult GetThumbnail(Guid id, int sizeClass)

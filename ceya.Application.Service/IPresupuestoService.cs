@@ -21,5 +21,7 @@ namespace ceya.Domain.Service
         void CreatePresupuesto(Presupuesto presupuesto);
         void UpdateEstado(PresupuestoSeguimiento seguimiento);
         IEnumerable<PrecioActualizado> ObtenerPreciosActualizados(Guid presupuestoId);
+        void EliminarItem(Guid itemId);
+        void EliminarArchivoItem(Guid itemId);
     }
 }

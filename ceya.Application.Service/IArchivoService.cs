@@ -10,5 +10,6 @@ namespace ceya.Domain.Service
     public interface IArchivoService
     {
         IEnumerable<Archivo> GetArchivosPorTransaccion(Guid transaccionId);
+        void Eliminar(Guid id);
     }
 }

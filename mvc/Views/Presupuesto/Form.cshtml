@@ -297,6 +297,7 @@
                         <th style="width: 85px;">Unidades</th>
                         <th style="text-align:right;width: 140px;">Precio Unitario</th>
                         <th style="text-align:right;width: 140px;">Importe Total</th>
+                        <th style="width: 40px;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -530,6 +531,32 @@
                     toggleRowDetail($(this), onBeforeShowDetail);
                 });
 
+                $rowItem.find("*[data-headercol='action']").on("click", function () {
+                    var tr = $(this).closest("tr");
+                    var itemId = tr.attr("data-row-id");
+                    if(confirm("Desea eliminar el item?")){
+                        $.ajax({
+                            method: "POST",
+                            url: "/Presupuesto/EliminarItem",
+                            data: { itemId: itemId}
+                        })
+                        .done(function (respuesta) {
+                            if(respuesta.exito){
+                                alert("Se eliminó correctamente el item.");
+                                var trDetail = tr.next("tr");
+                                tr.remove();
+                                trDetail.remove();
+                                $($("#gridPresupuesto")).trigger('recalcularResumen', $("#gridPresupuesto"));
+                            }
+                            else{
+                                alert("No se pudo eliminar el item.");
+                            }
+                        })
+                        .fail(function(jqXHR, textStatus, errorThrown ) {
+
+                        });
+                    }
+                });
                 if (onAfterEmbeddedRow) { onAfterEmbeddedRow($rowItem, data); }
             }
 
@@ -690,7 +717,7 @@
             @if (Model.ObraId == null || Model.ObraId == Guid.Empty)
             {
                 @:$('#ObraId_autocomplete').attr('disabled', true);
-                                                                                                }
+                                                                                                                                                }
 
             if ($('#CotizacionId[data-control-currency]').length) {
                 new Cleave($('#CotizacionId[data-control-currency]'), {
@@ -1170,6 +1197,7 @@
 
                 // $rowItem.find("*[data-headercol='toggler']").text();
                 $rowItem.find("*[data-headercol='tipologia'] > div").css('background', "url('" + item.tipologiaThumbnailUrl + "') center center / contain no-repeat");
+                $rowItem.find("*[data-headercol='tipologia'] > div").attr("item-id", item.id);
                 $rowItem.find("*[data-headercol='posicion']").text(item.posicion);
                 $rowItem.find("*[data-headercol='descripcion']").text(item.descripcion);
                 $rowItem.find("*[data-headercol='unidades']").text(numeral(item.unidades).format('0,0'));
@@ -1177,6 +1205,7 @@
                 $rowItem.find("*[data-headercol='importe']").text(numeral(item.importe).format('0,0.00'));
 
                 $rowItem.find("*[data-presupuesto-item='tooltip']").attr("src", item.tipologiaThumbnailUrl)
+                $rowItem.find("*[data-presupuesto-item='tooltip']").attr("item-id", item.id);
                 $rowItem.find("*[data-presupuesto-item='tooltip']").attr("data-presupuesto-item-src", item.tipologiaUrl)
                 $rowItem.find("*[data-presupuesto-item='tipologiaId']").val(item.tipologiaId);
                 $rowItem.find("*[data-presupuesto-item='posicion']").val(item.posicion);
@@ -1249,6 +1278,31 @@
 
             $(document).on('change', '#gridPresupuesto input[data-presupuesto-item]', function () {
                 $(this).trigger('recalcularResumen', this);
+            });
+
+            $(document).on('click', '.boton-eliminar-imagen', function () {
+                if(confirm("Desea eliminar la imagen?")){
+                    var img= $(this).closest("div").find("img");
+                    var itemId = img.attr("item-id");
+                    $.ajax({
+                        method: "POST",
+                        url: "/Presupuesto/EliminarArchivoItem",
+                        data: { itemId: itemId}
+                    })
+                    .done(function (respuesta) {
+                        if(respuesta.exito){
+                            alert("Se eliminó correctamente la imagen.");
+                            img.remove();
+                            $("tr[data-row-id='"+itemId+"']").find("*[data-headercol='tipologia']").html("")
+                        }
+                        else{
+                            alert("No se pudo eliminar el item.");
+                        }
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown ) {
+
+                    });
+                }
             });
 
             $(document).on('change', 'input[data-presupuesto-summary]', function () {

@@ -1087,6 +1087,7 @@
       <DependentUpon>GestionComercialWebDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="RegisterCeyaEventSource.reg" />
+    <None Include="Properties\PublishProfiles\despliegue.pubxml" />
     <None Include="Properties\PublishProfiles\GestionComercial.pubxml" />
     <None Include="Properties\PublishProfiles\Produccion.pubxml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -1311,7 +1312,9 @@
     <Folder Include="Views\Archivo\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>

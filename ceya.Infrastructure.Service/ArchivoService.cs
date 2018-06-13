@@ -20,5 +20,19 @@ namespace ceya.Domain.Service
 
             return this.archivoRepository.GetMany(x => x.TransaccionId == transaccionId && !x.Nombre.Contains(".xls"));
         }
+
+        public void Eliminar(Guid id)
+        {
+            var archivoParaEliminar = archivoRepository.GetById(id);
+            if (archivoParaEliminar != null)
+            {
+                archivoRepository.Delete(archivoParaEliminar);
+                unitOfWork.Commit();
+            }
+            else
+            {
+                throw new Exception("Intentó eliminar un archivo que no existe");
+            }
+        }
     }
 }
