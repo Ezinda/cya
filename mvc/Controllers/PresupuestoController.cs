@@ -2109,12 +2109,12 @@ namespace mvc.Controllers
 
             string Ubicacion = presupuesto.Obra != null && presupuesto.Obra.Domicilio != null ? presupuesto.Obra.Domicilio.ToUpper() : string.Empty;
 
-            string Email = (presupuesto.Solicita == null ? presupuesto.Cliente.Email : presupuesto.Email ?? String.Empty).ToUpper();
+            string Email = (presupuesto.Solicita == null ? presupuesto.Cliente.Email ?? String.Empty : presupuesto.Email ?? String.Empty).ToUpper();
 
             string Fecha = presupuesto.Fecha.ToShortDateString();
 
             string NombreCliente = presupuesto.Cliente.RazonSocial != String.Empty ? presupuesto.Cliente.Apellido + "," + presupuesto.Cliente.Nombre : presupuesto.Cliente.RazonSocial;
-            string Solicita = ((presupuesto.Solicita == null ? NombreCliente : presupuesto.Solicita) ?? String.Empty).ToUpper();
+            string Solicita = ((presupuesto.Solicita == null ? presupuesto.Cliente.RazonSocial != String.Empty ? presupuesto.Cliente.Apellido + "," + presupuesto.Cliente.Nombre : presupuesto.Cliente.RazonSocial : presupuesto.Solicita) ?? String.Empty).ToUpper();
             
             string Telefono = presupuesto.Solicita == null ? presupuesto.Cliente.Telefono + " " +  presupuesto.Cliente.Celular : presupuesto.Telefono ?? String.Empty;
 

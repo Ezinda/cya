@@ -43,6 +43,12 @@ namespace ceya.Infrastructure.Repository
                     case "Domicilio":
                         contactos = contactos.OrderBy(c => c.Domicilio);
                         break;
+                    case "Telefono":
+                        contactos = contactos.OrderBy(c => c.Telefono);
+                        break;
+                    case "E-Mail":
+                        contactos = contactos.OrderBy(c => c.Email);
+                        break;
                     case "Constructora":
                         contactos = contactos.OrderBy(c => c.Constructora);
                         break;
@@ -61,6 +67,12 @@ namespace ceya.Infrastructure.Repository
                         break;
                     case "Domicilio":
                         contactos = contactos.OrderByDescending(c => c.Domicilio);
+                        break;
+                    case "Telefono":
+                        contactos = contactos.OrderBy(c => c.Telefono);
+                        break;
+                    case "E-Mail":
+                        contactos = contactos.OrderBy(c => c.Email);
                         break;
                     case "Constructora":
                         contactos = contactos.OrderByDescending(c => c.Constructora);

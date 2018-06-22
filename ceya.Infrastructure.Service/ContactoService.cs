@@ -43,7 +43,8 @@ namespace ceya.Infrastructure.Service
 
         public void Update(Contacto contacto)
         {
-            throw new NotImplementedException();
+            contactoRepository.Update(contacto);
+            Save();
         }
 
 

@@ -97,7 +97,8 @@ namespace mvc.Controllers
             editVM.Telefono = contacto.Telefono;
             editVM.Email = contacto.Email;
             editVM.ConstructoraId = contacto.ConstructoraId;
-          //  editVM.Constructora = contacto.Constructora.Nombre;
+            editVM.Constructora =contacto.Constructora != null ? contacto.Constructora.Nombre : string.Empty;
+
 
             return PartialView(editVM);
         }
@@ -113,6 +114,8 @@ namespace mvc.Controllers
 
                 contacto.Nombre = contactoVM.Nombre;
                 contacto.Domicilio = contactoVM.Domicilio;
+                contacto.Telefono = contactoVM.Telefono;
+                contacto.Email = contactoVM.Email;
                 contacto.ConstructoraId = contactoVM.ConstructoraId;
                 ContactoService.Update(contacto);
 

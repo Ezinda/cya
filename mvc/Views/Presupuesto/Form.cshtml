@@ -171,9 +171,19 @@
                 <div class="ez_form_label_wrapper">
                     <label>Solicita</label>
                 </div>
+
                 <div class="ez_form_control_wrapper">
-                    @Html.TextBoxFor(x => x.Solicita)
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.Solicita)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.Solicita, new { @id = "Solicita_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="solicita_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.Solicita)
                 </div>
+
             </div>
             <div class="ez_form_field">
                 <div class="ez_form_label_wrapper">
@@ -287,8 +297,8 @@
             </div>
         </div>
         <div class="datatable-wrapper">
-            <table id="tabla-items">
-                <thead>
+           <table id="tabla-items">  
+                  <thead>
                     <tr>
                         <th style="width: 40px;"></th>
                         <th style="width: 100px;">Tipología</th>
@@ -297,7 +307,7 @@
                         <th style="width: 85px;">Unidades</th>
                         <th style="text-align:right;width: 140px;">Precio Unitario</th>
                         <th style="text-align:right;width: 140px;">Importe Total</th>
-                        <th style="width: 40px;"></th>
+                        <th style="width: 40px;"></th> 
                     </tr>
                 </thead>
                 <tbody>
@@ -372,7 +382,7 @@
                             </div>
                             <div class="ez_form_field">
                                 <div class="ez_form_label_wrapper">
-                                    <label>Colación</label>
+                                    <label>Colocación</label>
                                 </div>
                                 <div class="ez_form_control_wrapper">
                                     <input id="@Html.IdFor(x => x.ResumenColocacion)" data-presupuesto-summary="colocacion" data-control-currency type="text" disabled>
@@ -451,12 +461,13 @@
 </div><!-- /.modal -->
 @section Scripts
 {
-    @Scripts.Render("~/presupuestos/dropzone")
+  @*  @Scripts.Render("~/presupuestos/dropzone") *@
+    @Scripts.Render("~/bundles/dropzone")
     <script>
         /**
         CONFIGURACIONES INICIALES
         */
-        //Dropzone.autoDiscover = false;
+        Dropzone.autoDiscover = false;
 
         $(function () {
             EzHeader.breadcrumbItem = {
@@ -651,6 +662,25 @@
                             let $clienteHidden = $("#@Html.IdFor(x => x.ClienteId)");
                             let $clienteAutocomplete = $("#ClienteId_autocomplete");
                             updateAutocompleteBox(selectItem.data.clienteId, selectItem.data.cliente, $clienteHidden, $clienteAutocomplete);
+                        }
+                    },
+                    //1
+                    {
+                        //Elemento donde se almacena el valor que va a ser enviado una vez que completo el form
+                        hiddenElement: "#@Html.IdFor(x => x.Solicita)",
+                        autocompleteElement: "#Solicita_autocomplete",
+                        dropdownElement: "#solicita_dropdown",
+                        //source es una función que devuelve un string que es la url donde va a buscar los datos
+                        source: function () {
+                            let constructoraId = $("#@Html.IdFor(x => x.ConstructoraId)").val();
+                            return  "@Url.Action("JsonAutocomplete", "Contactos")" + "?" + "constructoraId=" + constructoraId
+                        },
+                        //Es la función que se invoca cuando se selecciona un elemento
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $("#Solicita_autocomplete").val(selectItem.data.nombre);
+                            $("#Telefono").val(selectItem.data.telefono);
+                            $("#Email").val(selectItem.data.email);
+                            $("#Solicita").val(selectItem.data.nombre)
                         }
                     },
                     {
@@ -1127,6 +1157,7 @@
 
 
 
+
             /**
             GRILLA
             Esados de items:
@@ -1303,7 +1334,7 @@
 
                     });
                 }
-            });
+            }); 
 
             $(document).on('change', 'input[data-presupuesto-summary]', function () {
                 $(this).trigger('recalcularResumen', this);

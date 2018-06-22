@@ -1,0 +1,106 @@
+﻿.ez-grid-wrapper {
+    margin: auto;
+    position: relative;
+    clear:both;
+}
+
+.ez-grid-wrapper .ez-grid-loading-cover
+{
+    /*opacity: 0.5;
+    position: absolute;
+    vertical-align: middle;
+
+    background-color: #f0f0fa;
+    background-color: #efeff8;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0fa), to(#eeeef6));
+    background-image: -webkit-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -moz-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -ms-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -o-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: linear-gradient(to bottom, #f0f0fa, #eeeef6);*/
+}
+
+.ez-grid-wrapper .ez-grid-loading-text
+{
+    position: absolute;
+    font-weight: bold;
+}
+
+.ez-grid-table {
+    width: 100%;
+}
+
+.ez-grid-table div
+{
+	vertical-align: middle;
+	text-indent: 0;
+    display: inline-block;
+}
+
+.ez-grid-table thead {
+    border-bottom: 2px solid #cacaca;
+    background: #eee;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.ez-grid-table td, .ez-grid-table th {
+    padding: 3px 6px;
+    line-height: 18px;
+    text-align: left;
+}
+
+.ez-grid-table th {
+    border-left: 1px solid #dfdfdf;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.ez-grid-table th.ez_sortable, .ez-grid-table th.ez_sortable div {
+    cursor: pointer;
+}
+
+.ez-grid-table tbody {
+    cursor: default;
+}
+
+.ez-grid-table tbody > tr {
+    height: 27px;
+    border-top: 1px solid #ddd;
+}
+
+.ez-grid-table tbody > tr:nth-child(odd):not(.ui-state-hover):not(.ui-state-active) {
+    /*background-color: #f0f0fa;
+    background-color: #efeff8;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0fa), to(#eeeef6));
+    background-image: -webkit-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -moz-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -ms-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: -o-linear-gradient(top, #f0f0fa, #eeeef6);
+    background-image: linear-gradient(to bottom, #f0f0fa, #eeeef6);*/
+}
+
+.ez-grid-table tbody > tr > td {
+    padding: 3px 6px;
+    white-space: pre-line;
+    line-height: 18px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.ez-grid-table tfoot {
+    border-top: 2px solid #cacaca;
+    border-bottom: 1px solid #cacaca;
+    background-color: #f7f7f7;
+    font-weight: bold;
+}
+
+.ez-grid-table .ui-state-hover {
+    background-color: rgba(148, 166, 255, 0.69);
+    border: none;
+}
+
+.ez-grid-table .ui-state-active {
+    background-color: #007fff;
+    border: none;
+}
