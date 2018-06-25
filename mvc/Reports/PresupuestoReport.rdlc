@@ -619,6 +619,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -628,6 +629,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -809,6 +811,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -846,6 +849,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -892,6 +896,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -928,6 +933,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -963,6 +969,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -998,6 +1005,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1033,6 +1041,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1732,6 +1741,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                               <Style>
                                 <FontFamily>agency FB</FontFamily>
                                 <FontSize>12pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
