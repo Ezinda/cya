@@ -484,7 +484,12 @@
                     type: "buttonHighlight",
                     action: function () {
                         submitForm();
-                    }
+                        //disabling Submit Button so that user cannot press Submit Multiple times
+                        var btn = $(this);
+                        btn.text("Procesando ...");
+                        btn.prop("disabled", true);
+                    
+                      }
                 },
                 { label: "o", type: "text" },
                 {

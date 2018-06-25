@@ -95,7 +95,7 @@
                     { title: "Historial de Seguimientos", field: "Historial", width: 31, type: "icon", icon: "ui-icon-transferthick-e-w", align: 'center', tooltip: "Historial de Seguimientos", events: { "click": SearchSeguimiento } },
                     { title: "Generar en Base", field: "Base", width: 31, type: "icon", icon: "ui-icon-newwin", align: 'center', tooltip: "En Base", events: { "click": EnBase } }
                 ],
-                pager: { enable: true, limit: 5, sizes: [2, 5, 10, 20, 50] },
+                pager: { enable: true, limit: 20, sizes: [2, 5, 10, 20, 50] },
                 rowNum: 5
             });
             $grid.on('rowDataBound', function (e, $row, id, record) {

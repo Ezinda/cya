@@ -187,6 +187,7 @@ namespace ceya.Infrastructure.DataAccess.Migrations
                     Codigo = c.String(),
                     Nombre = c.String(),
                     Domicilio = c.String(),
+                    estado = c.String(),
                     ClienteId = c.Guid(nullable: false),
                 })
                 .PrimaryKey(t => t.Id)

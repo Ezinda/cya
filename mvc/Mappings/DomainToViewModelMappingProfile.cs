@@ -34,6 +34,7 @@ namespace mvc.Mappings
                 .ForMember(d => d.CodigoObra, opt => opt.MapFrom(src => src.Obra != null ? src.Obra.CodigoObra : String.Empty))
                 .ForMember(d => d.Obra, opt => opt.MapFrom(src => src.Obra != null ? src.Obra.Nombre : String.Empty))
                 .ForMember(d => d.Cliente, opt => opt.MapFrom(src => src.Cliente != null ? src.Cliente.RazonSocial + src.Cliente.Apellido + ", " + src.Cliente.Nombre : String.Empty))
+                .ForMember(d => d.Solicita, opt => opt.MapFrom(src => src.Solicita != null ? src.Solicita : src.Cliente.RazonSocial + src.Cliente.Apellido + ", " + src.Cliente.Nombre ))
                 .ForMember(d => d.CodigoCategoria, opt => opt.MapFrom(src => src.PresupuestoCategoria != null ? src.PresupuestoCategoria.GetCodigoConFormato() : String.Empty))
                 .ForMember(d => d.Estado, opt => opt.MapFrom(src => src.PresupuestoEstado != null ? src.PresupuestoEstado.Descripcion : String.Empty))
                 .ForMember(d => d.FechaAlerta, opt => opt.MapFrom(src =>
@@ -122,8 +123,9 @@ namespace mvc.Mappings
             CreateMap<Obra, ObraListViewModel>()
                 .ForMember(d => d.Codigo, opt => opt.MapFrom(src => src.CodigoObra))
                 .ForMember(d => d.Cliente, opt => opt.MapFrom(src => src.Cliente != null ?
-                    src.Cliente.RazonSocial + src.Cliente.Apellido + ", " + src.Cliente.Nombre : String.Empty));
-
+                    src.Cliente.RazonSocial + src.Cliente.Apellido + ", " + src.Cliente.Nombre : String.Empty))
+                .ForMember(d => d.estado, opt => opt.MapFrom(src => src.estado == true ? "SI" : "NO"));
+                
             CreateMap<Cliente, ClienteListViewModel>()
              .ForMember(d => d.Codigo, opt => opt.MapFrom(src => src.Codigo))
              .ForMember(d => d.Cliente, opt => opt.MapFrom(src => (src.RazonSocial == null || src.RazonSocial == string.Empty ? src.Apellido + ", " + src.Nombre : src.RazonSocial + ", " + src.Apellido + " " + src.Nombre)));

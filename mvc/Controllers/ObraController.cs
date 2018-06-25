@@ -61,6 +61,7 @@ namespace mvc.Controllers
                 obra.CodigoObra = obraVM.Codigo;
                 obra.Nombre = obraVM.Nombre;
                 obra.Domicilio = obraVM.Domicilio;
+                obra.estado = false;
                 obra.ClienteId = obraVM.ClienteId;
                 obraService.Add(obra);
 
@@ -88,6 +89,7 @@ namespace mvc.Controllers
             editVM.Codigo = obra.CodigoObra;
             editVM.Nombre = obra.Nombre;
             editVM.Domicilio = obra.Domicilio;
+            editVM.estado = obra.estado;
             editVM.ClienteId = obra.ClienteId;
             editVM.Cliente = obra.Cliente.RazonSocial + 
                 obra.Cliente.Apellido + " " + 
@@ -106,6 +108,7 @@ namespace mvc.Controllers
                 obra.CodigoObra = obraVM.Codigo;
                 obra.Nombre = obraVM.Nombre;
                 obra.Domicilio = obraVM.Domicilio;
+                obra.estado = obraVM.estado;
                 obra.ClienteId = obraVM.ClienteId;
                 obraService.Update(obra);
 

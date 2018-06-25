@@ -15,6 +15,7 @@ namespace mvc.ViewModels
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public string Domicilio { get; set; }
+        public bool estado { get; set; }
         public System.Guid ClienteId { get; set; }
         public string Cliente { get; set; }
     }

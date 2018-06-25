@@ -486,6 +486,11 @@
                     type: "buttonHighlight",
                     action: function () {
                         submitForm();
+                        //disabling Submit Button so that user cannot press Submit Multiple times
+                        var btn = $(this);
+                        btn.text("Procesando ...");
+                        btn.prop("disabled", true);
+                    
                     }
                 },
                 { label: "o", type: "text" },
@@ -1208,7 +1213,7 @@
                 colocacionPrecio: @(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? itemModel.ColocacionPrecio.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
                 colocacionCalculado: @(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? itemModel.ColocacionCalculado.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
 
-                detalle: "",
+                detalle: "@Html.Raw(HttpUtility.JavaScriptStringEncode(itemModel.Detalle))",
 
                 estado: "GUARDADO"
             };
@@ -1334,7 +1339,7 @@
 
                     });
                 }
-            }); 
+            });
 
             $(document).on('change', 'input[data-presupuesto-summary]', function () {
                 $(this).trigger('recalcularResumen', this);

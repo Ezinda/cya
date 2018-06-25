@@ -47,6 +47,14 @@
                     </div>
                     <div class="ez_form_field">
                         <div class="ez_form_label_wrapper">
+                            @Html.LabelFor(x => x.estado,"Presupuestado")
+                        </div>
+                        <div class="ez_form_control_wrapper">
+                            <input id="@Html.IdFor(x => x.estado)" type="checkbox" checked="@Model.estado" />
+                        </div>
+                    </div>
+                    <div class="ez_form_field">
+                        <div class="ez_form_label_wrapper">
                             @Html.LabelFor(x => x.Cliente)
                         </div>
                         @*<div class="ez_form_control_wrapper">
@@ -65,8 +73,8 @@
                             <div class="autocomplete-control ui-front">
                                 @Html.TextBoxFor(x => x.Cliente, new { @id = "ClienteId_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false", @style = "width: 68%" })
                                 @*<span class="dropdown_button" id="clienteId_dropdown">
-                                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
-                                </span>*@
+                    <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                </span>*@
                                 <button data-toggle="modal" href="#searchCliente" onclick="SearchCliente();">
                                     ...
                                 </button>
@@ -121,6 +129,8 @@
                 Codigo: $('#@Html.IdFor(x => x.Codigo)').val(),
                 Nombre: $('#@Html.IdFor(x => x.Nombre)').val(),
                 Domicilio: $('#@Html.IdFor(x => x.Domicilio)').val(),
+                Estado: $('#@Html.IdFor(x => x.estado)').is(":checked"),
+                
                 ClienteId: $('#@Html.IdFor(x => x.ClienteId)').val()
             };
 

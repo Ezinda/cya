@@ -2123,27 +2123,27 @@ namespace mvc.Controllers
             //string ObservacionFooter = "Observación: " + presupuesto.DescripcionFooter;
             string ObservacionFooter = presupuesto.DescripcionFooter;
 
-            string TotalVidrio = "$ " + presupuesto.ResumenVidrios.ToString("F");
+            string TotalVidrio = "$ " + presupuesto.ResumenVidrios.ToString("N");
 
-            string TotalColocacion = "$ " + presupuesto.ResumenColocacion.ToString("F");
+            string TotalColocacion = "$ " + presupuesto.ResumenColocacion.ToString("N");
 
-            string TotalTapajuntas = "$ " + presupuesto.ResumenTapajuntas.ToString("F");
+            string TotalTapajuntas = "$ " + presupuesto.ResumenTapajuntas.ToString("N");
 
             string ConceptosVarios = presupuesto.ConceptosVarios != null ? "TOTAL " + presupuesto.ConceptosVarios.ToUpper() : string.Empty;
 
-            string TotalVarios = presupuesto.ResumenVarios > 0 ? "$ " + presupuesto.ResumenVarios.ToString("F") : string.Empty;
+            string TotalVarios = presupuesto.ResumenVarios > 0 ? "$ " + presupuesto.ResumenVarios.ToString("N") : string.Empty;
 
-            string SubtotalSinIva = "$ " + presupuesto.ResumenSubtotal.ToString("F");
+            string SubtotalSinIva = "$ " + presupuesto.ResumenSubtotal.ToString("N");
 
-            string TotalIva = "$ " + presupuesto.ResumenIva.ToString("F");
+            string TotalIva = "$ " + presupuesto.ResumenIva.ToString("N");
 
-            string TotalCarpinteria = "$ " + presupuesto.ResumenCarpinteria.ToString("F");
+            string TotalCarpinteria = "$ " + presupuesto.ResumenCarpinteria.ToString("N");
 
             string SubTotalComplementos = "$ " + (presupuesto.ResumenSubtotal + presupuesto.ResumenVidrios +
                                     presupuesto.ResumenColocacion + presupuesto.ResumenCarpinteria +
-                                    presupuesto.ResumenTapajuntas).ToString("F");
+                                    presupuesto.ResumenTapajuntas).ToString("N");
 
-            string Total = "$ " + (presupuesto.ResumenSubtotal + presupuesto.ResumenIva).ToString("F");
+            string Total = "$ " + (presupuesto.ResumenSubtotal + presupuesto.ResumenIva).ToString("N");
 
             string ObservacionHeader = presupuesto.DescripcionHeader;
             string CodPresupuesto = string.Concat("00000000", Convert.ToString(presupuesto.Codigo));
@@ -2205,8 +2205,8 @@ namespace mvc.Controllers
                         //                                  (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
                         //                                  x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle,
 
-                        Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle +
-                                      (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty),
+                        Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + 
+                                      (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +  x.Detalle,
 
 
                         Unidades = x.Unidades,
@@ -2245,9 +2245,9 @@ namespace mvc.Controllers
                         //                     (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
                         //                     x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
 
-                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle +
-                                           (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty);
-                                             
+                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" +
+                                           (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" + x.Detalle;
+
 
                     }
                     else
@@ -2288,7 +2288,7 @@ namespace mvc.Controllers
             return File(new MemoryStream(file).ToArray(),
                       System.Net.Mime.MediaTypeNames.Application.Octet,
             /*Esto para forzar la descarga del archivo*/
-            string.Format("{0}{1}", "Presupuesto" + presupuesto.Cliente.RazonSocial + presupuesto.Cliente.Apellido + presupuesto.Cliente.Nombre, ".PDF"));
+            string.Format("{0}{1}", "Presupuesto " + presupuesto.Codigo + "_" + presupuesto.Obra.Nombre + "_" + presupuesto.Cliente.RazonSocial + presupuesto.Cliente.Apellido + presupuesto.Cliente.Nombre, ".PDF"));
 
 
         }

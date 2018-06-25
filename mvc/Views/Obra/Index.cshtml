@@ -91,11 +91,13 @@
                 { field: "Nombre", width: 300, sortable: true },
                 { field: "Domicilio", width: 120, sortable: true },
                 { field: "Cliente", width: 300, sortable: true },
+                { title: "Presupuestado", field: "estado", width: 120, sortable: true },
                 { title: "", field: "Edit", width: 60, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Edit", events: { "click": Edit } },
                 { title: "", field: "Delete", width: 60, type: "icon", icon: "ui-icon-close", align: 'center', tooltip: "Delete", events: { "click": DeleteConfirm } }
+               
 
             ],
-            pager: { enable: true, limit: 10, sizes: [2, 5, 10, 15] }
+            pager: { enable: true, limit: 20, sizes: [2, 5, 10, 15] }
         });
     });
 

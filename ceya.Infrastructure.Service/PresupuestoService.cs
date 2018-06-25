@@ -60,7 +60,7 @@ namespace ceya.Domain.Service
         public IEnumerable<ValidationResult> CanAddPresupuesto(Presupuesto nuevoPresupuesto)
         {
             //Presupuesto presupuesto;
-            //if (nuevoPresupuesto.Id == Guid.Empty)
+           // if (nuevoPresupuesto.Id == Guid.Empty)
             //{
             //    presupuesto = this.presupuestoRepository.Get(x => x.Codigo == nuevoPresupuesto.Codigo);
             //}

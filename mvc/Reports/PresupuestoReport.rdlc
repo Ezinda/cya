@@ -589,7 +589,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>18.04324cm</Top>
+        <Top>18.11847cm</Top>
         <Left>0.23575cm</Left>
         <Height>8.05575cm</Height>
         <Width>19.1952cm</Width>
@@ -619,6 +619,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -628,6 +629,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -809,6 +811,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -846,6 +849,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -892,6 +896,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
                       <FontWeight>SemiBold</FontWeight>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
@@ -928,6 +933,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -963,6 +969,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -998,6 +1005,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1033,6 +1041,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                     <Style>
                       <FontFamily>Agency FB</FontFamily>
                       <FontSize>12pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1352,7 +1361,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </Line>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>7.69747cm</Top>
+        <Top>7.7727cm</Top>
         <Left>0.49112cm</Left>
         <Height>10.03719cm</Height>
         <Width>18.45552cm</Width>
@@ -1578,7 +1587,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>3.03652cm</Height>
+              <Height>3.45985cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -1681,10 +1690,11 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!PrecioUnitario.Value</Value>
+                              <Value>=Fields!Carpinteria.Value</Value>
                               <Style>
                                 <FontFamily>agency FB</FontFamily>
                                 <FontSize>12pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1728,10 +1738,11 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!Importe.Value</Value>
+                              <Value>=Fields!Unidades.Value*Fields!Carpinteria.Value</Value>
                               <Style>
                                 <FontFamily>agency FB</FontFamily>
                                 <FontSize>12pt</FontSize>
+                                <Format>#,0.00;(#,0.00)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1790,8 +1801,8 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
         </TablixRowHierarchy>
         <DataSetName>DSPresupuestoItem</DataSetName>
         <Top>3.5595cm</Top>
-        <Left>5.2157cm</Left>
-        <Height>3.75735cm</Height>
+        <Left>5.25098cm</Left>
+        <Height>4.18068cm</Height>
         <Width>13.73093cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
@@ -1862,7 +1873,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>3.03652cm</Height>
+              <Height>3.45985cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -1871,6 +1882,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
                       <Value>="file:///" + Fields!Ubicacion.Value</Value>
                       <MIMEType>=Fields!MimeType.Value</MIMEType>
                       <Sizing>FitProportional</Sizing>
+                      <ZIndex>6</ZIndex>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -1904,7 +1916,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
         <DataSetName>DataSet1</DataSetName>
         <Top>3.5595cm</Top>
         <Left>0.49112cm</Left>
-        <Height>3.75735cm</Height>
+        <Height>4.18068cm</Height>
         <Width>4.72458cm</Width>
         <ZIndex>5</ZIndex>
         <Style>

@@ -15,6 +15,7 @@ namespace ceya.Model.Models
         public string CodigoObra { get; set; }
         public string Nombre { get; set; }
         public string Domicilio { get; set; }
+        public bool estado { get; set; }
         public System.Guid ClienteId { get; set; }
     
         public virtual Cliente Cliente { get; set; }
