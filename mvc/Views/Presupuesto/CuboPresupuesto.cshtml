@@ -17,17 +17,32 @@
 
 @Scripts.Render("~/bundles/pivotjs")
     <script>
+
+
+
         $(function () {
+
             EzHeader.collapse = {
                 id: "#collapseThree"
+
             };
-            $.ajax({
-                method: "GET",
-                url: "@Url.Action("Obtener")",
-                success: function (data) {
-                    $("#output").pivotUI(data.data, {},false,"es");
-                }
-            });
-        });
+            var derivers = $.pivotUtilities.derivers;
+            var sum = $.pivotUtilities.aggregatorTemplates.sum;
+            var numberFormat = $.pivotUtilities.numberFormat;
+            var intFormat = numberFormat({ digitsAfterDecimal: 2 });
+            var renderers = $.extend($.pivotUtilities.renderers,$.pivotUtilities.c3_renderers);
+                $.ajax({
+                    method: "GET",
+                    url: "@Url.Action("Obtener")",
+                    success: function (data) {
+                        $("#output").pivotUI(data.data, {
+                            renderers: renderers,
+                            cols: [""], rows: ["Obra"],
+                            aggregator: sum(intFormat)(["ResumenTotal"]),
+                            rendererName: "TSV Export"
+                        }, false, "es");
+                    }
+                });
+            });       
     </script>
 }

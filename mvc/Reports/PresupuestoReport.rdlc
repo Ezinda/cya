@@ -589,7 +589,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>18.11847cm</Top>
+        <Top>18.75375cm</Top>
         <Left>0.23575cm</Left>
         <Height>8.05575cm</Height>
         <Width>19.1952cm</Width>
@@ -1361,7 +1361,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
           </Line>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>7.7727cm</Top>
+        <Top>8.40798cm</Top>
         <Left>0.49112cm</Left>
         <Height>10.03719cm</Height>
         <Width>18.45552cm</Width>
@@ -1587,7 +1587,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>3.45985cm</Height>
+              <Height>3.98902cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -1802,7 +1802,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
         <DataSetName>DSPresupuestoItem</DataSetName>
         <Top>3.5595cm</Top>
         <Left>5.25098cm</Left>
-        <Height>4.18068cm</Height>
+        <Height>4.70985cm</Height>
         <Width>13.73093cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
@@ -1873,7 +1873,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>3.45985cm</Height>
+              <Height>3.98902cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -1916,7 +1916,7 @@ Y/O ESTIBADO. LA EMPRESA NO SE HACE RESPONSAB LE SI ESTO LLEGARA A OCURRIR.
         <DataSetName>DataSet1</DataSetName>
         <Top>3.5595cm</Top>
         <Left>0.49112cm</Left>
-        <Height>4.18068cm</Height>
+        <Height>4.70985cm</Height>
         <Width>4.72458cm</Width>
         <ZIndex>5</ZIndex>
         <Style>

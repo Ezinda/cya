@@ -160,7 +160,7 @@ namespace mvc.Controllers
             return records.ToList();
         }
 
-        public ActionResult List(string sortBy = "CodigoObra", string direction = "asc", string filterBy = "All", string searchString = "",
+        public ActionResult List(string sortBy = "Nombre", string direction = "asc", string filterBy = "All", string searchString = "",
             int pageSize = 10, int page = 1)
         { 
             var pageList = this.obraService.GetObrasByPage(page, pageSize, sortBy, direction, filterBy, searchString);

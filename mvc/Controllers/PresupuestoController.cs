@@ -1344,7 +1344,7 @@ namespace mvc.Controllers
                         find01FirstRowNumber = currentFind.Row;
                         find01LastRowNumber = currentFind.Row + currentFind.Rows.Count - 1;
                         item.HeaderTapajuntas = currentFind.Text.ToString();
-                    }
+                    
                     range = sheet.get_Range("D" + (find01LastRowNumber), Missing.Value);
                     if (range != null)
                     {
@@ -1355,21 +1355,7 @@ namespace mvc.Controllers
                     {
                         item.TotalTapajuntas = range.Text.ToString();
                     }
-                    //range = sheet.get_Range("B" + (itemStartRowNumber + 5), Missing.Value);
-                    //if (range != null)
-                    //{
-                    //    item.HeaderTapajuntas = range.Text.ToString();
-                    //}
-                    //range = sheet.get_Range("D" + (itemStartRowNumber + 5), Missing.Value);
-                    //if (range != null)
-                    //{
-                    //    item.UnitarioTapajuntas = range.Text.ToString();
-                    //}
-                    //range = sheet.get_Range("E" + (itemStartRowNumber + 5), Missing.Value);
-                    //if (range != null)
-                    //{
-                    //    item.TotalTapajuntas = range.Text.ToString();
-                    //}
+                    }
 
                     // Colocacion
                     range = excel.get_Range("B" + find01LastRowNumber, "B" + (find01LastRowNumber + 5));
@@ -1382,7 +1368,7 @@ namespace mvc.Controllers
                         find01FirstRowNumber = currentFind.Row;
                         find01LastRowNumber = currentFind.Row + currentFind.Rows.Count - 1;
                         item.HeaderColocacion = currentFind.Text.ToString();
-                    }
+                    
                     range = sheet.get_Range("D" + (find01LastRowNumber), Missing.Value);
                     if (range != null)
                     {
@@ -1393,21 +1379,7 @@ namespace mvc.Controllers
                     {
                         item.TotalColocacion = range.Text.ToString();
                     }
-                    //range = sheet.get_Range("B" + (itemStartRowNumber + 6), Missing.Value);
-                    //if (range != null)
-                    //{
-                    //    item.HeaderColocacion = range.Text.ToString();
-                    //}
-                    //range = sheet.get_Range("D" + (itemStartRowNumber + 6), Missing.Value);
-                    //if (range != null)
-                    //{
-                    //    item.UnitarioColocacion = range.Text.ToString();
-                    //}
-                    //range = sheet.get_Range("E" + (itemStartRowNumber + 6), Missing.Value);
-                    //if (range != null)
-                    //{
-                    //    item.TotalColocacion = range.Text.ToString();
-                    //}
+                    }
 
                     // Item
                     range = sheet.get_Range("D" + (find01LastRowNumber + 1), Missing.Value);
@@ -2205,10 +2177,9 @@ namespace mvc.Controllers
                         //                                  (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
                         //                                  x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle,
 
-                        Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + 
-                                      (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" +  x.Detalle,
-
-
+                         Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" +  (x.Ancho == 0 ? "" : x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + 
+                                      (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n") +  x.Detalle,
+                        
                         Unidades = x.Unidades,
                         PrecioUnitario = Decimal.Round(x.PrecioUnitario, 2),
                         VidriosId = x.VidriosId,
@@ -2245,14 +2216,14 @@ namespace mvc.Controllers
                         //                     (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
                         //                     x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
 
-                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" +
-                                           (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n" + x.Detalle;
+                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + (x.Ancho == 0 ? "" : x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" +
+                                           (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n") + x.Detalle;
 
 
                     }
                     else
                     {
-                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle;
+                        item.Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + (x.Ancho == 0 ? "" : x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n") + x.Detalle;
 
                     }
                     item.Unidades = x.Unidades;

@@ -30,12 +30,14 @@ namespace ceya.Domain.Service
             if (nombre == "REGISTRADO")
             {
                 return presupuestoEstadoRepository.GetMany(x => x.Descripcion == "ENTREGADO"
-                || x.Descripcion == "ANULADO");
+                || x.Descripcion == "ANULADO"
+                || x.Descripcion == "REGISTRADO");
             }
             else if (nombre == "ENTREGADO")
             {
                 return presupuestoEstadoRepository.GetMany(x => x.Descripcion == "EN SEGUIMIENTO"
-                || x.Descripcion == "ANULADO");
+                || x.Descripcion == "ANULADO"
+                || x.Descripcion == "ENTREGADO");
             }
             else if (nombre == "EN SEGUIMIENTO")
             {

@@ -490,7 +490,7 @@
                         var btn = $(this);
                         btn.text("Procesando ...");
                         btn.prop("disabled", true);
-                    
+
                     }
                 },
                 { label: "o", type: "text" },
@@ -1497,17 +1497,6 @@
                         console.log(data);
 
 
-
-
-
-
-
-
-
-
-
-
-
                         for (var i = 0; i < data.Items.length; i++) {
                             var itemData = data.Items[i];
                             let mapping = ITEMS_STORE.map(function (x) { return x.numeroPosicion; });
@@ -1536,15 +1525,25 @@
                                 carpinteria: 0.0,
                                 tapajuntas: 0.0,
 
-                                vidriosId: null,
-                                vidriosDescripcion: '',
-                                vidriosPrecio: 0.0,
+                                vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),//null,
+                                vidriosDescripcion: $("#vidrioId_autocomplete").val(),//'',
+                                vidriosPrecio: $("#VidrioId").attr('data-item-preciounitario-value'),
                                 vidriosCalculado: 0.0,
 
-                                colocacionId: null,
-                                colocacionDescripcion: '',
-                                colocacionPrecio: 0.0,
+                                colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),//null,
+                                colocacionDescripcion: $("#colocacionId_autocomplete").val(),//'',
+                                colocacionPrecio: $("#ColocacionId").attr('data-item-preciounitario-value'),//0.0,
                                 colocacionCalculado: 0.0,
+
+                                //vidriosId: null,
+                                //vidriosDescripcion: '',
+                                //vidriosPrecio: 0.0,
+                                //vidriosCalculado: 0.0,
+
+                                //colocacionId: null,
+                                //colocacionDescripcion: '',
+                                //colocacionPrecio: 0.0,
+                                //colocacionCalculado: 0.0,
 
                                 detalle: "",
 
@@ -1567,14 +1566,14 @@
                             item.carpinteria = parseFloat(itemData.Carpinteria);
                             item.tapajuntas = parseFloat(itemData.Tapajuntas);
 
-                            item.vidriosCalculado = parseFloat(itemData.VidriosCalculado);
-                            item.colocacionCalculado = parseFloat(itemData.ColocacionCalculado);
-                            item.vidriosId = itemData.VidriosId;
-                            item.vidriosPrecio = parseFloat(itemData.VidriosPrecio);
-                            item.vidriosDescripcion = "";
-                            item.colocacionId = itemData.ColocacionId;
-                            item.colocacionPrecio = parseFloat(itemData.ColocacionPrecio);
-                            item.colocacionDescripcion = "";
+                        //    item.vidriosCalculado = parseFloat(itemData.VidriosCalculado);
+                        //    item.colocacionCalculado = parseFloat(itemData.ColocacionCalculado);
+                        //    item.vidriosId = itemData.VidriosId;
+                        //    item.vidriosPrecio = parseFloat(itemData.VidriosPrecio);
+                        //    item.vidriosDescripcion = "";
+                        //    item.colocacionId = itemData.ColocacionId;
+                        //    item.colocacionPrecio = parseFloat(itemData.ColocacionPrecio);
+                        //    item.colocacionDescripcion = "";
                             item.detalle = itemData.Detalle;
 
                             ITEMS_STORE.push(item);
@@ -1582,14 +1581,6 @@
 
                             ITEMS_COUNTERNUEVOS++;
                         }
-
-
-
-
-
-
-
-
 
                         btn.prop("disabled", false);
                         btn.text("Importar Excel ...");
