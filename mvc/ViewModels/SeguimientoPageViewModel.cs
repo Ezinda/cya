@@ -18,6 +18,7 @@ namespace mvc.ViewModels
         public string Constructora { get; set; }
         public string Email { get; set; }
         public string Solicita { get; set; }
+        public string Vendedor { get; set; }
         public string Telefono { get; set; }
         public string Domicilio { get; set; }
         public IEnumerable<SelectListItem> SortBy { get; set; }

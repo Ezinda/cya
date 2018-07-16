@@ -48,6 +48,7 @@
     <Compile Include="IColorRepository.cs" />
     <Compile Include="IConstructoraRepository.cs" />
     <Compile Include="IClienteRepository.cs" />
+    <Compile Include="IVendedorRespository.cs" />
     <Compile Include="IContactoRespository.cs" />
     <Compile Include="IListaPrecioRepository.cs" />
     <Compile Include="IMonedaRepository.cs" />

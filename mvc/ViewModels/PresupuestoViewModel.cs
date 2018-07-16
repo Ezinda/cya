@@ -22,6 +22,7 @@ namespace mvc.ViewModels
         public Guid ObraId { get; set; }
         public Guid PresupuestoCategoriaId { get; set; }
         public string Solicita { get; set; }
+        public string Vendedor { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
         public string DescripcionHeader { get; set; }

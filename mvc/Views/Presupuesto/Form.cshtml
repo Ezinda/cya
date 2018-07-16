@@ -118,7 +118,8 @@
                     <!--Autocomplete-->
                     @Html.HiddenFor(x => x.MonedaId)
                     <div class="autocomplete-control ui-front">
-                        @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete", @disabled = "disabled", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        @* @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete", @disabled = "disabled", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" }) *@
+                        @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete",  @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
                         <span class="dropdown_button" id="monedaId_dropdown">
                             <img draggable="false" src="~/Content/images/dropdown-arrow.png">
                         </span>
@@ -131,7 +132,7 @@
                     @Html.LabelFor(x => x.Cotizacion)
                 </div>
                 <div class="ez_form_control_wrapper">
-                    @Html.TextBoxFor(x => x.Cotizacion, new { @id = "CotizacionId", @disabled = "disabled", @data_control_currency = "", @data_calculate_item_header = "importe" })
+                    @Html.TextBoxFor(x => x.Cotizacion, new { @id = "CotizacionId", @data_control_currency = "", @data_calculate_item_header = "importe" })
                 </div>
             </div>
         </div>
@@ -201,7 +202,25 @@
                     @Html.TextBoxFor(x => x.Email)
                 </div>
             </div>
-        </div>
+
+            <div class="ez_form_field">
+                <div class="ez_form_label_wrapper">
+                    <label>Vendedor</label>
+                </div>
+                <div class="ez_form_control_wrapper">
+                    <!--Autocomplete-->
+                    @Html.HiddenFor(x => x.Vendedor)
+                    <div class="autocomplete-control ui-front">
+                        @Html.TextBoxFor(x => x.Vendedor, new { @id = "Vendedor_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        <span class="dropdown_button" id="vendedor_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(x => x.Vendedor)
+                </div>
+            </div>
+
+            </div>
     </div>
     <div class="ez_form_group">
         <div class="ez_form_col">
@@ -619,6 +638,19 @@
                 }
             ];
 
+            var MONEDAS = [
+                    @foreach (var item in Model.Monedas)
+                {
+                    @:{ key: "@item.Value", value: "@item.Text"},
+                }
+            ];
+
+            var VENDEDOR = [
+                    @foreach (var item in Model.Vendedor)
+            {
+                @:{ key: "@item.Value", value: "@item.Text"},
+                }
+            ];
 
             /**
             BINDING
@@ -634,6 +666,12 @@
                         autocompleteElement: "#categoriaId_autocomplete",
                         dropdownElement: "#categoriaId_dropdown",
                         source: CATEGORIAS.concat([{ showSearch: false }])
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.MonedaId)",
+                        autocompleteElement: "#MonedaId_autocomplete",
+                        dropdownElement: "#monedaId_dropdown",
+                        source: MONEDAS.concat([{ showSearch: false }])
                     },
                     @*{
                         hiddenElement: "#@Html.IdFor(x => x.LineaColocacionId)",
@@ -687,6 +725,12 @@
                             $("#Email").val(selectItem.data.email);
                             $("#Solicita").val(selectItem.data.nombre)
                         }
+                    },
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.Vendedor)",
+                        autocompleteElement: "Vendedor_autocomplete",
+                        dropdownElement: "#vendedor_dropdown",
+                        source: VENDEDOR.concat([{ showSearch: false }])
                     },
                     {
                         hiddenElement: "#@Html.IdFor(x => x.ConstructoraId)",
@@ -752,7 +796,12 @@
             @if (Model.ObraId == null || Model.ObraId == Guid.Empty)
             {
                 @:$('#ObraId_autocomplete').attr('disabled', true);
-                                                                                                                                                }
+                                                                           }
+
+            @if (Model.MonedaId == null || Model.MonedaId == Guid.Empty)
+            {
+                @:$('#MonedaId_autocomplete').attr('disabled', true);
+            }
 
             if ($('#CotizacionId[data-control-currency]').length) {
                 new Cleave($('#CotizacionId[data-control-currency]'), {
@@ -1424,6 +1473,8 @@
                 $grid.find("*[data-presupuesto-item='importe']").each(function (index) {
                     subtotal += roundNumber(parseFloat($(this).val().replace(/\./g, "").replace(/,/g, ".") || 0.0), 2);
                 });
+                var cotizacion = parseFloat($("#CotizacionId").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
+                var resumenvarios = parseFloat($("#ResumenVarios").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
 
                 unidades = roundNumber(unidades, 2);
                 carpinteria = roundNumber(carpinteria, 2);
@@ -1525,30 +1576,32 @@
                                 carpinteria: 0.0,
                                 tapajuntas: 0.0,
 
-                                vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),//null,
-                                vidriosDescripcion: $("#vidrioId_autocomplete").val(),//'',
-                                vidriosPrecio: $("#VidrioId").attr('data-item-preciounitario-value'),
+                                vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),
+                                vidriosDescripcion: $("#vidrioId_autocomplete").val(),
+                                vidriosPrecio: $("#VidrioId").attr('data-calculate-item-preciounitario-value'),
+                             //   vidriosCalculado: 0.0,
+
+                                colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),
+                                colocacionDescripcion: $("#colocacionId_autocomplete").val(),
+                                colocacionPrecio: $("#ColocacionId").attr('data-calculate-item-preciounitario-value'),//0.0,
+                             //   colocacionCalculado: 0.0,
+
+                             //   vidriosId: null,
+                             //   vidriosDescripcion: '',
+                             //   vidriosPrecio: 0.0,
                                 vidriosCalculado: 0.0,
 
-                                colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),//null,
-                                colocacionDescripcion: $("#colocacionId_autocomplete").val(),//'',
-                                colocacionPrecio: $("#ColocacionId").attr('data-item-preciounitario-value'),//0.0,
+                             //   colocacionId: null,
+                             //   colocacionDescripcion: '',
+                             //   colocacionPrecio: 0.0,
                                 colocacionCalculado: 0.0,
-
-                                //vidriosId: null,
-                                //vidriosDescripcion: '',
-                                //vidriosPrecio: 0.0,
-                                //vidriosCalculado: 0.0,
-
-                                //colocacionId: null,
-                                //colocacionDescripcion: '',
-                                //colocacionPrecio: 0.0,
-                                //colocacionCalculado: 0.0,
 
                                 detalle: "",
 
                                 estado: "NUEVO"
                             };
+
+                            var cotizacion = parseFloat($("#CotizacionId").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
 
                             item.tipologiaId = itemData.ArchivoTipologiaId;
                             item.tipologiaThumbnailUrl = "/Archivo/GetThumbnail" + "?" + "Id=" + itemData.ArchivoTipologiaId + "&" + "sizeClass=" + 3;
@@ -1557,14 +1610,13 @@
                             item.posicion = itemData.Posicion;
                             item.descripcion = itemData.Descripcion;
                             item.unidades = itemData.Unidades;
-                            item.preciounitario = parseFloat(itemData.PrecioUnitario);
-                            item.importe = parseFloat(itemData.Importe);
+                            item.preciounitario = parseFloat(itemData.PrecioUnitario) *cotizacion;
+                            item.importe = parseFloat(itemData.Importe) *cotizacion;
 
                             item.ancho = parseFloat(itemData.Ancho);
                             item.alto = parseFloat(itemData.Alto);
-
-                            item.carpinteria = parseFloat(itemData.Carpinteria);
-                            item.tapajuntas = parseFloat(itemData.Tapajuntas);
+                            item.carpinteria = parseFloat(itemData.Carpinteria) *cotizacion;
+                            item.tapajuntas = parseFloat(itemData.Tapajuntas) *cotizacion;
 
                         //    item.vidriosCalculado = parseFloat(itemData.VidriosCalculado);
                         //    item.colocacionCalculado = parseFloat(itemData.ColocacionCalculado);
@@ -1632,8 +1684,15 @@
                     PresupuestoCategoriaId: $('#@Html.IdFor(x => x.PresupuestoCategoriaId)').val(),
                     ConstructoraId: $('#@Html.IdFor(x => x.ConstructoraId)').val(),
                     Solicita: $('#@Html.IdFor(x => x.Solicita)').val(),
+                    Vendedor: $('#@Html.IdFor(x => x.Vendedor)').val(),
                     Telefono: $('#@Html.IdFor(x => x.Telefono)').val(),
                     Email: $('#@Html.IdFor(x => x.Email)').val(),
+                    MonedaId: $('#@Html.IdFor(x => x.MonedaId)').val(),
+                    Cotizacion: $('#CotizacionId').val(),
+                    SubrubroId: $('#@Html.IdFor(x => x.SubrubroId)').val(),
+                    ColorId: $('#@Html.IdFor(x => x.ColorId)').val(),
+                    ColocacionId: $('#@Html.IdFor(x => x.ColocacionId)').val(),
+                    VidrioId: $('#@Html.IdFor(x => x.VidrioId)').val(),
                     DescripcionHeader: $('#@Html.IdFor(x => x.DescripcionHeader)').val(),
                     Items: items,
                     DescripcionFooter: $('#@Html.IdFor(x => x.DescripcionFooter)').val(),
@@ -1647,13 +1706,8 @@
                     ResumenIva: $('#@Html.IdFor(x => x.ResumenIva)').val(),
                     ResumenTotal: $('#@Html.IdFor(x => x.ResumenTotal)').val(),
 
-                    MonedaId: $('#@Html.IdFor(x => x.MonedaId)').val(),
-                    Cotizacion: $('#CotizacionId').val(),
 
-                    SubrubroId: $('#@Html.IdFor(x => x.SubrubroId)').val(),
-                    ColorId: $('#@Html.IdFor(x => x.ColorId)').val(),
-                    ColocacionId: $('#@Html.IdFor(x => x.ColocacionId)').val(),
-                    VidrioId: $('#@Html.IdFor(x => x.VidrioId)').val(),
+
                 };
 
                 postData.__RequestVerificationToken = antiForgeryToken;

@@ -70,6 +70,7 @@ namespace mvc.ViewModels
         // Seleccionables de cabecera
         public virtual IEnumerable<SelectListItem> Categorias { get; set; }
         public virtual IEnumerable<SelectListItem> Estados { get; set; }
+        public virtual IEnumerable<SelectListItem> Vendedor { get; set; }
         public virtual IEnumerable<SelectListItem> Lineas { get; set; }
         public virtual IEnumerable<SelectListItem> Subrubros { get; set; }
         public virtual IEnumerable<SelectListItem> Colores { get; set; }

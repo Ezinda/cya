@@ -14,6 +14,7 @@ namespace mvc.ViewModels
         public string Obra { get; set; }
         public string Cliente { get; set; }
         public string Solicita { get; set; }
+        public string Vendedor { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
         public string CodigoCategoria { get; set; }

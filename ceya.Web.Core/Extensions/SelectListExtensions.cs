@@ -165,6 +165,21 @@ namespace ceya.Web.Core.Extensions
         }
 
         public static IEnumerable<SelectListItem> ToSelectListItems(
+        this IEnumerable<Vendedor> vendedor, Guid selectedId)
+        {
+            return
+
+                vendedor.OrderBy(x => x.Nombre)
+                      .Select(x =>
+                          new SelectListItem
+                          {
+                              Selected = (x.Id == selectedId),
+                              Text = x.Nombre,
+                              Value = x.Id.ToString()
+                          });
+        }
+
+        public static IEnumerable<SelectListItem> ToSelectListItems(
             this IEnumerable<Moneda> monedas, Guid selectedId)
         {
             return
