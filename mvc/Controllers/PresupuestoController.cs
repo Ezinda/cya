@@ -244,6 +244,9 @@ namespace mvc.Controllers
             if (presupuesto.MonedaId != null)
             {
                 editVM.NombreMoneda = monedaService.GetMoneda(presupuesto.MonedaId.Value).Nombre;
+                var monedas = monedaService.GetMonedas();
+                var moneda = monedaService.GetMonedaFilter("PESOS").FirstOrDefault();
+                editVM.Monedas = monedas.ToSelectListItems(moneda.Id);
             }
 
             // Valores Predeterminados
@@ -2264,6 +2267,29 @@ namespace mvc.Controllers
 
         }
 
+        [HttpPost]
+        [AjaxOnly]
+        [ValidateAjax]
+        [ValidateAntiForgeryToken]
+        public JsonResult CreateEnBase(PresupuestoFormModel vm)
+        {
+            var presupuesto = Mapper.Map<PresupuestoFormModel, Presupuesto>(vm);
+            var errors = this.presupuestoService.CanAddPresupuestoEnBase(presupuesto).ToList();
+            ModelState.AddModelErrors(errors);
+            if (ModelState.IsValid)
+            {
+
+                this.presupuestoService.CreatePresupuestoEnBase(presupuesto);
+                return Json(new { estado = "OK" });
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return this.AjaxModelErrors();
+            }
+        }
+
+
         public ActionResult EnBase(Guid id)
         {
             var presupuesto = this.presupuestoService.GetPresupuesto(id);
@@ -2325,6 +2351,9 @@ namespace mvc.Controllers
             if (presupuesto.MonedaId != null)
             {
                 editVM.NombreMoneda = monedaService.GetMoneda(presupuesto.MonedaId.Value).Nombre;
+                var monedas = monedaService.GetMonedas();
+                var moneda = monedaService.GetMonedaFilter("PESOS").FirstOrDefault();
+                editVM.Monedas = monedas.ToSelectListItems(moneda.Id);
             }
 
             // Valores Predeterminados
@@ -2361,7 +2390,7 @@ namespace mvc.Controllers
 
             ViewBag.Title = "Modificación de Presupuesto";
 
-            return View("Form", editVM);
+            return View("Form3", editVM);
         }
 
         public JsonResult Obtener(string sortBy = "Codigo", string direction = "desc", string filterBy = "All", string searchString = "", Guid? estadoId = null,

@@ -47,9 +47,9 @@
                     <label>Código Interno</label>
                 </div>
                 <div class="ez_form_control_wrapper">
-                    <p>@(Model.Codigo ?? "<NUEVO>")</p>
-                    @Html.HiddenFor(x => x.Codigo)
-                    @Html.ValidationMessageFor(x => x.Codigo)
+                    <p>@("<NUEVO>")</p>
+                     @Html.HiddenFor(x => x.Codigo)
+                     @Html.ValidationMessageFor(x => x.Codigo) 
                 </div>
             </div>
         </div>
@@ -118,8 +118,7 @@
                     <!--Autocomplete-->
                     @Html.HiddenFor(x => x.MonedaId)
                     <div class="autocomplete-control ui-front">
-                        @* @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete", @disabled = "disabled", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" }) *@
-                        @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete",  @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
                         <span class="dropdown_button" id="monedaId_dropdown">
                             <img draggable="false" src="~/Content/images/dropdown-arrow.png">
                         </span>
@@ -619,11 +618,10 @@
                     @:{ key: "@item.PrecioId", value: "@item.ProductoDescripcion", data: { precio: "@item.PrecioProducto" } },
                 }
             ];
-
             var MONEDAS = [
                     @foreach (var item in Model.Monedas)
-                {
-                    @:{ key: "@item.Value", value: "@item.Text"},
+            {
+                @:{ key: "@item.Value", value: "@item.Text"},
                 }
             ];
 
@@ -643,18 +641,18 @@
                         dropdownElement: "#categoriaId_dropdown",
                         source: CATEGORIAS.concat([{ showSearch: false }])
                     },
-                    {
-                        hiddenElement: "#@Html.IdFor(x => x.MonedaId)",
-                        autocompleteElement: "#MonedaId_autocomplete",
-                        dropdownElement: "#monedaId_dropdown",
-                        source: MONEDAS.concat([{ showSearch: false }])
-                    },
                     @*{
                         hiddenElement: "#@Html.IdFor(x => x.LineaColocacionId)",
                         autocompleteElement: "#lineaColocacionId_autocomplete",
                         dropdownElement: "#lineaColocacionId_dropdown",
                         source: LINEAS.concat([{ showSearch: false }])
                     },*@
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.MonedaId)",
+                        autocompleteElement: "#MonedaId_autocomplete",
+                        dropdownElement: "#monedaId_dropdown",
+                        source: MONEDAS.concat([{ showSearch: false }])
+                    },
                     {
                         hiddenElement: "#@Html.IdFor(x => x.ClienteId)",
                         autocompleteElement: "#ClienteId_autocomplete",
@@ -766,12 +764,7 @@
             @if (Model.ObraId == null || Model.ObraId == Guid.Empty)
             {
                 @:$('#ObraId_autocomplete').attr('disabled', true);
-                                                                           }
-
-            @if (Model.MonedaId == null || Model.MonedaId == Guid.Empty)
-            {
-                @:$('#MonedaId_autocomplete').attr('disabled', true);
-            }
+                                                                                                                                                }
 
             if ($('#CotizacionId[data-control-currency]').length) {
                 new Cleave($('#CotizacionId[data-control-currency]'), {
@@ -1234,7 +1227,8 @@
 
                 detalle: "@Html.Raw(HttpUtility.JavaScriptStringEncode(itemModel.Detalle))",
 
-                estado: "GUARDADO"
+                //  estado: "GUARDADO"
+                estado: "NUEVO"
             };
 
             ITEMS_STORE.push(saved_item);
@@ -1683,7 +1677,7 @@
 
                 $.ajax({
                     method: "POST",
-                    url: "@(Model.Codigo != null ? Url.Action("Edit") : Url.Action("Create"))",
+                    url: "@(Model.Codigo != null ? Url.Action("CreateEnBase") : Url.Action("CreateEnBase"))",
                     data: postData
                 })
                 .done(function () {
