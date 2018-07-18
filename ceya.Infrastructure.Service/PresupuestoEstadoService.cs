@@ -37,9 +37,7 @@ namespace ceya.Domain.Service
             {
                 return presupuestoEstadoRepository.GetMany(x => x.Descripcion == "EN SEGUIMIENTO"
                 || x.Descripcion == "ANULADO"
-                || x.Descripcion == "ENTREGADO"
-                || x.Descripcion == "RECHAZADO"
-                || x.Descripcion == "APROBADO");
+                || x.Descripcion == "ENTREGADO");
             }
             else if (nombre == "EN SEGUIMIENTO")
             {

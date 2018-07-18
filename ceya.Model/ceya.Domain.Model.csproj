@@ -46,7 +46,6 @@
     <Compile Include="Extensions\CodigoExtensions.cs" />
     <Compile Include="Extensions\SearchNameExtensions.cs" />
     <Compile Include="Models\Archivo.cs" />
-    <Compile Include="Models\Vendedor.cs" />
     <Compile Include="Models\Contactos.cs" />
     <Compile Include="Models\PresupuestoSeguimiento.cs" />
     <Compile Include="Models\Usuario.cs" />

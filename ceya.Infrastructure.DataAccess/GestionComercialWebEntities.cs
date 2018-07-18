@@ -42,7 +42,6 @@ namespace ceya.Infrastructure.DataAccess
         public virtual DbSet<TipoProducto> TipoProducto { get; set; }
         public virtual DbSet<Moneda> Moneda { get; set; }
         public virtual DbSet<Contacto> Contacto { get; set; }
-        public virtual DbSet<Vendedor> Vendedor { get; set; }
 
         // vistas
         public virtual DbSet<VWPrecioProducto> VWPrecioProducto { get; set; }

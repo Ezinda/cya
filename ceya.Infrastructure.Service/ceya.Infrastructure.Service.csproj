@@ -49,7 +49,6 @@
     <Compile Include="ColorService.cs" />
     <Compile Include="ConstructoraService.cs" />
     <Compile Include="ClienteService.cs" />
-    <Compile Include="VendedorService.cs" />
     <Compile Include="ContactoService.cs" />
     <Compile Include="ListaPrecioService.cs" />
     <Compile Include="MonedaService.cs" />

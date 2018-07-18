@@ -17,10 +17,8 @@ namespace ceya.Domain.Service
         IPagedList<Presupuesto> GetPresupuestosByPage(int currentPage, int noOfRecords, string sortBy,string direction, string filterBy, string searchString,Guid? estadoId);
         void EditPresupuesto(Presupuesto presupuesto);
         IEnumerable<ValidationResult> CanAddPresupuesto(Presupuesto presupuestoPorEditar);
-        IEnumerable<ValidationResult> CanAddPresupuestoEnBase(Presupuesto presupuestoPorEditar);
         IEnumerable<ValidationResult> CanAddNewRevisionPresupuesto(Presupuesto presupuestoPorEditar);
         void CreatePresupuesto(Presupuesto presupuesto);
-        void CreatePresupuestoEnBase(Presupuesto presupuesto);
         void UpdateEstado(PresupuestoSeguimiento seguimiento);
         IEnumerable<PrecioActualizado> ObtenerPreciosActualizados(Guid presupuestoId);
         void EliminarItem(Guid itemId);
