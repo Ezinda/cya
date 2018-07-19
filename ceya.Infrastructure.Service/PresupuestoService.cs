@@ -60,7 +60,7 @@ namespace ceya.Domain.Service
         public IEnumerable<ValidationResult> CanAddPresupuesto(Presupuesto nuevoPresupuesto)
         {
             //Presupuesto presupuesto;
-           // if (nuevoPresupuesto.Id == Guid.Empty)
+            // if (nuevoPresupuesto.Id == Guid.Empty)
             //{
             //    presupuesto = this.presupuestoRepository.Get(x => x.Codigo == nuevoPresupuesto.Codigo);
             //}
@@ -81,6 +81,35 @@ namespace ceya.Domain.Service
             {
                 yield return new ValidationResult("Codigo", Resources.CodigoNotRequired);
             }
+            var estadoInicial = this.presupuestoEstadoRepository.Get(x => x.Codigo == "1"); // PRESUPUESTADO
+            if (nuevoPresupuesto.PresupuestoEstadoId != Guid.Empty && nuevoPresupuesto.PresupuestoEstadoId != estadoInicial.Id)
+            {
+                yield return new ValidationResult("PresupuestoEstadoId", Resources.EstadoNotRequired);
+            }
+            if (nuevoPresupuesto.ClienteId == Guid.Empty || nuevoPresupuesto.ClienteId == null)
+            {
+                yield return new ValidationResult("ClienteId", Resources.ClienteRequired);
+            }
+            if (nuevoPresupuesto.ObraId == Guid.Empty || nuevoPresupuesto.ObraId == null)
+            {
+                yield return new ValidationResult("ObraId", Resources.ObraRequired);
+            }
+            foreach (var item in nuevoPresupuesto.PresupuestoItem)
+            {
+                if (item.Estado != "NUEVO" && item.Estado != String.Empty && item.Estado != null)
+                {
+                    yield return new ValidationResult("Items", Resources.InvalidItemState);
+                }
+
+                if (item.ArchivoTipologiaId != Guid.Empty && item.ArchivoTipologiaId != null && nuevoPresupuesto.ArchivoTransaccionId == Guid.Empty)
+                {
+                    yield return new ValidationResult("ArchivoTransaccionId", Resources.InvalidEmptyTransaccion);
+                }
+            }
+        }
+
+        public IEnumerable<ValidationResult> CanAddPresupuestoEnBase(Presupuesto nuevoPresupuesto)
+        {
             var estadoInicial = this.presupuestoEstadoRepository.Get(x => x.Codigo == "1"); // PRESUPUESTADO
             if (nuevoPresupuesto.PresupuestoEstadoId != Guid.Empty && nuevoPresupuesto.PresupuestoEstadoId != estadoInicial.Id)
             {
@@ -170,6 +199,52 @@ namespace ceya.Domain.Service
             {
                 presupuestoPadre = this.presupuestoRepository.Get(x => x.Id == presupuesto.Id && x.Codigo == presupuesto.Codigo);
                 presupuesto.Codigo = presupuestoPadre.Codigo;
+            }
+            presupuesto.Id = Guid.NewGuid();
+            if (presupuesto.Codigo == 0)
+            {
+                presupuesto.Codigo = this.GetNuevoCodigo();
+            }
+            presupuesto.FechaCreacion = DateTime.Now;
+            if (presupuesto.PresupuestoEstadoId == Guid.Empty)
+            {
+                presupuesto.PresupuestoEstado = this.presupuestoEstadoRepository.Get(x => x.Codigo == "1"); // PRESUPUESTADO
+            }
+            presupuesto.PresupuestoAnterior = presupuestoPadre;
+
+            foreach (var item in presupuesto.PresupuestoItem)
+            {
+                if (item.Estado == "GUARDADO" || item.Estado == "MODIFICADO")
+                {
+                    // TODO: Check para saber si realmente se ha modificado
+                    var itemPadre = presupuestoPadre.PresupuestoItem.Where(x => x.Id == item.Id).Single();
+                    item.PresupuestoItemAnterior = itemPadre;
+                }
+                item.Id = Guid.NewGuid();
+                if (item.ArchivoTipologiaId != Guid.Empty && item.ArchivoTipologiaId != null)
+                {
+                    var archivo = this.archivoRepository.Get(x => x.Id == item.ArchivoTipologiaId && x.TransaccionId == presupuesto.ArchivoTransaccionId);
+                    if (archivo.TransaccionCompletada != true)
+                    {
+                        archivo.TransaccionCompletada = true;
+                        this.archivoRepository.Update(archivo);
+                    }
+                }
+            }
+
+            this.presupuestoRepository.Add(presupuesto);
+            this.SavePresupuesto();
+            SeguimientoEstado(presupuesto);
+        }
+
+        public void CreatePresupuestoEnBase(Presupuesto presupuesto)
+        {
+            Presupuesto presupuestoPadre = null;
+            if (presupuesto.Id != Guid.Empty)
+            {
+                presupuestoPadre = this.presupuestoRepository.Get(x => x.Id == presupuesto.Id && x.Codigo == presupuesto.Codigo);
+                //   presupuesto.Codigo = presupuestoPadre.Codigo;
+                presupuesto.Codigo = this.GetNuevoCodigo();
             }
             presupuesto.Id = Guid.NewGuid();
             if (presupuesto.Codigo == 0)
@@ -299,7 +374,7 @@ namespace ceya.Domain.Service
             var archivoId = itemParaModificar.Archivo.Id;
             if (itemParaModificar != null)
             {
-                itemParaModificar.ArchivoTipologiaId = null;               
+                itemParaModificar.ArchivoTipologiaId = null;
                 SavePresupuesto();
 
                 //var archivoParaEliminar = archivoRepository.GetById(archivoId);

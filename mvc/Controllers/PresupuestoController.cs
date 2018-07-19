@@ -244,6 +244,9 @@ namespace mvc.Controllers
             if (presupuesto.MonedaId != null)
             {
                 editVM.NombreMoneda = monedaService.GetMoneda(presupuesto.MonedaId.Value).Nombre;
+                var monedas = monedaService.GetMonedas();
+                var moneda = monedaService.GetMonedaFilter("PESOS").FirstOrDefault();
+                editVM.Monedas = monedas.ToSelectListItems(moneda.Id);
             }
 
             // Valores Predeterminados
@@ -1344,17 +1347,17 @@ namespace mvc.Controllers
                         find01FirstRowNumber = currentFind.Row;
                         find01LastRowNumber = currentFind.Row + currentFind.Rows.Count - 1;
                         item.HeaderTapajuntas = currentFind.Text.ToString();
-                    
-                    range = sheet.get_Range("D" + (find01LastRowNumber), Missing.Value);
-                    if (range != null)
-                    {
-                        item.UnitarioTapajuntas = range.Text.ToString();
-                    }
-                    range = sheet.get_Range("E" + (find01LastRowNumber), Missing.Value);
-                    if (range != null)
-                    {
-                        item.TotalTapajuntas = range.Text.ToString();
-                    }
+
+                        range = sheet.get_Range("D" + (find01LastRowNumber), Missing.Value);
+                        if (range != null)
+                        {
+                            item.UnitarioTapajuntas = range.Text.ToString();
+                        }
+                        range = sheet.get_Range("E" + (find01LastRowNumber), Missing.Value);
+                        if (range != null)
+                        {
+                            item.TotalTapajuntas = range.Text.ToString();
+                        }
                     }
 
                     // Colocacion
@@ -1368,17 +1371,17 @@ namespace mvc.Controllers
                         find01FirstRowNumber = currentFind.Row;
                         find01LastRowNumber = currentFind.Row + currentFind.Rows.Count - 1;
                         item.HeaderColocacion = currentFind.Text.ToString();
-                    
-                    range = sheet.get_Range("D" + (find01LastRowNumber), Missing.Value);
-                    if (range != null)
-                    {
-                        item.UnitarioColocacion = range.Text.ToString();
-                    }
-                    range = sheet.get_Range("E" + (find01LastRowNumber), Missing.Value);
-                    if (range != null)
-                    {
-                        item.TotalColocacion = range.Text.ToString();
-                    }
+
+                        range = sheet.get_Range("D" + (find01LastRowNumber), Missing.Value);
+                        if (range != null)
+                        {
+                            item.UnitarioColocacion = range.Text.ToString();
+                        }
+                        range = sheet.get_Range("E" + (find01LastRowNumber), Missing.Value);
+                        if (range != null)
+                        {
+                            item.TotalColocacion = range.Text.ToString();
+                        }
                     }
 
                     // Item
@@ -2087,8 +2090,8 @@ namespace mvc.Controllers
 
             string NombreCliente = presupuesto.Cliente.RazonSocial != String.Empty ? presupuesto.Cliente.Apellido + "," + presupuesto.Cliente.Nombre : presupuesto.Cliente.RazonSocial;
             string Solicita = ((presupuesto.Solicita == null ? presupuesto.Cliente.RazonSocial != String.Empty ? presupuesto.Cliente.Apellido + "," + presupuesto.Cliente.Nombre : presupuesto.Cliente.RazonSocial : presupuesto.Solicita) ?? String.Empty).ToUpper();
-            
-            string Telefono = presupuesto.Solicita == null ? presupuesto.Cliente.Telefono + " " +  presupuesto.Cliente.Celular : presupuesto.Telefono ?? String.Empty;
+
+            string Telefono = presupuesto.Solicita == null ? presupuesto.Cliente.Telefono + " " + presupuesto.Cliente.Celular : presupuesto.Telefono ?? String.Empty;
 
             string LineaColor = ProductoNombre + " - " + SubrubroNombre + " - " + ColorNombre;
 
@@ -2122,7 +2125,7 @@ namespace mvc.Controllers
             string CodigoPresupuesto = CodPresupuesto.Substring(CodPresupuesto.Length - 8);
             string CodigoObra = presupuesto.Obra.CodigoObra;
 
-                                            
+
             string DirectorioReportesRelativo = "~/";
 
             string urlArchivo = string.Format("{0}.{1}", "PresupuestoReport", "rdlc");
@@ -2177,9 +2180,9 @@ namespace mvc.Controllers
                         //                                  (x.PrecioColocacion != null ? x.PrecioColocacion.Producto.Descripcion : string.Empty) + "\r\n" +
                         //                                  x.Descripcion + "\r\n" + x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + x.Detalle,
 
-                         Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" +  (x.Ancho == 0 ? "" : x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" + 
-                                      (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n") +  x.Detalle,
-                        
+                        Descripcion = x.Posicion + "\r\n" + x.Descripcion + "\r\n" + (x.Ancho == 0 ? "" : x.Ancho.ToString("N2") + " x " + x.Alto.ToString("N2") + "\r\n" +
+                                      (x.PrecioVidrio != null ? x.PrecioVidrio.Producto.Descripcion : string.Empty) + "\r\n") + x.Detalle,
+
                         Unidades = x.Unidades,
                         PrecioUnitario = Decimal.Round(x.PrecioUnitario, 2),
                         VidriosId = x.VidriosId,
@@ -2264,6 +2267,29 @@ namespace mvc.Controllers
 
         }
 
+        [HttpPost]
+        [AjaxOnly]
+        [ValidateAjax]
+        [ValidateAntiForgeryToken]
+        public JsonResult CreateEnBase(PresupuestoFormModel vm)
+        {
+            var presupuesto = Mapper.Map<PresupuestoFormModel, Presupuesto>(vm);
+            var errors = this.presupuestoService.CanAddPresupuestoEnBase(presupuesto).ToList();
+            ModelState.AddModelErrors(errors);
+            if (ModelState.IsValid)
+            {
+
+                this.presupuestoService.CreatePresupuestoEnBase(presupuesto);
+                return Json(new { estado = "OK" });
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return this.AjaxModelErrors();
+            }
+        }
+
+
         public ActionResult EnBase(Guid id)
         {
             var presupuesto = this.presupuestoService.GetPresupuesto(id);
@@ -2325,6 +2351,9 @@ namespace mvc.Controllers
             if (presupuesto.MonedaId != null)
             {
                 editVM.NombreMoneda = monedaService.GetMoneda(presupuesto.MonedaId.Value).Nombre;
+                var monedas = monedaService.GetMonedas();
+                var moneda = monedaService.GetMonedaFilter("PESOS").FirstOrDefault();
+                editVM.Monedas = monedas.ToSelectListItems(moneda.Id);
             }
 
             // Valores Predeterminados
@@ -2361,7 +2390,7 @@ namespace mvc.Controllers
 
             ViewBag.Title = "Modificación de Presupuesto";
 
-            return View("Form", editVM);
+            return View("Form3", editVM);
         }
 
         public JsonResult Obtener(string sortBy = "Codigo", string direction = "desc", string filterBy = "All", string searchString = "", Guid? estadoId = null,
@@ -2405,7 +2434,7 @@ namespace mvc.Controllers
         }
 
         public JsonResult EliminarItem(Guid itemId)
-        {        
+        {
 
             var exito = true;
             var mensaje = "";

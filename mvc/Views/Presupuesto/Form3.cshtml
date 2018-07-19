@@ -7,16 +7,12 @@
     @Styles.Render("~/Scripts/dropzone/css/standard")
     @Styles.Render("~/Content/css/presupuesto")
 }
-<div style="margin-top: -16px;padding: 5px;background-color: #eaeaea;border-bottom: 1px solid #cacaca;margin-bottom: 16px;position: fixed;">
+<div style="margin-top: -16px;padding: 5px;background-color: #eaeaea;border-bottom: 1px solid #cacaca;margin-bottom: 16px;">
     @using (Html.BeginForm("LoadFileInPresupuesto", "Presupuesto", FormMethod.Post, new { enctype = "multipart/form-data", name = "UploadExcel", id = "UploadExcel", style = "display:inline-block;" }))
     {
-        @*Html.HiddenFor(x => x.ArchivoTransaccionId)
-            @Html.HiddenFor(x => x.SubrubroId)
-            @Html.HiddenFor(x => x.NombreSubrubro)*@
         @Html.HiddenFor(x => x.ArchivoTransaccionId, new { @Id = "LoadArchivoTransaccionId" })
         @Html.HiddenFor(x => x.SubrubroId, new { @Id = "LoadSubrubroId" })
         <input id="LoadNombreSubrubro" name="NombreSubrubro" type="hidden" value="">
-
         <button type="button" id="importarExcel" onclick="ImportarExcel();">Importar Excel ...</button>
         <input type="file" name="file" onchange="UploadExcelForm()" style="display:none;" id="file" />
     }
@@ -32,8 +28,10 @@
         function UploadExcelForm() {
             //document.forms['UploadExcel'].submit();
         }
+
     </script>
-    @*<button type="button" id="imprimir">Imprimir</button>*@
+    <button type="button" id="actualizar-precios" onclick="actualizarPrecios();">Actualizar Precios</button>
+    <button type="button" id="imprimir">Imprimir</button>
 </div>
 <div class="ez_form_sheet" style="margin-bottom: 100px;">
     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
@@ -49,7 +47,7 @@
                     <label>Código Interno</label>
                 </div>
                 <div class="ez_form_control_wrapper">
-                    <p>@(Model.Codigo ?? "<NUEVO>")</p>
+                    <p>@("<NUEVO>")</p>
                     @Html.HiddenFor(x => x.Codigo)
                     @Html.ValidationMessageFor(x => x.Codigo)
                 </div>
@@ -81,9 +79,9 @@
                     @Html.HiddenFor(x => x.ClienteId)
                     <div class="autocomplete-control ui-front">
                         @Html.TextBoxFor(x => x.NombreCliente, new { @id = "ClienteId_autocomplete", @class = "ez_form_required", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
-                        @*<span class="dropdown_button" id="clienteId_dropdown">
-                                <img draggable="false" src="~/Content/images/dropdown-arrow.png">
-                            </span>*@
+                        <span class="dropdown_button" id="clienteId_dropdown">
+                            <img draggable="false" src="~/Content/images/dropdown-arrow.png">
+                        </span>
                     </div>
                     @Html.ValidationMessageFor(x => x.ClienteId)
                 </div>
@@ -169,11 +167,11 @@
                     @Html.ValidationMessageFor(x => x.ConstructoraId)
                 </div>
             </div>
-            @*// paso 2*@
             <div class="ez_form_field">
                 <div class="ez_form_label_wrapper">
-                    @Html.LabelFor(x => x.Solicita, "Solicita")
+                    <label>Solicita</label>
                 </div>
+
                 <div class="ez_form_control_wrapper">
                     <!--Autocomplete-->
                     @Html.HiddenFor(x => x.Solicita)
@@ -185,6 +183,7 @@
                     </div>
                     @Html.ValidationMessageFor(x => x.Solicita)
                 </div>
+
             </div>
             <div class="ez_form_field">
                 <div class="ez_form_label_wrapper">
@@ -202,9 +201,10 @@
                     @Html.TextBoxFor(x => x.Email)
                 </div>
             </div>
+
             <div class="ez_form_field">
                 <div class="ez_form_label_wrapper">
-                    @Html.LabelFor(x => x.Vendedor, "Vendedor")
+                    <label>Vendedor</label>
                 </div>
                 <div class="ez_form_control_wrapper">
                     <!--Autocomplete-->
@@ -218,6 +218,7 @@
                     @Html.ValidationMessageFor(x => x.Vendedor)
                 </div>
             </div>
+
         </div>
     </div>
     <div class="ez_form_group">
@@ -258,7 +259,7 @@
                 </div>
                 <div class="ez_form_control_wrapper">
                     <!--Autocomplete-->
-                    @Html.HiddenFor(x => x.ColocacionId)
+                    @Html.HiddenFor(x => x.ColocacionId, new { data_item_preciounitario_value = Model.PrecioColocacion })
                     <div class="autocomplete-control ui-front">
                         @Html.TextBoxFor(x => x.NombreColocacion, new { @id = "colocacionId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
                         <span class="dropdown_button" id="colocacionId_dropdown" data-item-preciounitario-value>
@@ -292,7 +293,7 @@
                 </div>
                 <div class="ez_form_control_wrapper">
                     <!--Autocomplete-->
-                    @Html.HiddenFor(x => x.VidrioId)
+                    @Html.HiddenFor(x => x.VidrioId, new { data_item_preciounitario_value = Model.PrecioVidrio })
                     <div class="autocomplete-control ui-front">
                         @Html.TextBoxFor(x => x.NombreVidrio, new { @id = "vidrioId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
                         <span class="dropdown_button" id="vidrioId_dropdown" data-item-preciounitario-value>
@@ -314,7 +315,7 @@
             </div>
         </div>
         <div class="datatable-wrapper">
-            <table>
+            <table id="tabla-items">
                 <thead>
                     <tr>
                         <th style="width: 40px;"></th>
@@ -324,6 +325,7 @@
                         <th style="width: 85px;">Unidades</th>
                         <th style="text-align:right;width: 140px;">Precio Unitario</th>
                         <th style="text-align:right;width: 140px;">Importe Total</th>
+                        <th style="width: 40px;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -448,6 +450,7 @@
         </div>
     </div>
 </div>
+
 <!--Modal-->
 <div class="modal in" tabindex="-1" role="dialog" id="itemModal" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
@@ -473,9 +476,10 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div>
+</div><!-- /.modal -->
 @section Scripts
 {
+    @*  @Scripts.Render("~/presupuestos/dropzone") *@
     @Scripts.Render("~/bundles/dropzone")
     <script>
         /**
@@ -505,7 +509,7 @@
                         btn.text("Procesando ...");
                         btn.prop("disabled", true);
 
-                      }
+                    }
                 },
                 { label: "o", type: "text" },
                 {
@@ -561,6 +565,32 @@
                     toggleRowDetail($(this), onBeforeShowDetail);
                 });
 
+                $rowItem.find("*[data-headercol='action']").on("click", function () {
+                    var tr = $(this).closest("tr");
+                    var itemId = tr.attr("data-row-id");
+                    if(confirm("Desea eliminar el item?")){
+                        $.ajax({
+                            method: "POST",
+                            url: "/Presupuesto/EliminarItem",
+                            data: { itemId: itemId}
+                        })
+                        .done(function (respuesta) {
+                            if(respuesta.exito){
+                                alert("Se eliminó correctamente el item.");
+                                var trDetail = tr.next("tr");
+                                tr.remove();
+                                trDetail.remove();
+                                $($("#gridPresupuesto")).trigger('recalcularResumen', $("#gridPresupuesto"));
+                            }
+                            else{
+                                alert("No se pudo eliminar el item.");
+                            }
+                        })
+                        .fail(function(jqXHR, textStatus, errorThrown ) {
+
+                        });
+                    }
+                });
                 if (onAfterEmbeddedRow) { onAfterEmbeddedRow($rowItem, data); }
             }
 
@@ -588,19 +618,12 @@
                     @:{ key: "@item.Value", value: "@item.Text" },
                 }
             ];
-            var LINEAS = [
+            @*var LINEAS = [
                 @foreach (var item in Model.Lineas)
                 {
                     @:{ key: "@item.Value", value: "@item.Text" },
                 }
-            ];
-            var PRODUCTOSVARIOS = [
-                @foreach (var item in Model.Productos)
-                {
-                    @:{ key: "@item.PrecioId", value: "@item.ProductoDescripcion", data: { precio: "@item.PrecioProducto" } },
-                }
-            ];
-
+            ];*@
             var COLOCACIONES = [
                 @foreach (var item in Model.Colocaciones)
                 {
@@ -613,25 +636,13 @@
                     @:{ key: "@item.PrecioId", value: "@item.ProductoDescripcion", data: { precio: "@item.PrecioProducto" } },
                 }
             ];
-            var SUBRUBROS = [
-                @foreach (var item in Model.Subrubros)
-                {
-                    @:{ key: "@item.Value", value: "@item.Text"},
-                }
-            ];
-            var COLORES = [
-                @foreach (var item in Model.Colores)
-                {
-                    @:{ key: "@item.Value", value: "@item.Text"},
+            var MONEDAS = [
+                    @foreach (var item in Model.Monedas)
+            {
+                @:{ key: "@item.Value", value: "@item.Text"},
                 }
             ];
 
-            var MONEDAS = [
-                @foreach (var item in Model.Monedas)
-                {
-                  @:{ key: "@item.Value", value: "@item.Text"},
-                }
-            ];
 
             /**
             BINDING
@@ -648,33 +659,29 @@
                         dropdownElement: "#categoriaId_dropdown",
                         source: CATEGORIAS.concat([{ showSearch: false }])
                     },
-                    {
+                    @*{
                         hiddenElement: "#@Html.IdFor(x => x.LineaColocacionId)",
                         autocompleteElement: "#lineaColocacionId_autocomplete",
                         dropdownElement: "#lineaColocacionId_dropdown",
                         source: LINEAS.concat([{ showSearch: false }])
+                    },*@
+                    {
+                        hiddenElement: "#@Html.IdFor(x => x.MonedaId)",
+                        autocompleteElement: "#MonedaId_autocomplete",
+                        dropdownElement: "#monedaId_dropdown",
+                        source: MONEDAS.concat([{ showSearch: false }])
                     },
                     {
                         hiddenElement: "#@Html.IdFor(x => x.ClienteId)",
                         autocompleteElement: "#ClienteId_autocomplete",
                         dropdownElement: "#clienteId_dropdown",
-                        source:
-                             function () {
-                                 let valor = $("#@Html.IdFor(x => x.NombreCliente)").val();
-                                 return "@Url.Action("JsonAutocomplete","Cliente")" + "?" + valor
-                                 let $obraHidden = $("#@Html.IdFor(x => x.ObraId)").text('');
-                                 let $obraAutocomplete = $("#ObraId_autocomplete").val('');
-                                 updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
-                                 $('#Ubicacion').text('');
-                             },
-
+                        source: "@Url.Action("JsonAutocomplete", "Cliente")",
                         onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
                             $('#ObraId_autocomplete').attr('disabled', false);
                             let $obraHidden = $("#@Html.IdFor(x => x.ObraId)");
                             let $obraAutocomplete = $("#ObraId_autocomplete");
                             updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
                             $('#Ubicacion').text('');
-                            $("#@Html.IdFor(x => x.NombreCliente)").val('');
                         }
                     },
                     {
@@ -683,8 +690,7 @@
                         dropdownElement: "#obraId_dropdown",
                         source: function () {
                             let clienteId = $("#@Html.IdFor(x => x.ClienteId)").val();
-                            var returnValue = "@Url.Action("JsonAutocomplete", "Obra")" + "?" + "clienteId=" + clienteId;
-                            return returnValue
+                            return "@Url.Action("JsonAutocomplete", "Obra")" + "?" + "clienteId=" + clienteId
                         },
                         onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
                             $('#Ubicacion').text(selectItem.data.domicilio);
@@ -720,30 +726,16 @@
                         onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
                             $("#Vendedor_autocomplete").val(selectItem.data.nombre);
                             $("#Vendedor").val(selectItem.data.nombre)
-                        }
+                    }
                     },
+
                     {
                         hiddenElement: "#@Html.IdFor(x => x.ConstructoraId)",
                         autocompleteElement: "#ConstructoraId_autocomplete",
                         dropdownElement: "#constructoraId_dropdown",
-                        source:
-                        function () {
-                            let valor = $("#NombreCliente").val();
-                            return "/Constructora/JsonAutocomplete" + "?" + valor
-                            //let $obraHidden = $("#ObraId").text('');
-                            //let $obraAutocomplete = $("#ObraId_autocomplete").val('');
-                            //updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
-                            //$('#Ubicacion').text('');
-                        },
-                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
-                            $('#Solicita_autocomplete').attr('disabled', false);
-                            let $solicitaHidden = $("#Solicita");
-                            let $solicitaAutocomplete = $("#Solicita_autocomplete");
-                            updateAutocompleteBox("", "", $solicitaHidden, $solicitaAutocomplete);
-                            $("#Solicita").val('');
-                        }
+                        source: "@Url.Action("JsonAutocomplete", "Constructora")",
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) { }
                     },
-
                     {
                         hiddenElement: "#@Html.IdFor(x => x.SubrubroId)",
                         autocompleteElement: "#subrubroId_autocomplete",
@@ -788,12 +780,6 @@
                             $hiddenInput.trigger("change");
                         }
                     },
-                    {
-                        hiddenElement: "#@Html.IdFor(x => x.MonedaId)",
-                        autocompleteElement: "#MonedaId_autocomplete",
-                        dropdownElement: "#monedaId_dropdown",
-                        source: MONEDAS.concat([{ showSearch: false }])
-                    },
             ].forEach(function (item) {
                 initAutocomplete(
                     $(item.hiddenElement),
@@ -804,47 +790,10 @@
                 );
             });
 
-            $('#ClienteId_autocomplete').keydown(function(e) {
-                if (e.which == 8) {
-                    $('#ObraId_autocomplete').attr('disabled', true);
-                    $("#@Html.IdFor(x => x.ObraId)").val('');
-                    let $obraHidden = $("#@Html.IdFor(x => x.ObraId)");
-                    let $obraAutocomplete = $("#ObraId_autocomplete");
-                    updateAutocompleteBox("", "", $obraHidden, $obraAutocomplete);
-                    $('#Ubicacion').text('');
-                }
-            });
-
-            $('#ConstructoraId_autocomplete').keydown(function(e) {
-                if (e.which == 8) {
-                    $('#Solicita_autocomplete').attr('disabled', true);
-                    $("#@Html.IdFor(x => x.ConstructoraId)").val('');
-                    let $constructoraHidden = $("#@Html.IdFor(x => x.ConstructoraId)");
-                    let $solicitaAutocomplete = $("#Solicita_autocomplete");
-                    updateAutocompleteBox("", "", $constructoraHidden, $solicitaAutocomplete);
-                }
-            });
-
-            $('#subrubroId_autocomplete').keydown(function (e) {
-                if (e.which == 8) {
-                    $('#colorId_autocomplete').attr('disabled', true);
-                    $("#@Html.IdFor(x => x.ColorId)").val('');
-                    let $colorHidden = $("#@Html.IdFor(x => x.ColorId)");
-                    let $colorAutocomplete = $("#colorId_autocomplete");
-                    updateAutocompleteBox("", "", $colorHidden, $colorAutocomplete);
-                }
-            });
-
             @if (Model.ObraId == null || Model.ObraId == Guid.Empty)
             {
                 @:$('#ObraId_autocomplete').attr('disabled', true);
-                                                                                                }
-            $('#Solicita_autocomplete').attr('disabled', true);
-
-            @if (Model.ColorId == null || Model.ColorId == Guid.Empty)
-            {
-                @:$('#colorId_autocomplete').attr('disabled', true);
-                                                                                                }
+                                                                                                                                                }
 
             if ($('#CotizacionId[data-control-currency]').length) {
                 new Cleave($('#CotizacionId[data-control-currency]'), {
@@ -877,16 +826,6 @@
 
             function bindAutocompletes(parentSelector) {
                 [
-                    {
-                        hiddenElement: parentSelector + " *[data-id='productosvariosId']",
-                        autocompleteElement: parentSelector + " *[data-id='productosvariosId_autocomplete']",
-                        dropdownElement: parentSelector + " *[data-id='productosvariosId_dropdown']",
-                        source: PRODUCTOSVARIOS.concat([{ showSearch: false }]),
-                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
-                            $hiddenInput.attr("data-calculate-item-preciounitario-value", selectItem.data.precio);
-                            $hiddenInput.trigger("change");
-                        }
-                    },
                     {
                         hiddenElement: parentSelector + " *[data-id='colocacionId']",
                         autocompleteElement: parentSelector + " *[data-id='colocacionId_autocomplete']",
@@ -940,12 +879,16 @@
                         let precio = parseFloat($colocacion.attr('data-calculate-item-preciounitario-value') || 0.0);
                         return roundNumber(((ancho + alto) * 2 * unidades) * precio, 2);
                     };
+
                     let vidrios = _calcVidrios(ancho, alto, unidades, $vidrios);
                     let colocacion = _calcColocacion(ancho, alto, unidades, $colocacion);
 
                     // Campos que solo muestran datos relevantes para el usuario
                     $container.find("*[data-presupuesto-item='vidriosResult']").val(numeral(vidrios).format('0,0.00'));
+
                     $container.find("*[data-presupuesto-item='colocacionResult']").val(numeral(colocacion).format('0,0.00'));
+                    $container.find("*[data-presupuesto-item='colocacionResult']").attr("item-id", "test");
+
 
                     let calculo = roundNumber(carpinteria + tapajuntas + vidrios + colocacion, 2);
 
@@ -1018,6 +961,7 @@
                         $rowItem.find("*[data-presupuesto-item='importe']").val()
                             .replace(/\./g, "")
                             .replace(/,/g, "."));
+
                     item.ancho = parseFloat(
                         $rowItem.find("*[data-presupuesto-item='ancho']").val()
                             .replace(/\./g, "")
@@ -1170,8 +1114,6 @@
             }
 
             function handlerOnBeforeShowModal($modal, $modalBodyContainer) {
-                @*alert($("#@Html.IdFor(x => x.VidrioId)").val());
-                alert( $("#vidrioId_autocomplete").val());*@
                 let item = {
                     id: "",
 
@@ -1191,15 +1133,26 @@
                     alto: 0,
                     carpinteria: 0.0,
                     tapajuntas: 0.0,
+
                     vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),//null,
                     vidriosDescripcion: $("#vidrioId_autocomplete").val(),//'',
-                    vidriosPrecio: $("#VidrioId").attr('data-item-preciounitario-value'),
+                    vidriosPrecio: $("#VidrioId").attr('data-item-preciounitario-value') ? $("#VidrioId").attr('data-item-preciounitario-value') : 0.0,
                     vidriosCalculado: 0.0,
 
                     colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),//null,
                     colocacionDescripcion: $("#colocacionId_autocomplete").val(),//'',
-                    colocacionPrecio: $("#ColocacionId").attr('data-item-preciounitario-value'),//0.0,
+                    colocacionPrecio: $("#ColocacionId").attr('data-item-preciounitario-value') ? $("#ColocacionId").attr('data-item-preciounitario-value') : 0.0,//0.0,
                     colocacionCalculado: 0.0,
+
+                    //vidriosId: null,
+                    //vidriosDescripcion: '',
+                    //vidriosPrecio: 0.0,
+                    //vidriosCalculado: 0.0,
+
+                    //colocacionId: null,
+                    //colocacionDescripcion: '',
+                    //colocacionPrecio: 0.0,
+                    //colocacionCalculado: 0.0,
 
                     detalle: ""
                 };
@@ -1216,7 +1169,6 @@
 
                 $modal.find("*[data-presupuesto-item='ancho']").val(numeral(item.ancho).format('0,0.00'));
                 $modal.find("*[data-presupuesto-item='alto']").val(numeral(item.alto).format('0,0.00'));
-
                 $modal.find("*[data-presupuesto-item='carpinteria']").val(numeral(item.carpinteria).format('0,0.00'));
 
                 $modal.find("*[data-presupuesto-item='carpinteriaTotal']").val(numeral(item.carpinteria * item.unidades).format('0,0.00'));
@@ -1226,7 +1178,10 @@
                 $modal.find("*[data-presupuesto-item='tapajuntasTotal']").val(numeral(item.tapajuntas * item.unidades).format('0,0.00'));
 
                 $modal.find("*[data-presupuesto-item='vidriosResult']").val(numeral(item.vidriosCalculado).format('0,0.00'));
+
+
                 $modal.find("*[data-presupuesto-item='colocacionResult']").val(numeral(item.colocacionCalculado).format('0,0.00'));
+                $modal.find("*[data-presupuesto-item='colocacionResult']").attr("item-id", item.id);
                 $modal.find("*[data-presupuesto-item='vidriosId']").val(item.vidriosId);
                 $modal.find("*[data-presupuesto-item='vidriosId']").attr("data-calculate-item-preciounitario-value", item.vidriosPrecio);
                 $modal.find("*[data-presupuesto-item='vidriosValue']").val(item.vidriosDescripcion);
@@ -1248,6 +1203,7 @@
 
 
 
+
             /**
             GRILLA
             Esados de items:
@@ -1264,7 +1220,6 @@
 
 
             let saved_item;
-
             @foreach(var itemModel in this.Model.Items)
             {
                 <text>
@@ -1281,7 +1236,7 @@
                 descripcion: "@Html.Raw(HttpUtility.JavaScriptStringEncode(itemModel.Descripcion))",
 
                 unidades: @itemModel.Unidades.ToString(new System.Globalization.CultureInfo("en-US")),
-                preciounitario:@itemModel.PrecioUnitario.ToString(new System.Globalization.CultureInfo("en-US")),
+                preciounitario: @itemModel.PrecioUnitario.ToString(new System.Globalization.CultureInfo("en-US")),
                 importe: @itemModel.Importe.ToString(new System.Globalization.CultureInfo("en-US")),
 
                 ancho: @itemModel.Ancho.ToString(new System.Globalization.CultureInfo("en-US")),
@@ -1299,9 +1254,10 @@
                 colocacionPrecio: @(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? itemModel.ColocacionPrecio.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
                 colocacionCalculado: @(itemModel.ColocacionId != Guid.Empty && itemModel.ColocacionId != null ? itemModel.ColocacionCalculado.ToString(new System.Globalization.CultureInfo("en-US")) : Convert.ToDecimal(0.0).ToString(new System.Globalization.CultureInfo("en-US"))),
 
-                detalle: "",
+                detalle: "@Html.Raw(HttpUtility.JavaScriptStringEncode(itemModel.Detalle))",
 
-                estado: "GUARDADO"
+                //  estado: "GUARDADO"
+                estado: "NUEVO"
             };
 
             ITEMS_STORE.push(saved_item);
@@ -1315,8 +1271,11 @@
                 var cotizacion = parseFloat($("#CotizacionId").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
                 $rowItem.first().attr("data-row-id", item.id);
 
+                $rowItem.first().attr("data-row-id", item.id);
+
                 // $rowItem.find("*[data-headercol='toggler']").text();
                 $rowItem.find("*[data-headercol='tipologia'] > div").css('background', "url('" + item.tipologiaThumbnailUrl + "') center center / contain no-repeat");
+                $rowItem.find("*[data-headercol='tipologia'] > div").attr("item-id", item.id);
                 $rowItem.find("*[data-headercol='posicion']").text(item.posicion);
                 $rowItem.find("*[data-headercol='descripcion']").text(item.descripcion);
                 $rowItem.find("*[data-headercol='unidades']").text(numeral(item.unidades).format('0,0'));
@@ -1324,6 +1283,7 @@
                 $rowItem.find("*[data-headercol='importe']").text(numeral(item.importe).format('0,0.00'));
 
                 $rowItem.find("*[data-presupuesto-item='tooltip']").attr("src", item.tipologiaThumbnailUrl)
+                $rowItem.find("*[data-presupuesto-item='tooltip']").attr("item-id", item.id);
                 $rowItem.find("*[data-presupuesto-item='tooltip']").attr("data-presupuesto-item-src", item.tipologiaUrl)
                 $rowItem.find("*[data-presupuesto-item='tipologiaId']").val(item.tipologiaId);
                 $rowItem.find("*[data-presupuesto-item='posicion']").val(item.posicion);
@@ -1345,7 +1305,9 @@
                 $rowItem.find("*[data-presupuesto-item='tapajuntasTotal']").val(numeral(item.tapajuntas * item.unidades).format('0,0.00'));
 
                 $rowItem.find("*[data-presupuesto-item='vidriosResult']").val(numeral(item.vidriosCalculado).format('0,0.00'));
+                $rowItem.find("*[data-presupuesto-item='vidriosResult']").attr("item-id", item.id);
                 $rowItem.find("*[data-presupuesto-item='colocacionResult']").val(numeral(item.colocacionCalculado).format('0,0.00'));
+                $rowItem.find("*[data-presupuesto-item='colocacionResult']").attr("item-id", item.id);
                 $rowItem.find("*[data-presupuesto-item='vidriosId']").val(item.vidriosId);
                 $rowItem.find("*[data-presupuesto-item='vidriosId']").attr("data-calculate-item-preciounitario-value", item.vidriosPrecio);
                 $rowItem.find("*[data-presupuesto-item='vidriosValue']").val(item.vidriosDescripcion);
@@ -1396,13 +1358,38 @@
                 $(this).trigger('recalcularResumen', this);
             });
 
+            $(document).on('click', '.boton-eliminar-imagen', function () {
+                if(confirm("Desea eliminar la imagen?")){
+                    var img= $(this).closest("div").find("img");
+                    var itemId = img.attr("item-id");
+                    $.ajax({
+                        method: "POST",
+                        url: "/Presupuesto/EliminarArchivoItem",
+                        data: { itemId: itemId}
+                    })
+                    .done(function (respuesta) {
+                        if(respuesta.exito){
+                            alert("Se eliminó correctamente la imagen.");
+                            img.remove();
+                            $("tr[data-row-id='"+itemId+"']").find("*[data-headercol='tipologia']").html("")
+                        }
+                        else{
+                            alert("No se pudo eliminar el item.");
+                        }
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown ) {
+
+                    });
+                }
+            });
+
             $(document).on('change', 'input[data-presupuesto-summary]', function () {
                 $(this).trigger('recalcularResumen', this);
             });
 
             $(document).on('recalcularResumen', function (e, eventInfo) {
                 $grid = $("#gridPresupuesto");
-
+                //alert("paso recalculo");
                 var productos =  $grid.find("*[data-presupuesto-item='carpinteria']").length-1;
                 var unidades = 0.0;
                 var carpinteria = 0.0;
@@ -1414,8 +1401,8 @@
                 var porcentajeIVA = 0.21;
                 var iva = 0.0;
                 var total = 0.0;
-                var unidadesarray = [];
-                var carpinteriaarray = [];
+                var unidadesarray =[];
+                var carpinteriaarray =[];
                 var tapajuntaarray = [];
 
                 $grid.find("*[data-presupuesto-item='unidades']").each(function (index) {
@@ -1487,9 +1474,10 @@
                 tapajuntas = roundNumber(tapajuntas, 2);
                 vidrios = roundNumber(vidrios, 2);
                 colocacion = roundNumber(colocacion, 2);
+                var resumenvarios = parseFloat($("#ResumenVarios").val().replace(/\./g, "").replace(/,/g, ".") || 0.0);
 
-                subtotal = roundNumber(carpinteria + tapajuntas + vidrios + colocacion + resumenvarios, 2);
-                //   subtotal = roundNumber(subtotal+resumenvarios, 2);
+                subtotal = roundNumber(carpinteria + tapajuntas + vidrios +colocacion + resumenvarios, 2);
+                //subtotal = roundNumber(carpinteria + resumenvarios, 2); ASI CALCULABA MAL
                 iva = roundNumber(subtotal * porcentajeIVA, 2);
                 total = roundNumber(subtotal + iva, 2);
 
@@ -1505,11 +1493,16 @@
                 $("input[data-presupuesto-summary='total']").val(numeral(total).format('0,0.00'));
             });
 
+            $("#imprimir").on("click", function (e) {
+
+                var presupuestoId = $('#@Html.IdFor(x => x.Id)').val();
+
+                location.href = '@Url.Action("ReportePresupuesto", "Presupuesto")/?PresupuestoId=' + presupuestoId;
+            });
             /**
             SUBMIT
             */
             $("#file").on("change", function (e) {
-                //alert($('#@Html.IdFor(x => x.NombreSubrubro)').val());
                 //getting form into Jquery Wrapper Instance to enable JQuery Functions on form
                 var form = $("#UploadExcel");
 
@@ -1521,6 +1514,7 @@
 
                 //Declaring new Form Data Instance
                 var formData = new FormData();
+
                 //Looping through uploaded files collection in case there is a Multi File Upload. This also works for single i.e simply remove MULTIPLE attribute from file control in HTML.
                 for (var i = 0; i < files.length; i++) {
                     formData.append(files[i].name, files[i]);
@@ -1542,14 +1536,16 @@
                     contentType: false,
                     processData: false,
                     success: function (data) {
+
+
                         console.log(data);
-                        //alert("pase");
+
+
                         for (var i = 0; i < data.Items.length; i++) {
                             var itemData = data.Items[i];
                             let mapping = ITEMS_STORE.map(function (x) { return x.numeroPosicion; });
                             mapping.push(0);
                             let lastPosicion = Math.max.apply(Math, mapping);
-                            @*alert("a: " +$("#@Html.IdFor(x => x.VidrioId)").val());*@
 
                             let item = {
                                 id: ITEMS_COUNTERNUEVOS,
@@ -1569,28 +1565,29 @@
 
                                 ancho: 0,
                                 alto: 0,
+
                                 carpinteria: 0.0,
                                 tapajuntas: 0.0,
 
-                                vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),//null,
-                                vidriosDescripcion: $("#vidrioId_autocomplete").val(),//'',
-                                vidriosPrecio: $("#VidrioId").attr('data-item-preciounitario-value'),
+                                vidriosId: $("#@Html.IdFor(x => x.VidrioId)").val(),
+                                vidriosDescripcion: $("#vidrioId_autocomplete").val(),
+                                vidriosPrecio: $("#VidrioId").attr('data-calculate-item-preciounitario-value'),
+                             //   vidriosCalculado: 0.0,
+
+                                colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),
+                                colocacionDescripcion: $("#colocacionId_autocomplete").val(),
+                                colocacionPrecio: $("#ColocacionId").attr('data-calculate-item-preciounitario-value'),//0.0,
+                             //   colocacionCalculado: 0.0,
+
+                             //   vidriosId: null,
+                             //   vidriosDescripcion: '',
+                             //   vidriosPrecio: 0.0,
                                 vidriosCalculado: 0.0,
 
-                                colocacionId: $("#@Html.IdFor(x => x.ColocacionId)").val(),//null,
-                                colocacionDescripcion: $("#colocacionId_autocomplete").val(),//'',
-                                colocacionPrecio: $("#ColocacionId").attr('data-item-preciounitario-value'),//0.0,
+                             //   colocacionId: null,
+                             //   colocacionDescripcion: '',
+                             //   colocacionPrecio: 0.0,
                                 colocacionCalculado: 0.0,
-
-                                //vidriosId: null,
-                                //vidriosDescripcion: '',
-                                //vidriosPrecio: 0.0,
-                                //vidriosCalculado: 0.0,
-
-                                //colocacionId: null,
-                                //colocacionDescripcion: '',
-                                //colocacionPrecio: 0.0,
-                                //colocacionCalculado: 0.0,
 
                                 detalle: "",
 
@@ -1611,27 +1608,17 @@
 
                             item.ancho = parseFloat(itemData.Ancho);
                             item.alto = parseFloat(itemData.Alto);
-                            item.carpinteria = parseFloat(itemData.Carpinteria) * cotizacion;
-                            item.tapajuntas = parseFloat(itemData.Tapajuntas) * cotizacion;
-                            //alert("b " +item.VidriosId);
-                            //item.vidriosId = item.VidriosId;
-                            //item.vidriosPrecio = parseFloat(item.VidriosPrecio);
-                            //item.vidriosDescripcion = item.VidriosDescripcion;
-                            //item.vidriosCalculado = parseFloat(item.VidriosCalculado);
+                            item.carpinteria = parseFloat(itemData.Carpinteria) *cotizacion;
+                            item.tapajuntas = parseFloat(itemData.Tapajuntas) *cotizacion;
 
-                            //item.colocacionId = item.ColocacionId;
-                            //item.colocacionPrecio = parseFloat(item.ColocacionPrecio);
-                            //item.colocacionDescripcion =  item.ColocacionDescripcion;
-                            //item.colocacionCalculado = parseFloat(item.ColocacionCalculado);
-                            //item.vidriosId = itemData.VidriosId;
-                            //item.vidriosPrecio = parseFloat(itemData.VidriosPrecio);
-                            //item.vidriosDescripcion = "";
-                            //item.vidriosCalculado = parseFloat(itemData.VidriosCalculado);
-
-                            //item.colocacionId = itemData.ColocacionId;
-                            //item.colocacionPrecio = parseFloat(itemData.ColocacionPrecio);
-                            //item.colocacionDescripcion = "";
-                            //item.colocacionCalculado = parseFloat(itemData.ColocacionCalculado);
+                        //    item.vidriosCalculado = parseFloat(itemData.VidriosCalculado);
+                        //    item.colocacionCalculado = parseFloat(itemData.ColocacionCalculado);
+                        //    item.vidriosId = itemData.VidriosId;
+                        //    item.vidriosPrecio = parseFloat(itemData.VidriosPrecio);
+                        //    item.vidriosDescripcion = "";
+                        //    item.colocacionId = itemData.ColocacionId;
+                        //    item.colocacionPrecio = parseFloat(itemData.ColocacionPrecio);
+                        //    item.colocacionDescripcion = "";
                             item.detalle = itemData.Detalle;
 
                             ITEMS_STORE.push(item);
@@ -1693,12 +1680,12 @@
                     Vendedor: $('#@Html.IdFor(x => x.Vendedor)').val(),
                     Telefono: $('#@Html.IdFor(x => x.Telefono)').val(),
                     Email: $('#@Html.IdFor(x => x.Email)').val(),
-                    ColocacionId : $('#@Html.IdFor(x => x.ColocacionId)').val(),
-                    VidrioId : $('#@Html.IdFor(x => x.VidrioId)').val(),
-                    MonedaId : $('#@Html.IdFor(x => x.MonedaId)').val(),
-                    Cotizacion : $('#CotizacionId').val(),
-                    SubrubroId : $('#@Html.IdFor(x => x.SubrubroId)').val(),
-                    ColorId : $('#@Html.IdFor(x => x.ColorId)').val(),
+                    MonedaId: $('#@Html.IdFor(x => x.MonedaId)').val(),
+                    Cotizacion: $('#CotizacionId').val(),
+                    SubrubroId: $('#@Html.IdFor(x => x.SubrubroId)').val(),
+                    ColorId: $('#@Html.IdFor(x => x.ColorId)').val(),
+                    ColocacionId: $('#@Html.IdFor(x => x.ColocacionId)').val(),
+                    VidrioId: $('#@Html.IdFor(x => x.VidrioId)').val(),
                     DescripcionHeader: $('#@Html.IdFor(x => x.DescripcionHeader)').val(),
                     Items: items,
                     DescripcionFooter: $('#@Html.IdFor(x => x.DescripcionFooter)').val(),
@@ -1710,14 +1697,17 @@
                     ResumenVarios: $('#@Html.IdFor(x => x.ResumenVarios)').val(),
                     ResumenSubtotal: $('#@Html.IdFor(x => x.ResumenSubtotal)').val(),
                     ResumenIva: $('#@Html.IdFor(x => x.ResumenIva)').val(),
-                    ResumenTotal: $('#@Html.IdFor(x => x.ResumenTotal)').val()
+                    ResumenTotal: $('#@Html.IdFor(x => x.ResumenTotal)').val(),
+
+
+
                 };
 
                 postData.__RequestVerificationToken = antiForgeryToken;
 
                 $.ajax({
                     method: "POST",
-                    url: "@(Model.Codigo != null ? Url.Action("Edit") : Url.Action("Create"))",
+                    url: "@(Model.Codigo != null ? Url.Action("CreateEnBase") : Url.Action("CreateEnBase"))",
                     data: postData
                 })
                 .done(function () {
@@ -1763,5 +1753,33 @@
                 });
             }
         })
+
+
+
+        function actualizarPrecios (){
+            var presupuestoId = $('#@Html.IdFor(x => x.Id)').val();
+            console.log("test")
+            $.ajax({
+                dataType: "json",
+                url: "ObtenerPreciosActualizados",
+                data: {presupuestoId : presupuestoId},
+                success: function (resultado, textStatus, jqXHR) {
+                    console.log(resultado)
+                    if (resultado.exito== false)
+                    {
+                        alert("hubo un error al intentar actualizar los precios: " + resultado.mensaje)
+                    }
+                    else{
+
+                        $.each(resultado.preciosActualizados, function(index, item){
+                            $( "input[data-presupuesto-item='colocacionResult'][item-id='"+item.Id+"']").val(item.PrecioColocacion)
+                            $( "input[data-presupuesto-item='vidriosResult'][item-id='"+item.Id+"']").val(item.PrecioVidrio)
+                        })
+                    }
+                }
+            });
+        }
     </script>
+
+
 }

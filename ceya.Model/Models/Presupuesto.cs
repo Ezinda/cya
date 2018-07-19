@@ -29,7 +29,7 @@ namespace ceya.Model.Models
         public decimal ResumenTapajuntas { get; set; }
         public decimal ResumenVidrios { get; set; }
         public decimal ResumenColocacion { get; set; }
-        public string  ConceptosVarios { get; set; }
+        public string ConceptosVarios { get; set; }
         public decimal ResumenVarios { get; set; }
         public decimal ResumenSubtotal { get; set; }
         public decimal ResumenIva { get; set; }

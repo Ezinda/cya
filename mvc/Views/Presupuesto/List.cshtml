@@ -35,13 +35,13 @@
 
 @section styles {
     @Styles.Render("~/Content/css/ezgrid")
-@Styles.Render("~/bundles/pivotcss")
+    @Styles.Render("~/bundles/pivotcss")
 }
 @section Scripts
 {
     @Scripts.Render("~/bundles/ezgridjs")
 
-@Scripts.Render("~/bundles/pivotjs")
+    @Scripts.Render("~/bundles/pivotjs")
     <script>
         $(function () {
             EzHeader.breadcrumbItem = {
@@ -89,6 +89,7 @@
                     { field: "Telefono", title: "Teléfono", sortable: true },
                     { field: "Estado", title: "Estado", sortable: true },
                     { field: "FechaAlerta", title: "FechaAlerta", sortable: true },
+                    { field: "Vendedor", title: "Vendedor", sortable: true },
                     { title: "Editar", field: "Edit", width: 31, type: "icon", icon: "ui-icon-pencil", align: 'center', tooltip: "Edit", events: { "click": Edit } },
                     { title: "Imprimir", field: "Imprimir", width: 31, type: "icon", icon: "ui-icon-document", align: 'center', tooltip: "Imprimir", events: { "click": Print } },
                     { title: "Seguimiento", field: "Seguimiento", width: 31, type: "icon", icon: "ui-icon-flag", align: 'center', tooltip: "Seguimiento", events: { "click": Seguimiento } },
@@ -113,6 +114,10 @@
                     return '#F08080';
                 } else if (record.Estado === "APROBADO") {
                     return '#89FB9A';
+                } else if (record.Estado === "ENTREGADO") {
+                    return '#5DADE2';
+                } else if (record.Estado === "POSTVENTA") {
+                    return '#D7DBDD';
                 }
 
             }

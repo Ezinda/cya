@@ -18,7 +18,7 @@ namespace ceya.Domain.Service
         public IEnumerable<Archivo> GetArchivosPorTransaccion(Guid transaccionId)
         {
 
-            return this.archivoRepository.GetMany(x => x.TransaccionId == transaccionId && !x.Nombre.Contains(".xls"));
+            return this.archivoRepository.GetMany(x => x.TransaccionId == transaccionId && !x.Nombre.Contains(".xls") && x.TransaccionCompletada == true);
         }
 
         public void Eliminar(Guid id)

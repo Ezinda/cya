@@ -9,7 +9,7 @@ namespace mvc.ViewModels
     public class SeguimientoPageViewModel
     {
         public IEnumerable<SeguimientoListViewModel> List { get; set; }
-    
+
         public IEnumerable<SelectListItem> FilterBy { get; set; }
         public string FilterByString { get; set; }
         public Guid? PresupuestoId { get; set; }
@@ -25,6 +25,6 @@ namespace mvc.ViewModels
         public string SortByString { get; set; }
         public bool IsSortAsc { get; set; }
 
-       
+
     }
 }

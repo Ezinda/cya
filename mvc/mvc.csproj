@@ -236,6 +236,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Contactos.cs" />
+    <Compile Include="Controllers\VendedorController.cs" />
+    <Compile Include="ViewModels\VendedorPageViewModel.cs" />
+    <Compile Include="ViewModels\VendedorListViewModel.cs" />
     <Compile Include="ViewModels\ContactoPageViewModel.cs" />
     <Compile Include="Controllers\ContactosController.cs" />
     <Compile Include="Controllers\PresupuestoSeguimientoController.cs" />
@@ -279,6 +282,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AlcemarExcelMetadataViewModel.cs" />
     <Compile Include="ViewModels\ConstructoraListViewModel.cs" />
+    <Compile Include="ViewModels\VendedorFormModel.cs" />
     <Compile Include="ViewModels\CuboPresupuestoViewModel.cs" />
     <Compile Include="ViewModels\ContactosFormModel.cs" />
     <Compile Include="ViewModels\ContactoListViewModel.cs" />
@@ -1305,6 +1309,10 @@
     <Content Include="Views\Contactos\Index.cshtml" />
     <Content Include="Views\Constructora\Lookup.cshtml" />
     <Content Include="Views\Contactos\Edit.cshtml" />
+    <Content Include="Views\Presupuesto\Form3.cshtml" />
+    <Content Include="Views\Vendedor\Create.cshtml" />
+    <Content Include="Views\Vendedor\Edit.cshtml" />
+    <Content Include="Views\Vendedor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

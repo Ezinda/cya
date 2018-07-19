@@ -126,7 +126,7 @@ namespace mvc.Mappings
                 .ForMember(d => d.Cliente, opt => opt.MapFrom(src => src.Cliente != null ?
                     src.Cliente.RazonSocial + src.Cliente.Apellido + ", " + src.Cliente.Nombre : String.Empty))
                 .ForMember(d => d.estado, opt => opt.MapFrom(src => src.estado == true ? "SI" : "NO"));
-                
+
             CreateMap<Cliente, ClienteListViewModel>()
              .ForMember(d => d.Codigo, opt => opt.MapFrom(src => src.Codigo))
              .ForMember(d => d.Cliente, opt => opt.MapFrom(src => (src.RazonSocial == null || src.RazonSocial == string.Empty ? src.Apellido + ", " + src.Nombre : src.RazonSocial + ", " + src.Apellido + " " + src.Nombre)));

@@ -119,7 +119,7 @@
                     @Html.HiddenFor(x => x.MonedaId)
                     <div class="autocomplete-control ui-front">
                         @* @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete", @disabled = "disabled", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" }) *@
-                        @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete",  @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
+                        @Html.TextBoxFor(x => x.NombreMoneda, new { @id = "MonedaId_autocomplete", @class = "", @autocomplete = "off", @autocorrect = "off", @autocapitalize = "off", @spellcheck = "false" })
                         <span class="dropdown_button" id="monedaId_dropdown">
                             <img draggable="false" src="~/Content/images/dropdown-arrow.png">
                         </span>
@@ -220,7 +220,7 @@
                 </div>
             </div>
 
-            </div>
+        </div>
     </div>
     <div class="ez_form_group">
         <div class="ez_form_col">
@@ -316,8 +316,8 @@
             </div>
         </div>
         <div class="datatable-wrapper">
-           <table id="tabla-items">  
-                  <thead>
+            <table id="tabla-items">
+                <thead>
                     <tr>
                         <th style="width: 40px;"></th>
                         <th style="width: 100px;">Tipología</th>
@@ -326,7 +326,7 @@
                         <th style="width: 85px;">Unidades</th>
                         <th style="text-align:right;width: 140px;">Precio Unitario</th>
                         <th style="text-align:right;width: 140px;">Importe Total</th>
-                        <th style="width: 40px;"></th> 
+                        <th style="width: 40px;"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -480,7 +480,7 @@
 </div><!-- /.modal -->
 @section Scripts
 {
-  @*  @Scripts.Render("~/presupuestos/dropzone") *@
+    @*  @Scripts.Render("~/presupuestos/dropzone") *@
     @Scripts.Render("~/bundles/dropzone")
     <script>
         /**
@@ -645,12 +645,6 @@
                 }
             ];
 
-            var VENDEDOR = [
-                    @foreach (var item in Model.Vendedor)
-            {
-                @:{ key: "@item.Value", value: "@item.Text"},
-                }
-            ];
 
             /**
             BINDING
@@ -726,11 +720,15 @@
                             $("#Solicita").val(selectItem.data.nombre)
                         }
                     },
-                    {
+                     {
                         hiddenElement: "#@Html.IdFor(x => x.Vendedor)",
-                        autocompleteElement: "Vendedor_autocomplete",
+                        autocompleteElement: "#Vendedor_autocomplete",
                         dropdownElement: "#vendedor_dropdown",
-                        source: VENDEDOR.concat([{ showSearch: false }])
+                        source: "@Url.Action("JsonAutocomplete", "Vendedor")",
+                        onSelectCallbackHandle: function ($hiddenInput, $autocompleteInput, selectItem) {
+                            $("#Vendedor_autocomplete").val(selectItem.data.nombre);
+                            $("#Vendedor").val(selectItem.data.nombre)
+                        }
                     },
                     {
                         hiddenElement: "#@Html.IdFor(x => x.ConstructoraId)",

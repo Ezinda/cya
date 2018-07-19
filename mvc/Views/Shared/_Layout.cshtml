@@ -5,44 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Agregado por Marcelo para reemplazar los render de carga del boostrap
-    <!-- Bootstrap CSS -->  
-    <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->  
+    <!-- Bootstrap CSS -->
+    <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
 
     <title>@ViewBag.Title - Ce&A</title>
     <link rel="shortcut icon" href="~/Content/images/favicon.ico" type="image/x-icon" />
 
     @Styles.Render("~/Content/css")
     @RenderSection("styles", required: false)
-    @Scripts.Render("~/bundles/modernizr") 
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
     *@
     <div class="ez_container">
         <table class="ez_table_layout">
@@ -169,43 +169,43 @@
                                                 </div>
                                             </div>
                                             @*<div class="panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                                            <span class="glyphicon glyphicon-user">
-                                                            </span>Account
-                                                        </a>
-                                                    </h4>
-                                                </div>
-                                                <div id="collapseThree" class="panel-collapse collapse">
-                                                    <div class="panel-body">
-                                                        <table class="table">
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="http://www.jquery2dotnet.com">Change Password</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="http://www.jquery2dotnet.com">Notifications</a> <span class="label label-info">5</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <a href="http://www.jquery2dotnet.com">Import/Export</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="glyphicon glyphicon-trash text-danger"></span><a href="http://www.jquery2dotnet.com" class="text-danger">
-                                                                        Delete Account
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                                                <span class="glyphicon glyphicon-user">
+                                                                </span>Account
+                                                            </a>
+                                                        </h4>
                                                     </div>
-                                                </div>
-                                            </div>*@
+                                                    <div id="collapseThree" class="panel-collapse collapse">
+                                                        <div class="panel-body">
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="http://www.jquery2dotnet.com">Change Password</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="http://www.jquery2dotnet.com">Notifications</a> <span class="label label-info">5</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <a href="http://www.jquery2dotnet.com">Import/Export</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span class="glyphicon glyphicon-trash text-danger"></span><a href="http://www.jquery2dotnet.com" class="text-danger">
+                                                                            Delete Account
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
                                             <div class="panel panel-default">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
@@ -259,7 +259,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="crudModal" tabindex="-1" role="dialog"
-         aria-labelledby="crudLabel" data-keyboard="false" 
+         aria-labelledby="crudLabel" data-keyboard="false"
          data-backdrop="static" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -269,7 +269,7 @@
     </div>
 
     <div class="modal" id="lookupModal" tabindex="-1" role="dialog"
-         aria-labelledby="myModalLabel" data-keyboard="false" 
+         aria-labelledby="myModalLabel" data-keyboard="false"
          data-backdrop="static"
          aria-hidden="true">
 
@@ -280,16 +280,16 @@
         </div>
     </div>
 
-    <div class="modal fade" id="lookupValidationModal" tabindex="-1" role="dialog" 
-         aria-labelledby="myModalLabel" data-keyboard="false" 
+    <div class="modal fade" id="lookupValidationModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" data-keyboard="false"
          data-backdrop="static"
          aria-hidden="true">
-       
-        <div class="modal-body" >
+
+        <div class="modal-body">
             <div class="modal-content">
                 <div id='lookupValidationContent'></div>
             </div>
-        </div>        
+        </div>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -319,7 +319,7 @@
             //$(document).on('click', '.panel-collapse.collapse.in', function (e) {
             //    alert(e.target);
             //    $(e.target).collapse('hide');
-               
+
             //});
         })
 

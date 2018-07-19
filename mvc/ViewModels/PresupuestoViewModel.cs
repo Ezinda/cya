@@ -36,7 +36,7 @@ namespace mvc.ViewModels
         public decimal ResumenIva { get; set; }
         public decimal ResumenTotal { get; set; }
 
-        
+
         public List<PresupuestoCategoria> Categorias;
         public List<Precio> Colocaciones;
         public List<Precio> Vidrios;

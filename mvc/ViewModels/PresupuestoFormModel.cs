@@ -25,6 +25,7 @@ namespace mvc.ViewModels
         public Guid? PresupuestoCategoriaId { get; set; }
         public Guid? ConstructoraId { get; set; }
         public string Solicita { get; set; }
+        public string Vendedor { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }
         public string DescripcionHeader { get; set; }
@@ -49,7 +50,7 @@ namespace mvc.ViewModels
         public decimal ResumenTotal { get; set; }
         public decimal ResumenVarios { get; set; }
         public string ConceptosVarios { get; set; }
-      
+
         public virtual string NombreCliente { get; set; }
         public virtual string NombreObra { get; set; }
         public virtual string NombreConstructora { get; set; }
@@ -70,7 +71,6 @@ namespace mvc.ViewModels
         // Seleccionables de cabecera
         public virtual IEnumerable<SelectListItem> Categorias { get; set; }
         public virtual IEnumerable<SelectListItem> Estados { get; set; }
-        public virtual IEnumerable<SelectListItem> Vendedor { get; set; }
         public virtual IEnumerable<SelectListItem> Lineas { get; set; }
         public virtual IEnumerable<SelectListItem> Subrubros { get; set; }
         public virtual IEnumerable<SelectListItem> Colores { get; set; }
